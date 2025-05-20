@@ -822,55 +822,6 @@ export default function Index() {
           </Card>
         </div>
       </Slide>
-
-      {/* Appendix 4 */}
-      <Slide title="13. Appendix 4: Tarihsel Karşılaştırma" bgColor="bg-gradient-to-br from-white via-violet-50 to-violet-100">
-        <Card className="p-6 shadow-lg bg-white/90 backdrop-blur-sm">
-          <h3 className="text-xl font-bold mb-6 text-gray-800 border-b pb-2">THY İle İlgili Hindistan'daki Önceki Krizler Karşılaştırması</h3>
-          
-          <Table
-            headers={["Kriz", "Tarih", "Süre", "Tweet", "Etki Skoru", "Sebep"]}
-            rows={[
-              ["Hindistan-Pakistan Krizi (Şimdiki)", "Mayıs 2025", "7+ gün", "605", "9.8/10", "Siyasi Gerilim"],
-              ["Müşteri Hizmetleri Krizi", "Ağustos 2024", "3 gün", "132", "5.2/10", "Hizmet Kalitesi"],
-              ["Covid-19 Uçuş İptalleri", "Mart 2023", "5 gün", "229", "6.1/10", "İptal/İade"],
-              ["Bagaj Kaybı Krizi", "Aralık 2023", "2 gün", "84", "4.4/10", "Operasyonel"],
-              ["Bilet Fiyatları Tepkisi", "Temmuz 2022", "2 gün", "67", "3.8/10", "Fiyatlandırma"]
-            ]}
-            className="mb-8"
-          />
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-            <div className="p-4 bg-violet-50 rounded-lg border border-violet-200">
-              <h4 className="font-bold text-violet-800 mb-2">Geçmiş Krizlerden Farklar:</h4>
-              <ul className="list-disc pl-5 space-y-1 text-violet-700">
-                <li>Şimdiki kriz, önceki tüm krizlerden <span className="font-semibold">2.5 kat daha fazla</span> içerik hacmi üretmiştir</li>
-                <li>Önceki krizlerin hiçbiri bu derece organize bir <span className="font-semibold">boykot hareketine</span> dönüşmemiştir</li>
-                <li>İlk kez <span className="font-semibold">siyasi gerekçelerle</span> yükselen bir kriz yaşanmıştır</li>
-                <li>Önceki krizler genellikle operasyonel veya hizmet kalitesi kaynaklıydı</li>
-              </ul>
-            </div>
-            
-            <div className="p-4 bg-indigo-50 rounded-lg border border-indigo-200">
-              <h4 className="font-bold text-indigo-800 mb-2">Kriz Sönümlenme Süreleri:</h4>
-              <ul className="list-disc pl-5 space-y-1 text-indigo-700">
-                <li>Müşteri Hizmetleri Krizi: <span className="font-semibold">3 gün</span> (proaktif müşteri desteği ile)</li>
-                <li>Covid-19 Uçuş İptalleri: <span className="font-semibold">5 gün</span> (politika değişikliği duyurusu ile)</li>
-                <li>Bagaj Kaybı Krizi: <span className="font-semibold">2 gün</span> (hızlı çözüm süreci ile)</li>
-                <li>Bilet Fiyatları Tepkisi: <span className="font-semibold">2 gün</span> (promosyon duyurusu ile)</li>
-                <li>Şimdiki Kriz: <span className="font-semibold">Devam ediyor</span> (13+ gün)</li>
-              </ul>
-            </div>
-          </div>
-          
-          <div className="p-5 bg-gradient-to-r from-violet-50 to-purple-50 rounded-lg border border-violet-100">
-            <h4 className="font-bold text-violet-800 mb-2">Karşılaştırmalı Etki Analizi:</h4>
-            <p className="text-violet-700 mb-4">
-              Şimdiki kriz, THY'nin Hindistan pazarındaki tüm geçmiş krizlerinin toplamından daha büyük bir sosyal medya etkisi ve sentiment etkisi yaratmıştır. Önceki krizlerin hiçbiri bu denli sistematik bir boykot çağrısına dönüşmemiş, genellikle bireysel müşteri şikayetleri veya operasyonel sorunlarla sınırlı kalmıştır.
-            </p>
-          </div>
-        </Card>
-      </Slide>
     </SlideShow>
   );
 }
