@@ -1,1213 +1,555 @@
-import React from 'react';
-import SlideShow from '@/components/SlideShow';
-import Slide from '@/components/Slide';
-import Table from '@/components/Table';
-import DataChart from '@/components/DataChart';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { ArrowRight, Calendar, ChartBar, FileText, Info, Users, Twitter, Hash, Star, ThumbsUp } from 'lucide-react';
 
-// Sample data for charts
-const weeklyTweetData = [
-  { date: '8 Mayıs', Tweet: 90 },
-  { date: '9 Mayıs', Tweet: 61 },
-  { date: '10 Mayıs', Tweet: 90 },
-  { date: '11 Mayıs', Tweet: 20 },
-  { date: '12 Mayıs', Tweet: 24 },
-  { date: '13 Mayıs', Tweet: 86 },
-  { date: '14 Mayıs', Tweet: 72 },
-];
+import React from "react";
+import SlideShow from "@/components/SlideShow";
+import Slide from "@/components/Slide";
+import Table from "@/components/Table";
+import { BarChart, LineChart, Pie } from "recharts";
+import { Card } from "@/components/ui/card";
 
-const categoryData = [
-  { name: 'Boykot çağrısı', value: 67.8 },
-  { name: 'Siyasi gerekçeler', value: 17.2 },
-  { name: 'Alternatif marka/ülke', value: 3.5 },
-  { name: 'Haber/duyuru', value: 5.3 },
-  { name: 'Kişisel şikayet', value: 4.0 },
-  { name: 'Nötr içerik', value: 2.2 },
-];
+export default function Index() {
+  // Sample data for charts
+  const sentimentData = [
+    { name: "8 Mayıs", score: -0.94 },
+    { name: "9 Mayıs", score: -0.87 },
+    { name: "10 Mayıs", score: -0.93 },
+    { name: "11 Mayıs", score: -0.95 },
+    { name: "12 Mayıs", score: -1.0 },
+    { name: "13 Mayıs", score: -0.95 },
+    { name: "14 Mayıs", score: -0.92 },
+  ];
 
-const dailyData = [
-  { date: '8 Mayıs', Beğeni: 10025, RT: 2366, Görüntülenme: 444700 / 10000 },
-  { date: '9 Mayıs', Beğeni: 9334, RT: 2679, Görüntülenme: 133500 / 10000 },
-  { date: '10 Mayıs', Beğeni: 306, RT: 133, Görüntülenme: 24261 / 10000 },
-  { date: '11 Mayıs', Beğeni: 61, RT: 25, Görüntülenme: 6566 / 10000 },
-  { date: '12 Mayıs', Beğeni: 543, RT: 246, Görüntülenme: 23585 / 10000 },
-  { date: '13 Mayıs', Beğeni: 634, RT: 281, Görüntülenme: 44726 / 10000 },
-  { date: '14 Mayıs', Beğeni: 1945, RT: 363, Görüntülenme: 41712 / 10000 },
-];
+  const tweetVolumeData = [
+    { name: "8 Mayıs", tweets: 90 },
+    { name: "9 Mayıs", tweets: 61 },
+    { name: "10 Mayıs", tweets: 90 },
+    { name: "11 Mayıs", tweets: 20 },
+    { name: "12 Mayıs", tweets: 24 },
+    { name: "13 Mayıs", tweets: 86 },
+    { name: "14 Mayıs", tweets: 72 },
+    { name: "15 Mayıs", tweets: 32 },
+    { name: "16 Mayıs", tweets: 27 },
+    { name: "17 Mayıs", tweets: 14 },
+    { name: "18 Mayıs", tweets: 2 },
+    { name: "19 Mayıs", tweets: 10 },
+    { name: "20 Mayıs", tweets: 3 },
+  ];
 
-const hashtagData = [
-  { name: '#indigo', count: 130 },
-  { name: '#turkishairlines', count: 46 },
-  { name: '#turkey', count: 35 },
-  { name: '#boycott', count: 21 },
-  { name: '#pakistan', count: 9 },
-  { name: '#airindia', count: 2 },
-  { name: '#सत्यसाधक', count: 1 },
-];
+  const emotionData = [
+    { name: "Negatif", value: 92.7, fill: "#ef4444" },
+    { name: "Nötr", value: 7.3, fill: "#9ca3af" },
+    { name: "Pozitif", value: 0, fill: "#22c55e" },
+  ];
 
-const Index = () => {
+  const categoryData = [
+    { name: "Boykot çağrısı", value: 67.8, fill: "#f87171" },
+    { name: "Siyasi gerekçeler", value: 17.2, fill: "#fb923c" },
+    { name: "Alternatif önerisi", value: 3.5, fill: "#fbbf24" },
+    { name: "Haber/duyuru", value: 5.3, fill: "#a3e635" },
+    { name: "Kişisel şikayet", value: 4.0, fill: "#38bdf8" },
+    { name: "Nötr içerik", value: 2.2, fill: "#a5b4fc" },
+  ];
+
+  const hashtagData = [
+    { name: "#indigo", count: 130, fill: "#60a5fa" },
+    { name: "#turkishairlines", count: 46, fill: "#a78bfa" },
+    { name: "#turkey", count: 35, fill: "#f472b6" },
+    { name: "#boycott", count: 21, fill: "#fb7185" },
+    { name: "#pakistan", count: 9, fill: "#fbbf24" },
+    { name: "#airindia", count: 2, fill: "#34d399" },
+  ];
+
   return (
     <SlideShow>
-      {/* Cover Slide */}
-      <Slide bgColor="bg-gradient-to-br from-slate-800 to-slate-900">
-        <div className="flex flex-col items-center justify-center h-full text-white">
-          <Badge className="mb-8 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 px-4 py-1 text-sm uppercase tracking-wide">Kurumsal Rapor</Badge>
-          <h1 className="text-4xl md:text-6xl font-bold mb-8 text-center leading-tight bg-clip-text text-transparent bg-gradient-to-r from-white via-white to-gray-300">
-            THY Hindistan Krizi <br className="hidden md:inline" />Monitoring Raporu
-          </h1>
-          <div className="text-xl md:text-2xl mb-12 opacity-90 text-center font-light">
-            15 Ekim 2024 – 20 Mayıs 2025
-          </div>
-          <div className="backdrop-blur-sm bg-white/10 p-6 rounded-xl border border-white/20 flex flex-col items-center text-slate-100 text-sm md:text-base space-y-2 shadow-xl">
-            <div className="flex items-center gap-2">
-              <FileText className="w-4 h-4 text-blue-300" />
-              <p>Hazırlayan: AI Monitoring | Data Analiz Ekibi</p>
-            </div>
-            <div className="flex items-center gap-2">
-              <ChartBar className="w-4 h-4 text-blue-300" />
-              <p>Kapsam: Twitter (605 özgün içerik)</p>
-            </div>
-            <div className="flex items-center gap-2">
-              <Calendar className="w-4 h-4 text-blue-300" />
-              <p>Hazırlanma Tarihi: 21 Mayıs 2025</p>
-            </div>
-          </div>
-        </div>
-      </Slide>
-
-      {/* Slide 2: Yönetici Özeti */}
-      <Slide title="1. Yönetici Özeti">
-        <div className="space-y-6">
-          <div className="bg-gradient-to-r from-blue-50 to-blue-100/50 p-6 rounded-xl border-l-4 border-blue-500 shadow-sm">
-            <h3 className="font-semibold text-lg mb-2 flex items-center gap-2 text-blue-800">
-              <Info className="w-5 h-5 text-blue-500" />
-              Kriz Özeti:
-            </h3>
-            <p className="text-gray-700 leading-relaxed">
-              15 Ekim 2024 - 20 Mayıs 2025 aralığında, Hindistan kamuoyunda ve medyasında, Türk Hava Yolları'na (THY) ve Türkiye menşeli şirketlere karşı #boycott (boykot) çağrılarında <span className="font-semibold bg-yellow-100 px-1 rounded">tarihi bir artış</span> yaşanmıştır. Özellikle 8-14 Mayıs haftasında, sosyal medyada olumsuz içeriklerde ciddi bir patlama gözlemlenmiştir.
-            </p>
-          </div>
-
-          <div className="bg-white rounded-xl shadow-md p-6">
-            <h3 className="font-semibold text-lg mb-4 flex items-center gap-2 pb-2 border-b">
-              <ChartBar className="w-5 h-5 text-purple-500" />
-              En Temel Bulgular:
-            </h3>
-            <ul className="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-700">
-              <li className="flex items-start gap-2">
-                <span className="flex-shrink-0 w-5 h-5 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 mt-0.5">•</span>
-                <div>
-                  <span className="font-medium text-gray-900">Toplam içerik:</span> 605 tweet (tamamı analiz edilmiştir)
-                </div>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="flex-shrink-0 w-5 h-5 rounded-full bg-red-100 flex items-center justify-center text-red-600 mt-0.5">•</span>
-                <div>
-                  <span className="font-medium text-gray-900">Negatif içerik oranı:</span> %92,7 (<span className="font-bold">561 tweet</span>)
-                </div>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="flex-shrink-0 w-5 h-5 rounded-full bg-green-100 flex items-center justify-center text-green-600 mt-0.5">•</span>
-                <div>
-                  <span className="font-medium text-gray-900">Pozitif içerik oranı:</span> %0,0 (<span className="font-bold">0 tweet</span>)
-                </div>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="flex-shrink-0 w-5 h-5 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 mt-0.5">•</span>
-                <div>
-                  <span className="font-medium text-gray-900">Nötr içerik oranı:</span> %7,3 (<span className="font-bold">44 tweet</span>)
-                </div>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="flex-shrink-0 w-5 h-5 rounded-full bg-purple-100 flex items-center justify-center text-purple-600 mt-0.5">•</span>
-                <div>
-                  <span className="font-medium text-gray-900">Toplam etkileşimler:</span> 22.968 beğeni, 6.121 retweet, 648 yanıt, 741.218 gösterim
-                </div>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="flex-shrink-0 w-5 h-5 rounded-full bg-amber-100 flex items-center justify-center text-amber-600 mt-0.5">•</span>
-                <div>
-                  <span className="font-medium text-gray-900">En yoğun gün:</span> 8 Mayıs 2025 — <span className="font-bold">90 tweet, 10.025 beğeni, 2.366 RT, 444.700 gösterim</span>
-                </div>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="flex-shrink-0 w-5 h-5 rounded-full bg-red-100 flex items-center justify-center text-red-600 mt-0.5">•</span>
-                <div>
-                  <span className="font-medium text-gray-900">Duygu skoru:</span> Günlük ortalama <span className="font-bold text-red-600 bg-red-50 px-1 py-0.5 rounded">-0,95</span> (kesin ağırlıkla olumsuz)
-                </div>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="flex-shrink-0 w-5 h-5 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 mt-0.5">•</span>
-                <div>
-                  <span className="font-medium text-gray-900">En popüler negatif tweet:</span> @dmuthuk (9.310 beğeni, 2.212 RT, 373.908 gösterim)
-                </div>
-              </li>
-            </ul>
-            <div className="mt-4 pt-4 border-t border-gray-100">
-              <div className="flex items-start gap-2">
-                <span className="flex-shrink-0 w-5 h-5 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 mt-0.5">•</span>
-                <div>
-                  <span className="font-medium text-gray-900">En çok geçen anahtar kelimeler:</span> 
-                  <div className="flex flex-wrap gap-2 mt-2">
-                    <Badge className="bg-slate-700">boycott</Badge>
-                    <Badge className="bg-slate-700">बहिष्कार</Badge>
-                    <Badge className="bg-slate-700">Pakistan</Badge>
-                    <Badge className="bg-slate-700">IndiGo</Badge>
-                    <Badge className="bg-slate-700">Türkiye</Badge>
-                    <Badge className="bg-slate-700">Turkish Airlines</Badge>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-gradient-to-r from-gray-50 to-gray-100 p-6 rounded-xl border border-gray-200 shadow-sm">
-            <h3 className="font-semibold text-lg mb-2 flex items-center gap-2 text-gray-700">
-              <FileText className="w-5 h-5 text-gray-500" />
-              Kapsam:
-            </h3>
-            <p className="text-gray-700">
-              15 Ekim'den 20 Mayıs'a kadar olan tüm Twitter içerikleri, Hintçe ve İngilizce analiz edilmiş ve ana trendler, örnekler ve hacimsel verilerle raporlanmıştır.
-            </p>
-          </div>
-        </div>
-      </Slide>
-
-      {/* Slide 3: Veri Kapsamı ve Metodoloji */}
-      <Slide title="2. Veri Kapsamı ve Metodoloji">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="bg-white p-6 rounded-xl shadow-md border border-gray-100 h-fit">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center">
-                <FileText className="w-5 h-5 text-blue-600" />
-              </div>
-              <h3 className="font-semibold text-lg text-gray-800">Kapsam</h3>
-            </div>
-            <p className="text-gray-700 leading-relaxed">
-              Hindistan merkezli Twitter'daki THY ve Türkiye karşıtı içerikler (Hashtag: #BoycottTurkishAirlines, #boycottturkey vb.)
-            </p>
-          </div>
-
-          <div className="bg-white p-6 rounded-xl shadow-md border border-gray-100 h-fit">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center">
-                <ChartBar className="w-5 h-5 text-purple-600" />
-              </div>
-              <h3 className="font-semibold text-lg text-gray-800">Veri Kaynağı</h3>
-            </div>
-            <p className="text-gray-700 leading-relaxed">
-              605 adet tweet, favori, retweet, reply, gösterim, tarih ve içerik metni ile
-            </p>
-          </div>
-          
-          <div className="bg-white p-6 rounded-xl shadow-md border border-gray-100 md:col-span-2">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center">
-                <Info className="w-5 h-5 text-indigo-600" />
-              </div>
-              <h3 className="font-semibold text-lg text-gray-800">Analiz Metodu</h3>
-            </div>
-            <ul className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <li className="bg-gradient-to-r from-blue-50 to-blue-100/40 p-4 rounded-lg flex flex-col items-center text-center">
-                <div className="w-12 h-12 rounded-full bg-white shadow-sm flex items-center justify-center mb-3">
-                  <span className="font-bold text-blue-600">01</span>
-                </div>
-                <p className="text-gray-700">Otomatik dil algılama<br/>(hi: Hintçe, en: İngilizce)</p>
-              </li>
-              <li className="bg-gradient-to-r from-purple-50 to-purple-100/40 p-4 rounded-lg flex flex-col items-center text-center">
-                <div className="w-12 h-12 rounded-full bg-white shadow-sm flex items-center justify-center mb-3">
-                  <span className="font-bold text-purple-600">02</span>
-                </div>
-                <p className="text-gray-700">Duygu analizi: Anahtar kelime temelli<br/>otomatik -1 (negatif), 0 (nötr), +1 (pozitif)</p>
-              </li>
-              <li className="bg-gradient-to-r from-indigo-50 to-indigo-100/40 p-4 rounded-lg flex flex-col items-center text-center">
-                <div className="w-12 h-12 rounded-full bg-white shadow-sm flex items-center justify-center mb-3">
-                  <span className="font-bold text-indigo-600">03</span>
-                </div>
-                <p className="text-gray-700">Zaman serisi ve günlük trend analizleri,<br/>metin madenciliği</p>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </Slide>
-
-      {/* Slide 4: Genel İstatistikler */}
-      <Slide title="3. Genel İstatistikler ve Hacimsel Veriler">
-        <div className="space-y-8">
-          <div>
-            <h3 className="font-semibold text-lg mb-4 flex items-center">
-              <span className="w-1.5 h-6 rounded-full bg-blue-500 mr-2"></span>
-              Toplam İçerik ve Etkileşim
-            </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-              <Card className="border-0 shadow-md bg-gradient-to-br from-blue-500/90 to-blue-600/90 text-white overflow-hidden">
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-base text-blue-100">Tweet</CardTitle>
-                </CardHeader>
-                <CardContent className="pt-0">
-                  <p className="text-3xl font-bold">605</p>
-                </CardContent>
-                <div className="absolute top-0 right-0 w-16 h-16 bg-white/10 rounded-full -mt-8 -mr-8"></div>
-              </Card>
-              <Card className="border-0 shadow-md bg-gradient-to-br from-purple-500/90 to-purple-600/90 text-white overflow-hidden">
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-base text-purple-100">Beğeni</CardTitle>
-                </CardHeader>
-                <CardContent className="pt-0">
-                  <p className="text-3xl font-bold">22.968</p>
-                </CardContent>
-                <div className="absolute top-0 right-0 w-16 h-16 bg-white/10 rounded-full -mt-8 -mr-8"></div>
-              </Card>
-              <Card className="border-0 shadow-md bg-gradient-to-br from-indigo-500/90 to-indigo-600/90 text-white overflow-hidden">
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-base text-indigo-100">Retweet</CardTitle>
-                </CardHeader>
-                <CardContent className="pt-0">
-                  <p className="text-3xl font-bold">6.121</p>
-                </CardContent>
-                <div className="absolute top-0 right-0 w-16 h-16 bg-white/10 rounded-full -mt-8 -mr-8"></div>
-              </Card>
-              <Card className="border-0 shadow-md bg-gradient-to-br from-sky-500/90 to-sky-600/90 text-white overflow-hidden">
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-base text-sky-100">Yanıt</CardTitle>
-                </CardHeader>
-                <CardContent className="pt-0">
-                  <p className="text-3xl font-bold">648</p>
-                </CardContent>
-                <div className="absolute top-0 right-0 w-16 h-16 bg-white/10 rounded-full -mt-8 -mr-8"></div>
-              </Card>
-              <Card className="border-0 shadow-md bg-gradient-to-br from-cyan-500/90 to-cyan-600/90 text-white overflow-hidden">
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-base text-cyan-100">Görüntülenme</CardTitle>
-                </CardHeader>
-                <CardContent className="pt-0">
-                  <p className="text-3xl font-bold">741.218</p>
-                </CardContent>
-                <div className="absolute top-0 right-0 w-16 h-16 bg-white/10 rounded-full -mt-8 -mr-8"></div>
-              </Card>
-            </div>
-          </div>
-
-          <div>
-            <h3 className="font-semibold text-lg mb-4 flex items-center">
-              <span className="w-1.5 h-6 rounded-full bg-purple-500 mr-2"></span>
-              İçerik Türüne Göre Duygu Dağılımı
-            </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              <Card className="overflow-hidden shadow-md">
-                <div className="h-1.5 bg-red-500 w-full"></div>
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-lg text-gray-700 flex items-center gap-2">
-                    <span className="w-3 h-3 rounded-full bg-red-500"></span>
-                    Negatif
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-2xl font-bold">561 tweet <span className="text-base font-normal">(%92,7)</span></p>
-                </CardContent>
-              </Card>
-              <Card className="overflow-hidden shadow-md">
-                <div className="h-1.5 bg-green-500 w-full"></div>
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-lg text-gray-700 flex items-center gap-2">
-                    <span className="w-3 h-3 rounded-full bg-green-500"></span>
-                    Pozitif
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-2xl font-bold">0 tweet <span className="text-base font-normal">(%0,0)</span></p>
-                </CardContent>
-              </Card>
-              <Card className="overflow-hidden shadow-md">
-                <div className="h-1.5 bg-gray-400 w-full"></div>
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-lg text-gray-700 flex items-center gap-2">
-                    <span className="w-3 h-3 rounded-full bg-gray-400"></span>
-                    Nötr
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-2xl font-bold">44 tweet <span className="text-base font-normal">(%7,3)</span></p>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-          
-          <div>
-            <h3 className="font-semibold text-lg mb-4 flex items-center">
-              <span className="w-1.5 h-6 rounded-full bg-amber-500 mr-2"></span>
-              Dönemsel Hacim ve Zirve Günler
-            </h3>
-            <ul className="space-y-3 text-gray-700 bg-white p-5 rounded-xl shadow-sm">
-              <li className="flex items-start gap-3">
-                <span className="flex-shrink-0 w-6 h-6 rounded-full bg-amber-100 flex items-center justify-center text-amber-600 mt-0.5">
-                  <ArrowRight className="w-3 h-3" />
-                </span>
-                <div>
-                  <span className="font-medium text-gray-900">En yoğun gün:</span> 8 Mayıs 2025 
-                  <span className="inline-flex items-center gap-1 bg-amber-50 text-amber-800 px-2 py-0.5 rounded-md ml-2 text-sm">
-                    90 tweet
-                  </span>
-                  <span className="inline-flex items-center gap-1 bg-red-50 text-red-800 px-2 py-0.5 rounded-md ml-2 text-sm">
-                    10.025 beğeni
-                  </span>
-                  <span className="inline-flex items-center gap-1 bg-blue-50 text-blue-800 px-2 py-0.5 rounded-md ml-2 text-sm">
-                    444.700 gösterim
-                  </span>
-                </div>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="flex-shrink-0 w-6 h-6 rounded-full bg-amber-100 flex items-center justify-center text-amber-600 mt-0.5">
-                  <ArrowRight className="w-3 h-3" />
-                </span>
-                <div>
-                  <span className="font-medium text-gray-900">İlk büyük yükseliş:</span> 7-8 Mayıs arası (trendin başlangıcı)
-                </div>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="flex-shrink-0 w-6 h-6 rounded-full bg-amber-100 flex items-center justify-center text-amber-600 mt-0.5">
-                  <ArrowRight className="w-3 h-3" />
-                </span>
-                <div>
-                  <span className="font-medium text-gray-900">İkinci dalga:</span> 13-14 Mayıs arası (konsolide boykot çağrıları)
-                </div>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </Slide>
-
-      {/* Slide 5: Günlük ve Haftalık Detaylı Trendler */}
-      <Slide title="4. Günlük ve Haftalık Detaylı Trendler">
-        <div className="space-y-6">
-          <div className="bg-white rounded-xl shadow-md overflow-hidden">
-            <Table 
-              headers={['Tarih', 'Tweet', 'Beğeni', 'RT', 'Yanıt', 'Görüntülenme', 'Ortalama Duygu']}
-              rows={[
-                ['8 Mayıs', '90', '10.025', '2.366', '292', '444.700', '-0.94'],
-                ['9 Mayıs', '61', '9.334', '2.679', '148', '133.500', '-0.87'],
-                ['10 Mayıs', '90', '306', '133', '23', '24.261', '-0.93'],
-                ['11 Mayıs', '20', '61', '25', '9', '6.566', '-0.95'],
-                ['12 Mayıs', '24', '543', '246', '18', '23.585', '-1.00'],
-                ['13 Mayıs', '86', '634', '281', '53', '44.726', '-0.95'],
-                ['14 Mayıs', '72', '1.945', '363', '80', '41.712', '-0.92'],
-                ['15 Mayıs', '32', '48', '10', '10', '5.642', '-0.87'],
-                ['16 Mayıs', '27', '13', '4', '2', '2.557', '-0.92'],
-                ['17 Mayıs', '14', '9', '5', '3', '1.358', '-0.92'],
-                ['18 Mayıs', '2', '1', '0', '1', '300', '-1.00'],
-                ['19 Mayıs', '10', '4', '1', '2', '1.450', '-0.90'],
-                ['20 Mayıs', '3', '1', '0', '1', '109', '-0.67'],
-              ]}
-            />
-          </div>
-
-          <div className="flex flex-col md:flex-row gap-6">
-            <div className="md:w-1/3 bg-white p-5 rounded-xl shadow-md">
-              <h3 className="font-semibold text-lg mb-3 text-gray-800 flex items-center gap-2">
-                <ChartBar className="w-5 h-5 text-blue-500" />
-                Haftalık Toplam (8-14 Mayıs):
-              </h3>
-              <ul className="space-y-2 mt-4">
-                <li className="flex justify-between items-center p-2 rounded-md hover:bg-blue-50 transition-colors">
-                  <span className="text-gray-700">Tweet:</span>
-                  <span className="font-semibold bg-blue-100 text-blue-800 px-2 py-0.5 rounded-md">453</span>
-                </li>
-                <li className="flex justify-between items-center p-2 rounded-md hover:bg-blue-50 transition-colors">
-                  <span className="text-gray-700">Beğeni:</span>
-                  <span className="font-semibold bg-blue-100 text-blue-800 px-2 py-0.5 rounded-md">23.496</span>
-                </li>
-                <li className="flex justify-between items-center p-2 rounded-md hover:bg-blue-50 transition-colors">
-                  <span className="text-gray-700">RT:</span>
-                  <span className="font-semibold bg-blue-100 text-blue-800 px-2 py-0.5 rounded-md">6.025</span>
-                </li>
-                <li className="flex justify-between items-center p-2 rounded-md hover:bg-blue-50 transition-colors">
-                  <span className="text-gray-700">Gösterim:</span>
-                  <span className="font-semibold bg-blue-100 text-blue-800 px-2 py-0.5 rounded-md">696.480</span>
-                </li>
-                <li className="flex justify-between items-center p-2 rounded-md hover:bg-blue-50 transition-colors">
-                  <span className="text-gray-700">Negatif oranı:</span>
-                  <span className="font-bold bg-red-100 text-red-800 px-2 py-0.5 rounded-md">%93,3</span>
-                </li>
-              </ul>
-            </div>
-
-            <div className="md:w-2/3">
-              <DataChart 
-                data={weeklyTweetData} 
-                dataKey="Tweet" 
-                xAxisKey="date" 
-                barColor="#4f46e5"
-                title="Tweet Hacmi (8-14 Mayıs)"
-              />
-            </div>
-          </div>
-        </div>
-      </Slide>
-
-      {/* Slide 6: Duygu Analizi ve Temalar */}
-      <Slide title="5. Duygu Analizi ve Temalar">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="md:col-span-2 bg-white rounded-xl shadow-md p-6">
-            <h3 className="font-semibold text-lg mb-4 text-gray-800 flex items-center gap-2">
-              <span className="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center text-red-600">
-                <ChartBar className="w-4 h-4" />
-              </span>
-              Genel Duygu Trendleri:
-            </h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="bg-gradient-to-br from-red-50 to-red-100 p-4 rounded-xl border border-red-200">
-                <div className="text-red-800 text-sm font-medium mb-1">Duygu skoru</div>
-                <div className="font-bold text-xl text-red-900">-0,95</div>
-                <div className="text-red-700 text-xs mt-1">tüm dönemde net olarak negatif</div>
-              </div>
-              <div className="bg-gradient-to-br from-green-50 to-green-100 p-4 rounded-xl border border-green-200">
-                <div className="text-green-800 text-sm font-medium mb-1">Olumlu örnek</div>
-                <div className="font-bold text-xl text-green-900">0 tweet</div>
-                <div className="text-green-700 text-xs mt-1">olumlu içerik bulunmamaktadır</div>
-              </div>
-              <div className="bg-gradient-to-br from-gray-50 to-gray-100 p-4 rounded-xl border border-gray-200">
-                <div className="text-gray-800 text-sm font-medium mb-1">Nötr oran</div>
-                <div className="font-bold text-xl text-gray-900">%7,3</div>
-                <div className="text-gray-700 text-xs mt-1">sadece 44 tweet nötr içerik</div>
-              </div>
-            </div>
-            <div className="mt-4 bg-indigo-50 p-3 rounded-md">
-              <p className="text-indigo-800 text-sm">Boykot ve olumsuzluk teması, tweetlerin <span className="font-bold">%92'sinde</span> baskın olarak tespit edilmiştir.</p>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-xl shadow-md p-6">
-            <h3 className="font-semibold text-lg mb-4 text-gray-800 flex items-center gap-2">
-              <span className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600">
-                <FileText className="w-4 h-4" />
-              </span>
-              En Sık Geçen Anahtar Kelimeler:
-            </h3>
-            <ul className="space-y-3">
-              <li className="flex items-start gap-2 p-3 bg-blue-50 rounded-lg">
-                <Badge className="bg-blue-700 mt-1">boycott / बहिष्कार</Badge>
-                <div className="text-sm text-gray-700">
-                  Boykot çağrıları, çağrının yayıldığı gün: <span className="font-semibold">8 Mayıs</span>
-                </div>
-              </li>
-              <li className="flex items-start gap-2 p-3 bg-indigo-50 rounded-lg">
-                <Badge className="bg-indigo-700 mt-1">IndiGo & Codeshare</Badge>
-                <div className="text-sm text-gray-700">
-                  Alternatif havayolu ve IndiGo'nun THY ile işbirliği tartışması
-                </div>
-              </li>
-              <li className="flex items-start gap-2 p-3 bg-green-50 rounded-lg">
-                <Badge className="bg-green-700 mt-1">Pakistan / support</Badge>
-                <div className="text-sm text-gray-700">
-                  Siyasi gerekçelerle öne çıkan söylem
-                </div>
-              </li>
-              <li className="flex items-start gap-2 p-3 bg-purple-50 rounded-lg">
-                <Badge className="bg-purple-700 mt-1">İptal, asla, shame</Badge>
-                <div className="text-sm text-gray-700">
-                  Kişisel deneyim/çağrı içerikleri
-                </div>
-              </li>
-            </ul>
-          </div>
-
-          <div className="bg-white rounded-xl shadow-md p-6">
-            <h3 className="font-semibold text-lg mb-4 text-gray-800 flex items-center gap-2">
-              <span className="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center text-red-600">
-                <Info className="w-4 h-4" />
-              </span>
-              Negatif ve Nötr Temalar:
-            </h3>
+      {/* Kapak Sayfası */}
+      <Slide bgColor="bg-gradient-to-br from-white via-blue-50 to-indigo-100">
+        <div className="flex flex-col items-center justify-center h-full text-center">
+          <div className="bg-white/70 backdrop-blur-md rounded-2xl p-8 shadow-xl border border-blue-100 max-w-3xl">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600 mb-6">
+              THY Hindistan Krizi Monitoring Raporu
+            </h1>
             <div className="space-y-4">
-              <div className="border-l-4 border-red-500 pl-4 py-2">
-                <h4 className="text-red-800 font-medium mb-2">Negatif Temalar:</h4>
-                <ul className="list-disc pl-6 space-y-1 text-gray-700 text-sm">
-                  <li>Hindistan'a karşı politik tavır</li>
-                  <li>Alternatif ülke/marka çağrısı (Yunanistan, Ermenistan, Emirates, Air India önerileri)</li>
-                  <li>"Turkish Airlines asla tercih edilmemeli", "Hindistan'ı savunan destinasyonlara yönelin"</li>
-                </ul>
-              </div>
-              
-              <div className="border-l-4 border-gray-400 pl-4 py-2">
-                <h4 className="text-gray-800 font-medium mb-2">Nötr Temalar:</h4>
-                <ul className="list-disc pl-6 space-y-1 text-gray-700 text-sm">
-                  <li>Sektörel haber, neutral bilgi paylaşımları (az sayıda, genellikle haber kuruluşu kaynaklı)</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </Slide>
-
-      {/* Slide: En Popüler Hashtagler */}
-      <Slide title="En Popüler Hashtagler" bgColor="bg-gradient-to-br from-slate-50 to-slate-100">
-        <div className="space-y-6">
-          <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-200">
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center text-white shadow-md">
-                <Hash className="w-6 h-6" />
-              </div>
-              <h3 className="text-xl font-bold text-gray-800">Twitter Hashtag Analizi</h3>
-            </div>
-            
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-              {hashtagData.map((tag, index) => (
-                <div 
-                  key={index} 
-                  className={`p-4 rounded-xl border shadow-sm transition-all hover:shadow-md ${
-                    index < 3 ? 'bg-gradient-to-br from-purple-50 to-indigo-50 border-purple-200' : 'bg-white border-gray-200'
-                  }`}
-                >
-                  <div className="flex items-center justify-between">
-                    <div className="text-lg font-semibold text-gray-800">{tag.name}</div>
-                    <Badge className={`${index < 3 ? 'bg-purple-500' : 'bg-gray-500'}`}>{tag.count}</Badge>
-                  </div>
-                  <div className="mt-2 text-sm text-gray-600">{tag.count} içerik</div>
-                  <div className="mt-3 w-full bg-gray-200 h-2 rounded-full overflow-hidden">
-                    <div 
-                      className={`h-full rounded-full ${index < 3 ? 'bg-gradient-to-r from-indigo-500 to-purple-500' : 'bg-gray-400'}`}
-                      style={{ width: `${(tag.count/130)*100}%` }}
-                    ></div>
-                  </div>
-                </div>
-              ))}
-            </div>
-            
-            <div className="mt-6 p-4 bg-gradient-to-r from-amber-50 to-orange-50 rounded-lg border border-amber-200">
-              <p className="text-amber-800 text-sm flex items-start gap-2">
-                <Info className="w-4 h-4 mt-0.5 flex-shrink-0 text-amber-500" />
-                <span>En popüler hashtag <strong>#indigo</strong> olup, toplam içeriğin yaklaşık %21,5'ini oluşturmaktadır. İndigo Havayolları ve THY arasındaki ortaklık, boykot çağrılarını tetikleyen ana unsurlardan biri olmuştur.</span>
+              <p className="text-lg md:text-xl text-gray-700">
+                <span className="font-medium">Rapor Dönemi:</span> 15 Ekim 2024 – 20 Mayıs 2025
+              </p>
+              <p className="text-lg md:text-xl text-gray-700">
+                <span className="font-medium">Hazırlayan:</span> AI Monitoring | Data Analiz Ekibi
+              </p>
+              <p className="text-lg md:text-xl text-gray-700">
+                <span className="font-medium">Kapsam:</span> Twitter (605 özgün içerik)
+              </p>
+              <p className="text-lg md:text-xl text-gray-700">
+                <span className="font-medium">Hazırlanma Tarihi:</span> 21 Mayıs 2025
               </p>
             </div>
           </div>
         </div>
       </Slide>
 
-      {/* Slide: En Çok Takipçiye Sahip Hesaplar */}
-      <Slide title="En Çok Takipçiye Sahip 10 Hesap" bgColor="bg-gradient-to-br from-slate-50 to-blue-50">
-        <div className="space-y-6">
-          <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-200">
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-sky-500 flex items-center justify-center text-white shadow-md">
-                <Users className="w-6 h-6" />
-              </div>
-              <h3 className="text-xl font-bold text-gray-800">Etki Analizi: Takipçi Sayılarına Göre</h3>
-            </div>
-            
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-              <div className="col-span-1 lg:col-span-2 bg-blue-50 p-4 rounded-lg border border-blue-100 mb-2">
-                <p className="text-blue-800 text-sm flex items-start gap-2">
-                  <Info className="w-4 h-4 mt-0.5 flex-shrink-0 text-blue-500" />
-                  <span>Bu hesaplar, içerik ürettikleri ve/veya paylaştıkları için krize katkıda bulunmuşlardır. Toplam potansiyel erişim <strong>140.000+</strong> kişidir.</span>
-                </p>
-              </div>
-              
-              <div className="rounded-xl overflow-hidden shadow-md border border-gray-200">
-                <div className="bg-gradient-to-r from-blue-600 to-indigo-600 p-4 text-white">
-                  <h4 className="font-semibold flex items-center gap-2">
-                    <Users className="w-4 h-4" />
-                    En Çok Takipçiye Sahip Hesaplar (1-5)
-                  </h4>
-                </div>
-                <div className="bg-white p-4 space-y-3">
-                  <div className="flex items-center justify-between p-3 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg border border-blue-100">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold">K</div>
-                      <span className="font-medium">@Kamlapatitri</span>
-                    </div>
-                    <div className="text-lg font-bold text-blue-800">50.378</div>
-                  </div>
-                  
-                  <div className="flex items-center justify-between p-3 bg-white rounded-lg border border-gray-200">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-indigo-500 flex items-center justify-center text-white font-bold">M</div>
-                      <span className="font-medium">@MadhurKapoor12</span>
-                    </div>
-                    <div className="text-lg font-bold text-indigo-800">19.116</div>
-                  </div>
-                  
-                  <div className="flex items-center justify-between p-3 bg-white rounded-lg border border-gray-200">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-purple-500 flex items-center justify-center text-white font-bold">O</div>
-                      <span className="font-medium">@OmprakP3015</span>
-                    </div>
-                    <div className="text-lg font-bold text-purple-800">16.301</div>
-                  </div>
-                  
-                  <div className="flex items-center justify-between p-3 bg-white rounded-lg border border-gray-200">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-sky-500 flex items-center justify-center text-white font-bold">U</div>
-                      <span className="font-medium">@ukm019</span>
-                    </div>
-                    <div className="text-lg font-bold text-sky-800">14.137</div>
-                  </div>
-                  
-                  <div className="flex items-center justify-between p-3 bg-white rounded-lg border border-gray-200">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-cyan-500 flex items-center justify-center text-white font-bold">C</div>
-                      <span className="font-medium">@chinchat09</span>
-                    </div>
-                    <div className="text-lg font-bold text-cyan-800">8.620</div>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="rounded-xl overflow-hidden shadow-md border border-gray-200">
-                <div className="bg-gradient-to-r from-indigo-600 to-purple-600 p-4 text-white">
-                  <h4 className="font-semibold flex items-center gap-2">
-                    <Users className="w-4 h-4" />
-                    En Çok Takipçiye Sahip Hesaplar (6-10)
-                  </h4>
-                </div>
-                <div className="bg-white p-4 space-y-3">
-                  <div className="flex items-center justify-between p-3 bg-white rounded-lg border border-gray-200">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-indigo-500 flex items-center justify-center text-white font-bold">D</div>
-                      <span className="font-medium">@deeksha80144</span>
-                    </div>
-                    <div className="text-lg font-bold text-indigo-800">8.329</div>
-                  </div>
-                  
-                  <div className="flex items-center justify-between p-3 bg-white rounded-lg border border-gray-200">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-purple-500 flex items-center justify-center text-white font-bold">P</div>
-                      <span className="font-medium">@Pawankumar_1305</span>
-                    </div>
-                    <div className="text-lg font-bold text-purple-800">8.051</div>
-                  </div>
-                  
-                  <div className="flex items-center justify-between p-3 bg-white rounded-lg border border-gray-200">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-sky-500 flex items-center justify-center text-white font-bold">R</div>
-                      <span className="font-medium">@rm860842</span>
-                    </div>
-                    <div className="text-lg font-bold text-sky-800">7.497</div>
-                  </div>
-                  
-                  <div className="flex items-center justify-between p-3 bg-white rounded-lg border border-gray-200">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-cyan-500 flex items-center justify-center text-white font-bold">M</div>
-                      <span className="font-medium">@MINDKRRAFT</span>
-                    </div>
-                    <div className="text-lg font-bold text-cyan-800">7.476</div>
-                  </div>
-                  
-                  <div className="flex items-center justify-between p-3 bg-gradient-to-r from-amber-50 to-orange-50 rounded-lg border border-amber-200">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-amber-500 flex items-center justify-center text-white font-bold">M</div>
-                      <span className="font-medium">@MadhurKapoor12 (eski)</span>
-                    </div>
-                    <div className="text-lg font-bold text-amber-800">19.115</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </Slide>
-
-      {/* Slide: En Çok Etkileşim Alan Tweetler */}
-      <Slide title="En Çok Etkileşim Alan 10 Tweet" bgColor="bg-gradient-to-br from-slate-50 to-purple-50">
-        <div className="space-y-4 h-full overflow-y-auto">
-          <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-200">
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white shadow-md">
-                <Twitter className="w-6 h-6" />
-              </div>
-              <h3 className="text-xl font-bold text-gray-800">Tweet Etki Analizi</h3>
-            </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="md:col-span-2 bg-purple-50 p-4 rounded-lg border border-purple-100 mb-2">
-                <p className="text-purple-800 text-sm flex items-start gap-2">
-                  <Info className="w-4 h-4 mt-0.5 flex-shrink-0 text-purple-500" />
-                  <span>En çok etkileşim alan tweetlerin tamamı boykot çağrısı ve siyasi içeriklerden oluşmaktadır. Toplam etkileşim <strong>22.968 beğeni ve 6.121 RT</strong> olarak ölçülmüştür.</span>
-                </p>
-              </div>
-              
-              {/* Top 3 Tweets with special design */}
-              <div className="md:col-span-2">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div className="bg-gradient-to-br from-purple-50 to-indigo-50 rounded-xl overflow-hidden border border-purple-200 shadow-md p-4">
-                    <div className="flex items-center gap-2">
-                      <div className="w-10 h-10 rounded-full bg-purple-600 flex items-center justify-center text-white text-sm font-bold">1</div>
-                      <div>
-                        <div className="font-semibold text-purple-900">@dmuthuk</div>
-                        <div className="text-xs text-purple-700">En yüksek görüntülenme</div>
-                      </div>
-                    </div>
-                    <div className="mt-3 px-3 py-3 bg-white rounded-lg border border-purple-100 text-sm text-gray-800 italic">
-                      "Azerbaijan and Turkey earns lot of money because of Indian tourists... We should not fly Turkish airlines too..."
-                    </div>
-                    <div className="mt-3 flex flex-wrap gap-2 text-xs">
-                      <span className="flex items-center gap-1 bg-purple-100 text-purple-700 px-2 py-1 rounded-full">
-                        <ThumbsUp className="w-3 h-3" />
-                        <span className="font-semibold">9.310</span>
-                      </span>
-                      <span className="flex items-center gap-1 bg-blue-100 text-blue-700 px-2 py-1 rounded-full">
-                        <Twitter className="w-3 h-3" />
-                        <span className="font-semibold">2.212 RT</span>
-                      </span>
-                      <span className="flex items-center gap-1 bg-indigo-100 text-indigo-700 px-2 py-1 rounded-full">
-                        <Star className="w-3 h-3" />
-                        <span className="font-semibold">373.908 görüntülenme</span>
-                      </span>
-                    </div>
-                  </div>
-                  
-                  <div className="bg-gradient-to-br from-blue-50 to-sky-50 rounded-xl overflow-hidden border border-blue-200 shadow-md p-4">
-                    <div className="flex items-center gap-2">
-                      <div className="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white text-sm font-bold">2</div>
-                      <div>
-                        <div className="font-semibold text-blue-900">@Ravisutanjani</div>
-                        <div className="text-xs text-blue-700">En yüksek retweet</div>
-                      </div>
-                    </div>
-                    <div className="mt-3 px-3 py-3 bg-white rounded-lg border border-blue-100 text-sm text-gray-800 italic">
-                      "🚨 Not a Single Indian Flight Booking Apps (OTAs) Suspended Booking To Turkey... Indians Should Boycott Turkey..."
-                    </div>
-                    <div className="mt-3 flex flex-wrap gap-2 text-xs">
-                      <span className="flex items-center gap-1 bg-blue-100 text-blue-700 px-2 py-1 rounded-full">
-                        <ThumbsUp className="w-3 h-3" />
-                        <span className="font-semibold">9.254</span>
-                      </span>
-                      <span className="flex items-center gap-1 bg-sky-100 text-sky-700 px-2 py-1 rounded-full">
-                        <Twitter className="w-3 h-3" />
-                        <span className="font-semibold">2.653 RT</span>
-                      </span>
-                      <span className="flex items-center gap-1 bg-indigo-100 text-indigo-700 px-2 py-1 rounded-full">
-                        <Star className="w-3 h-3" />
-                        <span className="font-semibold">125.399 görüntülenme</span>
-                      </span>
-                    </div>
-                  </div>
-                  
-                  <div className="bg-gradient-to-br from-indigo-50 to-violet-50 rounded-xl overflow-hidden border border-indigo-200 shadow-md p-4">
-                    <div className="flex items-center gap-2">
-                      <div className="w-10 h-10 rounded-full bg-indigo-600 flex items-center justify-center text-white text-sm font-bold">3</div>
-                      <div>
-                        <div className="font-semibold text-indigo-900">@Ravisutanjani</div>
-                        <div className="text-xs text-indigo-700">Yüksek etkileşimli</div>
-                      </div>
-                    </div>
-                    <div className="mt-3 px-3 py-3 bg-white rounded-lg border border-indigo-100 text-sm text-gray-800 italic">
-                      "🚨 Boycott Turkey Campaign is Working... Surge in Turkey and Azerbaijan Flight and Hotel Cancellations..."
-                    </div>
-                    <div className="mt-3 flex flex-wrap gap-2 text-xs">
-                      <span className="flex items-center gap-1 bg-indigo-100 text-indigo-700 px-2 py-1 rounded-full">
-                        <ThumbsUp className="w-3 h-3" />
-                        <span className="font-semibold">1.819</span>
-                      </span>
-                      <span className="flex items-center gap-1 bg-violet-100 text-violet-700 px-2 py-1 rounded-full">
-                        <Twitter className="w-3 h-3" />
-                        <span className="font-semibold">319 RT</span>
-                      </span>
-                      <span className="flex items-center gap-1 bg-purple-100 text-purple-700 px-2 py-1 rounded-full">
-                        <Star className="w-3 h-3" />
-                        <span className="font-semibold">27.225 görüntülenme</span>
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-              {/* Other tweets in smaller cards */}
-              <div className="space-y-3">
-                <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-3 hover:shadow-md transition-shadow">
-                  <div className="flex items-center gap-2 mb-2">
-                    <div className="w-8 h-8 rounded-full bg-gray-600 flex items-center justify-center text-white text-xs font-bold">4</div>
-                    <div className="font-semibold text-gray-800">@seriousfunnyguy</div>
-                  </div>
-                  <p className="text-sm text-gray-700 italic mb-2">"Share Max so Turkey becomes an abuse for every Indian! Boycott Turkey for tourism..."</p>
-                  <div className="flex flex-wrap gap-2 text-xs">
-                    <span className="bg-gray-100 text-gray-700 px-2 py-0.5 rounded">👍 434</span>
-                    <span className="bg-gray-100 text-gray-700 px-2 py-0.5 rounded">🔄 233</span>
-                    <span className="bg-gray-100 text-gray-700 px-2 py-0.5 rounded">👁️ 17.483</span>
-                  </div>
-                </div>
-                
-                <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-3 hover:shadow-md transition-shadow">
-                  <div className="flex items-center gap-2 mb-2">
-                    <div className="w-8 h-8 rounded-full bg-gray-600 flex items-center justify-center text-white text-xs font-bold">5</div>
-                    <div className="font-semibold text-gray-800">@TIgerNS3</div>
-                  </div>
-                  <p className="text-sm text-gray-700 italic mb-2">"Economic Boycott of Pakistan supporters countries starts in India..."</p>
-                  <div className="flex flex-wrap gap-2 text-xs">
-                    <span className="bg-gray-100 text-gray-700 px-2 py-0.5 rounded">👍 355</span>
-                    <span className="bg-gray-100 text-gray-700 px-2 py-0.5 rounded">🔄 201</span>
-                    <span className="bg-gray-100 text-gray-700 px-2 py-0.5 rounded">👁️ 16.947</span>
-                  </div>
-                </div>
-                
-                <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-3 hover:shadow-md transition-shadow">
-                  <div className="flex items-center gap-2 mb-2">
-                    <div className="w-8 h-8 rounded-full bg-gray-600 flex items-center justify-center text-white text-xs font-bold">6</div>
-                    <div className="font-semibold text-gray-800">@Gajanan_from_MS</div>
-                  </div>
-                  <p className="text-sm text-gray-700 italic mb-2">"@ANI Boycott Turkish airlines, Flights and dramas in our country."</p>
-                  <div className="flex flex-wrap gap-2 text-xs">
-                    <span className="bg-gray-100 text-gray-700 px-2 py-0.5 rounded">👍 307</span>
-                    <span className="bg-gray-100 text-gray-700 px-2 py-0.5 rounded">🔄 72</span>
-                    <span className="bg-gray-100 text-gray-700 px-2 py-0.5 rounded">👁️ 8.981</span>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="space-y-3">
-                <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-3 hover:shadow-md transition-shadow">
-                  <div className="flex items-center gap-2 mb-2">
-                    <div className="w-8 h-8 rounded-full bg-gray-600 flex items-center justify-center text-white text-xs font-bold">7</div>
-                    <div className="font-semibold text-gray-800">@enbee007</div>
-                  </div>
-                  <p className="text-sm text-gray-700 italic mb-2">"Boycott Turkey!!! No tourism and no flights by Turkish airlines"</p>
-                  <div className="flex flex-wrap gap-2 text-xs">
-                    <span className="bg-gray-100 text-gray-700 px-2 py-0.5 rounded">👍 139</span>
-                    <span className="bg-gray-100 text-gray-700 px-2 py-0.5 rounded">🔄 51</span>
-                    <span className="bg-gray-100 text-gray-700 px-2 py-0.5 rounded">👁️ 5.833</span>
-                  </div>
-                </div>
-                
-                <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-3 hover:shadow-md transition-shadow">
-                  <div className="flex items-center gap-2 mb-2">
-                    <div className="w-8 h-8 rounded-full bg-gray-600 flex items-center justify-center text-white text-xs font-bold">8</div>
-                    <div className="font-semibold text-gray-800">@Akarshit78</div>
-                  </div>
-                  <p className="text-sm text-gray-700 italic mb-2">"Remember 2023 when Bharat rushed aid to Turkey... Govt must ban Turkish Airlines!"</p>
-                  <div className="flex flex-wrap gap-2 text-xs">
-                    <span className="bg-gray-100 text-gray-700 px-2 py-0.5 rounded">👍 69</span>
-                    <span className="bg-gray-100 text-gray-700 px-2 py-0.5 rounded">🔄 50</span>
-                    <span className="bg-gray-100 text-gray-700 px-2 py-0.5 rounded">👁️ 4.552</span>
-                  </div>
-                </div>
-                
-                <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-3 hover:shadow-md transition-shadow">
-                  <div className="flex items-center gap-2 mb-2">
-                    <div className="w-8 h-8 rounded-full bg-gray-600 flex items-center justify-center text-white text-xs font-bold">9</div>
-                    <div className="font-semibold text-gray-800">@prawasitv</div>
-                  </div>
-                  <p className="text-sm text-gray-700 italic mb-2">"A call to boycott Turkish Airlines! #Turkey #Pakistan #turkishairlines"</p>
-                  <div className="flex flex-wrap gap-2 text-xs">
-                    <span className="bg-gray-100 text-gray-700 px-2 py-0.5 rounded">👍 60</span>
-                    <span className="bg-gray-100 text-gray-700 px-2 py-0.5 rounded">🔄 18</span>
-                    <span className="bg-gray-100 text-gray-700 px-2 py-0.5 rounded">👁️ 15.223</span>
-                  </div>
-                </div>
-                
-                <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-3 hover:shadow-md transition-shadow">
-                  <div className="flex items-center gap-2 mb-2">
-                    <div className="w-8 h-8 rounded-full bg-gray-600 flex items-center justify-center text-white text-xs font-bold">10</div>
-                    <div className="font-semibold text-gray-800">@rojavanewsnetw</div>
-                  </div>
-                  <p className="text-sm text-gray-700 italic mb-2">"Indians call to boycott Turkish products after reports Turkey is supplying Pakistan..."</p>
-                  <div className="flex flex-wrap gap-2 text-xs">
-                    <span className="bg-gray-100 text-gray-700 px-2 py-0.5 rounded">👍 55</span>
-                    <span className="bg-gray-100 text-gray-700 px-2 py-0.5 rounded">🔄 21</span>
-                    <span className="bg-gray-100 text-gray-700 px-2 py-0.5 rounded">👁️ 3.672</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </Slide>
-
-      {/* Slide 7: En Popüler Tweetler */}
-      <Slide title="6. En Popüler Tweetler (Gerçek İçeriklerle)">
-        <div className="space-y-6">
-          <h3 className="font-semibold text-lg mb-3 flex items-center gap-2">
-            <span className="w-2 h-6 rounded-full bg-blue-500 mr-1"></span>
-            Beğeniye Göre:
-          </h3>
-          
-          <div className="space-y-4">
-            <Card className="overflow-hidden border-0 shadow-md">
-              <div className="h-1 w-full bg-gradient-to-r from-red-500 to-red-600"></div>
-              <CardContent className="pt-4">
-                <div className="flex items-center gap-2 mb-2">
-                  <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-medium">D</div>
-                  <div className="text-sm font-semibold text-blue-600">@dmuthuk</div>
-                </div>
-                <p className="text-gray-800 mb-3 bg-gray-50 p-3 rounded-lg border-l-4 border-red-500 italic">
-                  "Azerbaijan and Turkey earns lot of money because of Indian tourists... We should not fly Turkish airlines too. Let us enjoy the hospitality of our friends and shun those who are supporting our enemy."
-                </p>
-                <div className="flex flex-wrap gap-3 text-sm text-gray-600">
-                  <span className="flex items-center gap-1 bg-red-50 text-red-700 px-2 py-1 rounded">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-heart"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
-                    <strong>9.310</strong>
-                  </span>
-                  <span className="flex items-center gap-1 bg-green-50 text-green-700 px-2 py-1 rounded">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-repeat"><path d="m17 2 4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/></svg>
-                    <strong>2.212</strong>
-                  </span>
-                  <span className="flex items-center gap-1 bg-blue-50 text-blue-700 px-2 py-1 rounded">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-eye"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
-                    <strong>373.908</strong>
-                  </span>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="overflow-hidden border-0 shadow-md">
-              <div className="h-1 w-full bg-gradient-to-r from-red-500 to-red-600"></div>
-              <CardContent className="pt-4">
-                <div className="flex items-center gap-2 mb-2">
-                  <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-medium">R</div>
-                  <div className="text-sm font-semibold text-blue-600">@Ravisutanjani</div>
-                </div>
-                <p className="text-gray-800 mb-3 bg-gray-50 p-3 rounded-lg border-l-4 border-red-500 italic">
-                  "🚨 Not a Single Indian Flight Booking Apps (OTAs) Suspended Booking To Turkey... Indians Should Boycott Turkey and Azerbaijan"
-                </p>
-                <div className="flex flex-wrap gap-3 text-sm text-gray-600">
-                  <span className="flex items-center gap-1 bg-red-50 text-red-700 px-2 py-1 rounded">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-heart"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
-                    <strong>9.254</strong>
-                  </span>
-                  <span className="flex items-center gap-1 bg-green-50 text-green-700 px-2 py-1 rounded">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-repeat"><path d="m17 2 4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/></svg>
-                    <strong>2.653</strong>
-                  </span>
-                  <span className="flex items-center gap-1 bg-blue-50 text-blue-700 px-2 py-1 rounded">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-eye"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
-                    <strong>125.399</strong>
-                  </span>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-          
-          <div className="bg-white rounded-xl shadow-md p-6 mt-6">
-            <h3 className="font-semibold text-lg mb-3 flex items-center gap-2">
-              <span className="w-2 h-6 rounded-full bg-red-500 mr-1"></span>
-              Negatif ve Viral Örnek Temalar:
-            </h3>
-            <ul className="space-y-4">
-              <li className="flex items-start gap-3 p-3 bg-gray-50 rounded-lg">
-                <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-medium">D</div>
-                <div>
-                  <div className="text-sm font-semibold text-blue-600 mb-1">@dmuthuk</div>
-                  <p className="text-gray-700 italic">"...shun those who are supporting our enemy..."</p>
-                </div>
-              </li>
-              <li className="flex items-start gap-3 p-3 bg-gray-50 rounded-lg">
-                <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-medium">R</div>
-                <div>
-                  <div className="text-sm font-semibold text-blue-600 mb-1">@Ravisutanjani</div>
-                  <p className="text-gray-700 italic">"...IndiGo Has Codeshare with Turkish Airlines...Indians Should Boycott Turkey..."</p>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </Slide>
-
-      {/* Slide 8: Kategorize Edilmiş İçerik */}
-      <Slide title="7. Kategorize Edilmiş İçerik Sınıflandırması">
-        <div className="space-y-6">
-          <p className="text-gray-700 italic bg-gray-50 p-3 rounded-lg">
-            (Tüm analiz edilen tweetlerdeki ana temalar, oranlarla)
+      {/* Yönetici Özeti */}
+      <Slide title="1. Yönetici Özeti" bgColor="bg-gradient-to-br from-white via-slate-50 to-slate-100">
+        <div className="p-6 bg-white/80 backdrop-blur-sm rounded-xl shadow-md border border-slate-100">
+          <p className="text-lg leading-relaxed mb-6">
+            Son 7 ayda Hindistan kamuoyunda Türk Hava Yolları ve Türkiye'ye yönelik, sosyal medya odaklı, şimdiye kadarki en kapsamlı boykot hareketlerinden biri gerçekleşmiştir. Özellikle 8-14 Mayıs haftasında, <span className="font-semibold text-blue-600">#BoycottTurkey</span> ve <span className="font-semibold text-blue-600">#BoycottTurkishAirlines</span> etiketleriyle birlikte THY aleyhindeki içerikler tarihi bir hacme ulaşmıştır.
           </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="bg-white rounded-xl shadow-md overflow-hidden">
-              <Table 
-                headers={['Kategori', 'Tweet Sayısı', 'Oran (%)']}
-                rows={[
-                  ['Boykot çağrısı (boycott)', '410', '67,8'],
-                  ['Siyasi gerekçeler (Pakistan vs)', '104', '17,2'],
-                  ['Alternatif marka/ülke önerisi', '21', '3,5'],
-                  ['Haber/duyuru', '32', '5,3'],
-                  ['Kişisel şikayet/iptal bildirimleri', '24', '4,0'],
-                  ['Nötr içerik (bilgi/haber)', '14', '2,2'],
-                ]}
+          <div className="mb-6">
+            <h3 className="text-xl font-bold mb-3 text-gray-800">Kriz, 8 Mayıs'ta sosyal medyada yoğun şekilde yükselişe geçmiştir:</h3>
+            <ul className="list-disc pl-6 space-y-2">
+              <li>Bir günde 90 ayrı tweet paylaşılmış, bu içerikler toplamda 10.025 beğeni, 2.366 retweet ve 444.700 görüntülenme üretmiştir.</li>
+              <li>Bu hacim, normal döneme göre 10 kattan fazladır.</li>
+            </ul>
+          </div>
+
+          <div className="mb-6">
+            <h3 className="text-xl font-bold mb-3 text-gray-800">İçerik ve Tema Analizi:</h3>
+            <ul className="list-disc pl-6 space-y-2">
+              <li>Rapor döneminde analiz edilen 605 tweetin %93'ü açıkça negatif tonda yazılmış, pozitif veya savunucu içerik neredeyse hiç görülmemiştir.</li>
+              <li>Tweetlerin başat teması boykot çağrısı (%68) ve "THY, Pakistan'a destek veriyor" algısı olmuştur.</li>
+              <li>IndiGo ve Air India gibi alternatif havayolu önerileri öne çıkarken, THY markası neredeyse tüm tweetlerde eleştiri konusu yapılmıştır.</li>
+            </ul>
+          </div>
+
+          <div className="mb-6">
+            <h3 className="text-xl font-bold mb-3 text-gray-800">Yüksek Etkileşim ve Yayılım:</h3>
+            <ul className="list-disc pl-6 space-y-2">
+              <li>En çok etkileşim yaratan içerikler 100.000'den fazla görüntülenme ve binlerce beğeni/retweet ile @dmuthuk ve @Ravisutanjani gibi yüksek takipçili kullanıcıların boykot çağrılarıdır.</li>
+              <li>#indigo ve #turkishairlines, en sık kullanılan hashtagler olmuş, kelime bulutunda ise "boycott", "turkey", "pakistan", "indigo", "ban", "cancel" gibi kelimeler belirgin olarak öne çıkmıştır.</li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="text-xl font-bold mb-3 text-gray-800">Duygu Analizi ve Trend:</h3>
+            <ul className="list-disc pl-6 space-y-2">
+              <li>Kriz boyunca günlük ortalama duygu skoru -0,95'te kalmış ve olumsuzluk oranı hiçbir zaman %85'in altına düşmemiştir.</li>
+              <li>8 Mayıs zirvesinden sonra hacim düşse de, olumsuz duygu oranı yüksek seviyede seyretmeye devam etmiştir.</li>
+            </ul>
+          </div>
+
+          <div className="mt-6 pt-4 border-t border-slate-200">
+            <h3 className="text-xl font-bold mb-3 text-gray-800">Özet:</h3>
+            <p className="text-lg italic text-gray-700">
+              Bu dönem, THY'nin Hindistan'daki marka algısı için şimdiye kadar kaydedilen en olumsuz dönemi oluşturmuş, boykot ve eleştiri temalı içerikler sosyal medyada hızlı ve geniş bir yayılım göstermiştir.
+            </p>
+          </div>
+        </div>
+      </Slide>
+
+      {/* Genel İstatistikler */}
+      <Slide title="2. Genel İstatistikler ve Hacimsel Veriler" bgColor="bg-gradient-to-br from-white via-blue-50 to-blue-100">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <Card className="p-6 shadow-lg bg-white/90 backdrop-blur-sm">
+            <h3 className="text-xl font-bold mb-4 text-gray-800 border-b pb-2">Toplam İçerik ve Etkileşim</h3>
+            <Table
+              headers={["Metrik", "Değer"]}
+              rows={[
+                ["Tweet", "605"],
+                ["Beğeni", "22.968"],
+                ["Retweet", "6.121"],
+                ["Yanıt", "648"],
+                ["Görüntülenme", "741.218"],
+              ]}
+              className="mt-2"
+            />
+          </Card>
+
+          <Card className="p-6 shadow-lg bg-white/90 backdrop-blur-sm">
+            <h3 className="text-xl font-bold mb-4 text-gray-800 border-b pb-2">İçerik Türüne Göre Duygu Dağılımı</h3>
+            <div className="h-64">
+              <Pie
+                data={emotionData}
+                dataKey="value"
+                nameKey="name"
+                cx="50%"
+                cy="50%"
+                outerRadius={80}
+                label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(1)}%`}
               />
             </div>
+            <div className="mt-4 space-y-2">
+              <p className="font-medium">Negatif: <span className="font-bold text-red-600">561 tweet (%92,7)</span></p>
+              <p className="font-medium">Pozitif: <span className="font-bold text-green-600">0 tweet (%0,0)</span></p>
+              <p className="font-medium">Nötr: <span className="font-bold text-gray-600">44 tweet (%7,3)</span></p>
+            </div>
+          </Card>
 
-            <div>
-              <DataChart 
-                data={categoryData} 
-                dataKey="value" 
-                xAxisKey="name" 
-                barColor="#8b5cf6"
-                title="Kategori Dağılımı (%)"
+          <Card className="p-6 shadow-lg bg-white/90 backdrop-blur-sm md:col-span-2">
+            <h3 className="text-xl font-bold mb-4 text-gray-800 border-b pb-2">Dönemsel Hacim ve Zirve Günler</h3>
+            <div className="h-80">
+              <LineChart
+                data={tweetVolumeData}
+                margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+              >
+                <XAxis dataKey="name" />
+                <YAxis />
+                <CartesianGrid strokeDasharray="3 3" />
+                <Tooltip />
+                <Legend />
+                <Line type="monotone" dataKey="tweets" stroke="#3b82f6" strokeWidth={2} />
+              </LineChart>
+            </div>
+            <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="bg-blue-50 p-4 rounded-lg">
+                <p className="font-medium text-blue-800">En yoğun gün: <span className="font-bold">8 Mayıs 2025</span></p>
+                <p className="text-sm text-blue-700">90 tweet, 10.025 beğeni, 2.366 RT, 444.700 gösterim</p>
+              </div>
+              <div className="bg-purple-50 p-4 rounded-lg">
+                <p className="font-medium text-purple-800">Haftalık Toplam (8-14 Mayıs):</p>
+                <p className="text-sm text-purple-700">453 tweet, 23.496 beğeni, 6.025 RT, 696.480 gösterim</p>
+              </div>
+            </div>
+          </Card>
+        </div>
+      </Slide>
+
+      {/* Günlük Detaylı Trendler */}
+      <Slide title="3. Günlük ve Haftalık Detaylı Trendler" bgColor="bg-gradient-to-br from-white via-indigo-50 to-indigo-100">
+        <Card className="p-6 shadow-lg bg-white/90 backdrop-blur-sm">
+          <Table
+            headers={["Tarih", "Tweet", "Beğeni", "RT", "Yanıt", "Görüntülenme", "Ortalama Duygu"]}
+            rows={[
+              ["8 Mayıs", "90", "10.025", "2.366", "292", "444.700", "-0.94"],
+              ["9 Mayıs", "61", "9.334", "2.679", "148", "133.500", "-0.87"],
+              ["10 Mayıs", "90", "306", "133", "23", "24.261", "-0.93"],
+              ["11 Mayıs", "20", "61", "25", "9", "6.566", "-0.95"],
+              ["12 Mayıs", "24", "543", "246", "18", "23.585", "-1.00"],
+              ["13 Mayıs", "86", "634", "281", "53", "44.726", "-0.95"],
+              ["14 Mayıs", "72", "1.945", "363", "80", "41.712", "-0.92"],
+              ["15 Mayıs", "32", "48", "10", "10", "5.642", "-0.87"],
+              ["16 Mayıs", "27", "13", "4", "2", "2.557", "-0.92"],
+              ["17 Mayıs", "14", "9", "5", "3", "1.358", "-0.92"],
+              ["18 Mayıs", "2", "1", "0", "1", "300", "-1.00"],
+              ["19 Mayıs", "10", "4", "1", "2", "1.450", "-0.90"],
+              ["20 Mayıs", "3", "1", "0", "1", "109", "-0.67"],
+            ]}
+            className="mt-2"
+          />
+
+          <div className="mt-8">
+            <h3 className="text-xl font-bold mb-4 text-gray-800">Duygu Skoru Trendi (8-14 Mayıs)</h3>
+            <div className="h-64">
+              <LineChart
+                data={sentimentData}
+                margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+              >
+                <XAxis dataKey="name" />
+                <YAxis domain={[-1, 0]} />
+                <CartesianGrid strokeDasharray="3 3" />
+                <Tooltip />
+                <Legend />
+                <Line type="monotone" dataKey="score" stroke="#ef4444" strokeWidth={2} />
+              </LineChart>
+            </div>
+          </div>
+        </Card>
+      </Slide>
+
+      {/* Duygu Analizi ve Temalar */}
+      <Slide title="4. Duygu Analizi ve Temalar" bgColor="bg-gradient-to-br from-white via-purple-50 to-purple-100">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <Card className="p-6 shadow-lg bg-white/90 backdrop-blur-sm">
+            <h3 className="text-xl font-bold mb-4 text-gray-800 border-b pb-2">Genel Duygu Trendleri</h3>
+            <ul className="list-disc pl-6 space-y-3">
+              <li>Duygu skoru tüm dönemde <span className="font-semibold text-red-600">net olarak negatif</span> (günlük ortalama -0,95)</li>
+              <li>Olumlu örnek yok, nötr oranı yalnızca %7,3</li>
+              <li>Boykot ve olumsuzluk teması, tweetlerin %92'sinde baskın</li>
+            </ul>
+          </Card>
+
+          <Card className="p-6 shadow-lg bg-white/90 backdrop-blur-sm">
+            <h3 className="text-xl font-bold mb-4 text-gray-800 border-b pb-2">En Sık Geçen Anahtar Kelimeler</h3>
+            <ul className="list-disc pl-6 space-y-3">
+              <li><span className="font-bold">boycott / बहिष्कार / बायकॉट</span> → Boykot çağrıları, çağrının yayıldığı gün: 8 Mayıs</li>
+              <li><span className="font-bold">IndiGo & Codeshare</span> → Alternatif havayolu ve IndiGo'nun THY ile işbirliği tartışması</li>
+              <li><span className="font-bold">Pakistan / support Pakistan</span> → Siyasi gerekçelerle öne çıkan söylem</li>
+              <li><span className="font-bold">İptal, asla uçmam, shame, cancel</span> → Kişisel deneyim/çağrı içerikleri</li>
+            </ul>
+          </Card>
+
+          <Card className="p-6 shadow-lg bg-white/90 backdrop-blur-sm md:col-span-2">
+            <h3 className="text-xl font-bold mb-4 text-gray-800 border-b pb-2">Kategorize Edilmiş İçerik Sınıflandırması</h3>
+            <div className="h-80">
+              <Pie
+                data={categoryData}
+                dataKey="value"
+                nameKey="name"
+                cx="50%"
+                cy="50%"
+                outerRadius={100}
+                label={({ name, value }) => `${name}: %${value}`}
               />
+            </div>
+            <div className="mt-4 p-4 bg-gray-50 rounded-lg">
+              <p className="font-medium text-gray-800">
+                Negatif içeriklerin %84,9'u boykot/siyasi çağrı kategorisindedir.
+              </p>
+            </div>
+          </Card>
+        </div>
+      </Slide>
 
-              <div className="bg-gradient-to-r from-indigo-500 to-purple-500 text-white p-4 rounded-xl mt-4 shadow-md">
-                <p className="font-medium text-center">
-                  Negatif içeriklerin <span className="text-xl font-bold">%84,9'u</span> boykot/siyasi çağrı kategorisindedir.
+      {/* En Popüler Tweetler */}
+      <Slide title="5. En Popüler Tweetler" bgColor="bg-gradient-to-br from-white via-rose-50 to-rose-100">
+        <div className="space-y-6">
+          <Card className="p-6 shadow-lg bg-white/90 backdrop-blur-sm border-l-4 border-blue-500">
+            <div className="flex items-start gap-4">
+              <div className="bg-blue-500 rounded-full w-12 h-12 flex items-center justify-center text-white font-bold text-xl">1</div>
+              <div className="flex-1">
+                <div className="flex justify-between">
+                  <h3 className="text-lg font-bold text-gray-800">@dmuthuk</h3>
+                  <div className="text-sm text-gray-500">
+                    <span className="mx-1">❤️ 9.310</span>
+                    <span className="mx-1">🔄 2.212</span>
+                    <span className="mx-1">👁️ 373.908</span>
+                  </div>
+                </div>
+                <p className="mt-2 text-gray-700 italic">
+                  "Azerbaijan and Turkey earns lot of money because of Indian tourists... We should not fly Turkish airlines too. Let us enjoy the hospitality of our friends and shun those who are supporting our enemy."
                 </p>
               </div>
             </div>
+          </Card>
+
+          <Card className="p-6 shadow-lg bg-white/90 backdrop-blur-sm border-l-4 border-purple-500">
+            <div className="flex items-start gap-4">
+              <div className="bg-purple-500 rounded-full w-12 h-12 flex items-center justify-center text-white font-bold text-xl">2</div>
+              <div className="flex-1">
+                <div className="flex justify-between">
+                  <h3 className="text-lg font-bold text-gray-800">@Ravisutanjani</h3>
+                  <div className="text-sm text-gray-500">
+                    <span className="mx-1">❤️ 9.254</span>
+                    <span className="mx-1">🔄 2.653</span>
+                    <span className="mx-1">👁️ 125.399</span>
+                  </div>
+                </div>
+                <p className="mt-2 text-gray-700 italic">
+                  "🚨 Not a Single Indian Flight Booking Apps (OTAs) Suspended Booking To Turkey... Indians Should Boycott Turkey and Azerbaijan"
+                </p>
+              </div>
+            </div>
+          </Card>
+
+          <Card className="p-6 shadow-lg bg-white/90 backdrop-blur-sm border-l-4 border-pink-500">
+            <div className="flex items-start gap-4">
+              <div className="bg-pink-500 rounded-full w-12 h-12 flex items-center justify-center text-white font-bold text-xl">3</div>
+              <div className="flex-1">
+                <div className="flex justify-between">
+                  <h3 className="text-lg font-bold text-gray-800">@Ravisutanjani</h3>
+                  <div className="text-sm text-gray-500">
+                    <span className="mx-1">❤️ 1.819</span>
+                    <span className="mx-1">🔄 319</span>
+                    <span className="mx-1">👁️ 27.225</span>
+                  </div>
+                </div>
+                <p className="mt-2 text-gray-700 italic">
+                  "🚨 Boycott Turkey Campaign is Working... 250% Surge in Turkey and Azerbaijan Flight and Hotel Cancellations..."
+                </p>
+              </div>
+            </div>
+          </Card>
+        </div>
+      </Slide>
+
+      {/* En Popüler 10 Tweet */}
+      <Slide title="6. En Çok Etkileşim Alan 10 Tweet" bgColor="bg-gradient-to-br from-white via-amber-50 to-amber-100">
+        <div className="space-y-4 max-h-[calc(100vh-180px)] overflow-y-auto pr-2">
+          {[
+            {
+              user: "@Ravisutanjani",
+              likes: "9.254",
+              rt: "2.653",
+              replies: "135",
+              views: "125.399",
+              text: "🚨 Not a Single Indian Flight Booking Apps (OTAs) Suspended Booking To Turkey [...] Indians Should Boycott Turkey and Azerbaijan"
+            },
+            {
+              user: "@dmuthuk",
+              likes: "9.310",
+              rt: "2.212",
+              replies: "258",
+              views: "373.908",
+              text: "Azerbaijan and Turkey earns lot of money because of Indian tourists. [...] Let us enjoy the hospitality of our friends and shun those who are supporting our enemy."
+            },
+            {
+              user: "@Ravisutanjani",
+              likes: "1.819",
+              rt: "319",
+              replies: "48",
+              views: "27.225",
+              text: "🚨 Boycott Turkey Campaign is Working [...] Surge in Turkey and Azerbaijan Flight and Hotel Cancellations [...]"
+            },
+            {
+              user: "@seriousfunnyguy",
+              likes: "434",
+              rt: "233",
+              replies: "11",
+              views: "17.483",
+              text: "Share Max so Turkey becomes an abuse for every Indian! Boycott Turkey for tourism, Boycott Turkish Airlines for travel!"
+            },
+            {
+              user: "@TIgerNS3",
+              likes: "355",
+              rt: "201",
+              replies: "17",
+              views: "16.947",
+              text: "Economic Boycott of Pakistan supporters countries starts in India [...] Turkish Airlines #आर्थिक_बहिष्कार #Turkiye"
+            },
+            {
+              user: "@Gajanan_from_MS",
+              likes: "307",
+              rt: "72",
+              replies: "3",
+              views: "8.981",
+              text: "@ANI Boycott Turkish airlines, Flights and dramas in our country."
+            },
+            {
+              user: "@enbee007",
+              likes: "139",
+              rt: "51",
+              replies: "6",
+              views: "5.833",
+              text: "Boycott Turkey!!! No tourism and no flights by Turkish airlines"
+            },
+            {
+              user: "@Akarshit78",
+              likes: "69",
+              rt: "50",
+              replies: "5",
+              views: "4.552",
+              text: "Remember 2023 when Bharat rushed aid to Turkey [...] Govt must ban Turkish Airlines! & we must boycott Turkey [...] #BoycottTurkey"
+            },
+            {
+              user: "@prawasitv",
+              likes: "60",
+              rt: "18",
+              replies: "3",
+              views: "15.223",
+              text: "A call to boycott Turkish Airlines! #Turkey #Pakistan #turkishairlines"
+            },
+            {
+              user: "@rojavanewsnetw",
+              likes: "55",
+              rt: "21",
+              replies: "4",
+              views: "3.672",
+              text: "Indians call to boycott Turkish products after reports Turkey is supplying Pakistan with goods fueling its terror campaign. Brands like Turkish Airlines, Beko, Arçelik, Vestel, Koton, and Trendyol are being targeted across India."
+            }
+          ].map((tweet, index) => (
+            <Card key={index} className="p-4 shadow-md bg-white/90 backdrop-blur-sm border-l-4 border-amber-400 transition-all hover:shadow-lg">
+              <div className="flex items-start gap-3">
+                <div className="bg-gradient-to-r from-amber-400 to-orange-500 rounded-full w-8 h-8 flex items-center justify-center text-white font-bold text-sm shrink-0">{index + 1}</div>
+                <div className="flex-1">
+                  <div className="flex justify-between items-center">
+                    <h3 className="text-base font-bold text-gray-800">{tweet.user}</h3>
+                    <div className="text-xs text-gray-500 flex flex-wrap justify-end">
+                      <span className="mx-1">❤️ {tweet.likes}</span>
+                      <span className="mx-1">🔄 {tweet.rt}</span>
+                      <span className="mx-1">💬 {tweet.replies}</span>
+                      <span className="mx-1">👁️ {tweet.views}</span>
+                    </div>
+                  </div>
+                  <p className="mt-2 text-gray-700 text-sm">{tweet.text}</p>
+                </div>
+              </div>
+            </Card>
+          ))}
+        </div>
+      </Slide>
+      
+      {/* En Çok Takipçiye Sahip Hesaplar */}
+      <Slide title="7. En Çok Takipçiye Sahip 10 Hesap" bgColor="bg-gradient-to-br from-white via-green-50 to-green-100">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {[
+            { name: "@Kamlapatitri", followers: "50.378" },
+            { name: "@MadhurKapoor12", followers: "19.116" },
+            { name: "@OmprakP3015", followers: "16.301" },
+            { name: "@ukm019", followers: "14.137" },
+            { name: "@chinchat09", followers: "8.620" },
+            { name: "@deeksha80144", followers: "8.329" },
+            { name: "@Pawankumar_1305", followers: "8.051" },
+            { name: "@rm860842", followers: "7.497" },
+            { name: "@MINDKRRAFT", followers: "7.476" },
+            { name: "@MadhurKapoor12", followers: "19.115", note: "(ikinci entry, eski veri)" }
+          ].map((account, index) => (
+            <Card key={index} className="p-4 shadow-md bg-white/90 backdrop-blur-sm hover:shadow-lg transition-all">
+              <div className="flex items-center gap-3">
+                <div className="bg-gradient-to-r from-green-500 to-emerald-500 rounded-full w-10 h-10 flex items-center justify-center text-white font-bold">{index + 1}</div>
+                <div>
+                  <h3 className="font-bold text-gray-800">{account.name}</h3>
+                  <p className="text-sm text-gray-600">
+                    {account.followers} takipçi {account.note && <span className="text-xs text-gray-400">({account.note})</span>}
+                  </p>
+                </div>
+              </div>
+            </Card>
+          ))}
+        </div>
+      </Slide>
+      
+      {/* En Popüler Hashtagler */}
+      <Slide title="8. En Popüler Hashtagler" bgColor="bg-gradient-to-br from-white via-cyan-50 to-cyan-100">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <Card className="p-6 shadow-lg bg-white/90 backdrop-blur-sm md:col-span-2">
+            <div className="h-80">
+              <BarChart 
+                data={hashtagData} 
+                margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+              >
+                <XAxis dataKey="name" />
+                <YAxis />
+                <CartesianGrid strokeDasharray="3 3" />
+                <Tooltip />
+                <Legend />
+                <Bar dataKey="count" fill="#3b82f6" />
+              </BarChart>
+            </div>
+          </Card>
+          
+          <div className="md:col-span-2 grid grid-cols-2 md:grid-cols-3 gap-4">
+            {[
+              { tag: "#indigo", count: 130, color: "bg-blue-500" },
+              { tag: "#turkishairlines", count: 46, color: "bg-purple-500" },
+              { tag: "#turkey", count: 35, color: "bg-pink-500" },
+              { tag: "#boycott", count: 21, color: "bg-red-500" },
+              { tag: "#pakistan", count: 9, color: "bg-amber-500" },
+              { tag: "#airindia", count: 2, color: "bg-green-500" },
+              { tag: "#सत्यसाधक", count: 1, color: "bg-indigo-500" }
+            ].map((hashtag, index) => (
+              <Card key={index} className={`p-4 shadow-md bg-white/90 backdrop-blur-sm border-l-4 ${hashtag.color} hover:shadow-lg transition-all`}>
+                <div className="flex justify-between items-center">
+                  <h3 className="font-bold text-gray-800">{hashtag.tag}</h3>
+                  <div className={`${hashtag.color} text-white px-3 py-1 rounded-full text-sm`}>
+                    {hashtag.count} içerik
+                  </div>
+                </div>
+              </Card>
+            ))}
           </div>
         </div>
       </Slide>
 
-      {/* Slide 9: Influencer ve En Etkili Kullanıcılar */}
-      <Slide title="8. Influencer ve En Etkili Kullanıcılar">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div className="bg-white rounded-xl shadow-md p-6">
-            <h3 className="font-semibold text-lg mb-4 text-gray-800 flex items-center gap-2">
-              <span className="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center text-purple-600">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-star"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              </span>
-              En fazla etkileşim üretenler:
-            </h3>
-
-            <div className="space-y-4">
-              <div className="flex items-center gap-4 p-4 rounded-lg bg-gradient-to-r from-purple-50 to-indigo-50">
-                <div className="w-16 h-16 rounded-full bg-gradient-to-br from-purple-500 to-indigo-500 flex items-center justify-center text-white font-bold text-xl shadow-md">D</div>
-                <div>
-                  <div className="font-semibold text-gray-900">@dmuthuk</div>
-                  <div className="text-sm text-gray-600 mt-1">Toplam etkileşim:</div>
-                  <div className="text-lg font-bold text-indigo-600">11.522</div>
-                </div>
-                <div className="ml-auto w-20 h-20 bg-purple-100 rounded-full flex items-center justify-center">
-                  <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-indigo-500 rounded-full flex items-center justify-center text-white font-bold text-lg">
-                    1
-                  </div>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-4 p-4 rounded-lg bg-gradient-to-r from-blue-50 to-cyan-50">
-                <div className="w-16 h-16 rounded-full bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center text-white font-bold text-xl shadow-md">R</div>
-                <div>
-                  <div className="font-semibold text-gray-900">@Ravisutanjani</div>
-                  <div className="text-sm text-gray-600 mt-1">Toplam etkileşim:</div>
-                  <div className="text-lg font-bold text-blue-600">13.045</div>
-                </div>
-                <div className="ml-auto w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center">
-                  <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-full flex items-center justify-center text-white font-bold text-lg">
-                    2
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-xl shadow-md p-6">
-            <h3 className="font-semibold text-lg mb-4 text-gray-800 flex items-center gap-2">
-              <span className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-newspaper"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6Z"/></svg>
-              </span>
-              Haber kaynaklı ve yüksek erişimli hesaplar:
-            </h3>
-
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mt-6">
-              <div className="bg-gray-50 border border-gray-200 rounded-lg p-3 text-center hover:shadow-md transition-shadow">
-                <div className="w-12 h-12 bg-blue-500 rounded-full mx-auto mb-2 flex items-center justify-center">
-                  <span className="text-white font-bold">ND</span>
-                </div>
-                <div className="text-sm text-gray-800 font-medium">NDTVProfitHindi</div>
-              </div>
-              <div className="bg-gray-50 border border-gray-200 rounded-lg p-3 text-center hover:shadow-md transition-shadow">
-                <div className="w-12 h-12 bg-red-500 rounded-full mx-auto mb-2 flex items-center justify-center">
-                  <span className="text-white font-bold">TN</span>
-                </div>
-                <div className="text-sm text-gray-800 font-medium">TimesNow</div>
-              </div>
-              <div className="bg-gray-50 border border-gray-200 rounded-lg p-3 text-center hover:shadow-md transition-shadow">
-                <div className="w-12 h-12 bg-green-500 rounded-full mx-auto mb-2 flex items-center justify-center">
-                  <span className="text-white font-bold">+</span>
-                </div>
-                <div className="text-sm text-gray-800 font-medium">Diğer</div>
-              </div>
-            </div>
-
-            <div className="mt-4 pt-4 border-t border-gray-100">
-              <p className="text-gray-700 text-sm">
-                Medya kuruluşları genellikle olay bazlı bilgilendirme yapmış, fakat bu paylaşımların da yüksek etkileşim alarak krize katkıda bulunduğu gözlemlenmiştir.
-              </p>
-            </div>
-          </div>
-        </div>
-      </Slide>
-
-      {/* Slide 10: Sonuç ve İzleme Notları */}
-      <Slide title="10. Sonuç ve İzleme Notları">
-        <div className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="bg-white p-5 rounded-xl shadow-md">
-              <ul className="space-y-3 text-gray-700">
-                <li className="flex items-start gap-2">
-                  <div className="w-6 h-6 mt-0.5 flex-shrink-0 rounded-full bg-red-100 text-red-700 flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-arrow-right"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                  </div>
-                  <span>Rapor dönemi boyunca tüm içeriklerde ağırlıklı olarak olumsuz bir söylem ve boykot çağrısı hakimdir.</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <div className="w-6 h-6 mt-0.5 flex-shrink-0 rounded-full bg-red-100 text-red-700 flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-arrow-right"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                  </div>
-                  <span>Tweetlerin %93'ü açıkça olumsuz ve boykot/siyasi tepki içermektedir.</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <div className="w-6 h-6 mt-0.5 flex-shrink-0 rounded-full bg-amber-100 text-amber-700 flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-arrow-right"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                  </div>
-                  <span>Kriz döneminde en etkili iki gün 8 ve 9 Mayıs 2025'tir.</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <div className="w-6 h-6 mt-0.5 flex-shrink-0 rounded-full bg-amber-100 text-amber-700 flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-arrow-right"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                  </div>
-                  <span>Herhangi bir olumlu/pozitif içerik bu dönemde tespit edilmemiştir.</span>
-                </li>
-              </ul>
-            </div>
-            
-            <div className="bg-white p-5 rounded-xl shadow-md">
-              <ul className="space-y-3 text-gray-700">
-                <li className="flex items-start gap-2">
-                  <div className="w-6 h-6 mt-0.5 flex-shrink-0 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-arrow-right"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                  </div>
-                  <span>En fazla etkileşim alan içeriklerin tamamı boykot çağrısı ve siyasi içeriklerden oluşmaktadır.</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <div className="w-6 h-6 mt-0.5 flex-shrink-0 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-arrow-right"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                  </div>
-                  <span>Nötr içerikler genellikle haber formatındadır ve sosyal etkisi düşüktür.</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <div className="w-6 h-6 mt-0.5 flex-shrink-0 rounded-full bg-purple-100 text-purple-700 flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-arrow-right"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                  </div>
-                  <span>Hashtag ve anahtar kelime analizinde "boycott, Pakistan, IndiGo, Turkish Airlines" öne çıkmaktadır.</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <div className="w-6 h-6 mt-0.5 flex-shrink-0 rounded-full bg-green-100 text-green-700 flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-arrow-right"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                  </div>
-                  <span>Takip eden dönemde içerik hacminde ciddi düşüş gözlemlenmiş, ancak duygu skoru olumsuz kalmaya devam etmiştir.</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-xl border border-blue-200 shadow-md mt-6">
-            <div className="flex items-start mb-3">
-              <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-3">
-                <Info className="w-5 h-5 text-blue-600" />
-              </div>
-              <h3 className="font-semibold text-lg text-blue-800">Not:</h3>
-            </div>
-            <p className="text-gray-700 leading-relaxed">
+      {/* Sonuç ve İzleme Notları */}
+      <Slide title="9. Sonuç ve İzleme Notları" bgColor="bg-gradient-to-br from-white via-slate-50 to-slate-100">
+        <Card className="p-6 shadow-lg bg-white/90 backdrop-blur-sm">
+          <ul className="list-disc pl-6 space-y-3 text-gray-700">
+            <li>Rapor dönemi boyunca tüm içeriklerde ağırlıklı olarak olumsuz bir söylem ve boykot çağrısı hakimdir.</li>
+            <li>Tweetlerin %93'ü açıkça olumsuz ve boykot/siyasi tepki içermektedir.</li>
+            <li>Kriz döneminde en etkili iki gün 8 ve 9 Mayıs 2025'tir.</li>
+            <li>Herhangi bir olumlu/pozitif içerik bu dönemde tespit edilmemiştir.</li>
+            <li>En fazla etkileşim alan içeriklerin tamamı boykot ve tepki temalıdır.</li>
+            <li>Nötr içerikler genellikle haber formatındadır ve sosyal etkisi düşüktür.</li>
+            <li>Hashtag ve anahtar kelime analizinde "boycott, Pakistan, IndiGo, Turkish Airlines" öne çıkmaktadır.</li>
+            <li>Takip eden dönemde içerik hacminde ciddi düşüş gözlemlenmiş, ancak duygu skoru olumsuz kalmaya devam etmiştir.</li>
+          </ul>
+          
+          <div className="mt-8 p-5 bg-amber-50 rounded-lg border border-amber-200">
+            <h3 className="text-xl font-bold mb-3 text-amber-800">Not:</h3>
+            <p className="text-amber-700">
               Bu rapor yalnızca otomatik veri işleme ve içerik analizine dayanmaktadır.
               Hiçbir karar önerisi veya yönlendirici yorum içermez; tüm bulgular şeffaf veri ve istatistikle sunulmuştur.
             </p>
-            <div className="flex justify-center mt-4">
-              <div className="px-4 py-2 bg-white rounded-full text-sm text-blue-700 font-medium shadow-sm border border-blue-200">
-                AI Monitoring | Data Analiz Ekibi
-              </div>
-            </div>
           </div>
-        </div>
+        </Card>
       </Slide>
-
     </SlideShow>
   );
-};
-
-export default Index;
+}
