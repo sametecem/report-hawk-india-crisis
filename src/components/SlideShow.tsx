@@ -40,9 +40,31 @@ const SlideShow = ({ children, className }: SlideShowProps) => {
 
   return (
     <div className={cn("relative w-full h-screen overflow-hidden bg-gradient-to-b from-slate-50 to-slate-100", className)}>
+      {/* Modern decorative elements */}
+      <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500"></div>
+      <div className="absolute bottom-0 right-0 w-40 h-40 bg-gradient-to-tl from-blue-200/20 to-transparent rounded-full -mr-20 -mb-20 blur-xl"></div>
+      
       {/* Current slide */}
       <div className="absolute inset-0 transition-all duration-500 ease-in-out">
         {React.Children.toArray(children)[currentSlide]}
+      </div>
+      
+      {/* Progress indicator */}
+      <div className="absolute top-4 left-0 right-0 flex justify-center">
+        <div className="bg-white/80 backdrop-blur-sm px-3 py-1 rounded-full shadow-md flex items-center gap-1">
+          {[...Array(totalSlides)].map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setCurrentSlide(i)}
+              className={`w-2 h-2 rounded-full transition-all ${
+                i === currentSlide 
+                  ? 'bg-gradient-to-r from-blue-500 to-purple-500 w-4' 
+                  : 'bg-gray-300'
+              }`}
+              aria-label={`Go to slide ${i + 1}`}
+            />
+          ))}
+        </div>
       </div>
       
       {/* Navigation controls */}
@@ -51,15 +73,15 @@ const SlideShow = ({ children, className }: SlideShowProps) => {
           onClick={prevSlide} 
           disabled={currentSlide === 0}
           className={cn(
-            "p-2 rounded-full bg-white/80 shadow-md hover:bg-white transition-all", 
+            "p-3 rounded-full bg-white/90 backdrop-blur-sm shadow-lg hover:bg-white transition-all transform hover:scale-105 active:scale-95", 
             currentSlide === 0 ? "opacity-30 cursor-not-allowed" : "opacity-100"
           )}
           aria-label="Previous slide"
         >
-          <ChevronLeft className="w-6 h-6 text-gray-700" />
+          <ChevronLeft className="w-5 h-5 text-gray-700" />
         </button>
         
-        <div className="text-sm font-medium text-gray-700 bg-white/80 px-3 py-1 rounded-full shadow-md">
+        <div className="text-sm font-medium text-gray-700 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg">
           {currentSlide + 1} / {totalSlides}
         </div>
         
@@ -67,12 +89,12 @@ const SlideShow = ({ children, className }: SlideShowProps) => {
           onClick={nextSlide} 
           disabled={currentSlide === totalSlides - 1}
           className={cn(
-            "p-2 rounded-full bg-white/80 shadow-md hover:bg-white transition-all", 
+            "p-3 rounded-full bg-white/90 backdrop-blur-sm shadow-lg hover:bg-white transition-all transform hover:scale-105 active:scale-95", 
             currentSlide === totalSlides - 1 ? "opacity-30 cursor-not-allowed" : "opacity-100"
           )}
           aria-label="Next slide"
         >
-          <ChevronRight className="w-6 h-6 text-gray-700" />
+          <ChevronRight className="w-5 h-5 text-gray-700" />
         </button>
       </div>
     </div>

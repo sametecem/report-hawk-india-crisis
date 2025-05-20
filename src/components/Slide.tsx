@@ -11,11 +11,16 @@ interface SlideProps {
 
 const Slide = ({ children, className, title, bgColor = "bg-white" }: SlideProps) => {
   return (
-    <div className={cn("h-full w-full flex flex-col", bgColor, className)}>
-      <div className="w-full max-w-5xl mx-auto h-full overflow-y-auto py-8 px-6 md:px-10">
+    <div className={cn("h-full w-full flex flex-col relative overflow-hidden", bgColor, className)}>
+      {/* Adding decorative elements for visual interest */}
+      <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-blue-100/30 to-transparent rounded-full -mr-32 -mt-32 blur-xl"></div>
+      <div className="absolute bottom-0 left-0 w-64 h-64 bg-gradient-to-tr from-purple-100/20 to-transparent rounded-full -ml-32 -mb-32 blur-xl"></div>
+      
+      <div className="w-full max-w-5xl mx-auto h-full overflow-y-auto py-8 px-6 md:px-10 relative z-10">
         {title && (
-          <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gray-800 border-b pb-3">
+          <h2 className="text-2xl md:text-4xl font-bold mb-8 text-gray-800 border-b pb-3 relative">
             {title}
+            <span className="absolute -bottom-0.5 left-0 w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-500"></span>
           </h2>
         )}
         <div className="flex-1">
