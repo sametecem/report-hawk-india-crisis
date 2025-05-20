@@ -3,7 +3,18 @@ import React from "react";
 import SlideShow from "@/components/SlideShow";
 import Slide from "@/components/Slide";
 import Table from "@/components/Table";
-import { BarChart, LineChart, Pie } from "recharts";
+import { 
+  BarChart, 
+  Bar, 
+  LineChart, 
+  Line, 
+  Pie, 
+  XAxis, 
+  YAxis, 
+  CartesianGrid, 
+  Tooltip, 
+  Legend 
+} from "recharts";
 import { Card } from "@/components/ui/card";
 
 export default function Index() {
@@ -553,3 +564,4 @@ export default function Index() {
     </SlideShow>
   );
 }
+
