@@ -1,4 +1,3 @@
-
 import React from 'react';
 import SlideShow from '@/components/SlideShow';
 import Slide from '@/components/Slide';
@@ -6,7 +5,7 @@ import Table from '@/components/Table';
 import DataChart from '@/components/DataChart';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { ArrowRight, Calendar, ChartBar, FileText, Info } from 'lucide-react';
+import { ArrowRight, Calendar, ChartBar, FileText, Info, Users, Twitter, Hash, Star, ThumbsUp } from 'lucide-react';
 
 // Sample data for charts
 const weeklyTweetData = [
@@ -36,6 +35,16 @@ const dailyData = [
   { date: '12 Mayıs', Beğeni: 543, RT: 246, Görüntülenme: 23585 / 10000 },
   { date: '13 Mayıs', Beğeni: 634, RT: 281, Görüntülenme: 44726 / 10000 },
   { date: '14 Mayıs', Beğeni: 1945, RT: 363, Görüntülenme: 41712 / 10000 },
+];
+
+const hashtagData = [
+  { name: '#indigo', count: 130 },
+  { name: '#turkishairlines', count: 46 },
+  { name: '#turkey', count: 35 },
+  { name: '#boycott', count: 21 },
+  { name: '#pakistan', count: 9 },
+  { name: '#airindia', count: 2 },
+  { name: '#सत्यसाधक', count: 1 },
 ];
 
 const Index = () => {
@@ -532,6 +541,378 @@ const Index = () => {
         </div>
       </Slide>
 
+      {/* Slide: En Popüler Hashtagler */}
+      <Slide title="En Popüler Hashtagler" bgColor="bg-gradient-to-br from-slate-50 to-slate-100">
+        <div className="space-y-6">
+          <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-200">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center text-white shadow-md">
+                <Hash className="w-6 h-6" />
+              </div>
+              <h3 className="text-xl font-bold text-gray-800">Twitter Hashtag Analizi</h3>
+            </div>
+            
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+              {hashtagData.map((tag, index) => (
+                <div 
+                  key={index} 
+                  className={`p-4 rounded-xl border shadow-sm transition-all hover:shadow-md ${
+                    index < 3 ? 'bg-gradient-to-br from-purple-50 to-indigo-50 border-purple-200' : 'bg-white border-gray-200'
+                  }`}
+                >
+                  <div className="flex items-center justify-between">
+                    <div className="text-lg font-semibold text-gray-800">{tag.name}</div>
+                    <Badge className={`${index < 3 ? 'bg-purple-500' : 'bg-gray-500'}`}>{tag.count}</Badge>
+                  </div>
+                  <div className="mt-2 text-sm text-gray-600">{tag.count} içerik</div>
+                  <div className="mt-3 w-full bg-gray-200 h-2 rounded-full overflow-hidden">
+                    <div 
+                      className={`h-full rounded-full ${index < 3 ? 'bg-gradient-to-r from-indigo-500 to-purple-500' : 'bg-gray-400'}`}
+                      style={{ width: `${(tag.count/130)*100}%` }}
+                    ></div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            
+            <div className="mt-6 p-4 bg-gradient-to-r from-amber-50 to-orange-50 rounded-lg border border-amber-200">
+              <p className="text-amber-800 text-sm flex items-start gap-2">
+                <Info className="w-4 h-4 mt-0.5 flex-shrink-0 text-amber-500" />
+                <span>En popüler hashtag <strong>#indigo</strong> olup, toplam içeriğin yaklaşık %21,5'ini oluşturmaktadır. İndigo Havayolları ve THY arasındaki ortaklık, boykot çağrılarını tetikleyen ana unsurlardan biri olmuştur.</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </Slide>
+
+      {/* Slide: En Çok Takipçiye Sahip Hesaplar */}
+      <Slide title="En Çok Takipçiye Sahip 10 Hesap" bgColor="bg-gradient-to-br from-slate-50 to-blue-50">
+        <div className="space-y-6">
+          <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-200">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-sky-500 flex items-center justify-center text-white shadow-md">
+                <Users className="w-6 h-6" />
+              </div>
+              <h3 className="text-xl font-bold text-gray-800">Etki Analizi: Takipçi Sayılarına Göre</h3>
+            </div>
+            
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+              <div className="col-span-1 lg:col-span-2 bg-blue-50 p-4 rounded-lg border border-blue-100 mb-2">
+                <p className="text-blue-800 text-sm flex items-start gap-2">
+                  <Info className="w-4 h-4 mt-0.5 flex-shrink-0 text-blue-500" />
+                  <span>Bu hesaplar, içerik ürettikleri ve/veya paylaştıkları için krize katkıda bulunmuşlardır. Toplam potansiyel erişim <strong>140.000+</strong> kişidir.</span>
+                </p>
+              </div>
+              
+              <div className="rounded-xl overflow-hidden shadow-md border border-gray-200">
+                <div className="bg-gradient-to-r from-blue-600 to-indigo-600 p-4 text-white">
+                  <h4 className="font-semibold flex items-center gap-2">
+                    <Users className="w-4 h-4" />
+                    En Çok Takipçiye Sahip Hesaplar (1-5)
+                  </h4>
+                </div>
+                <div className="bg-white p-4 space-y-3">
+                  <div className="flex items-center justify-between p-3 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg border border-blue-100">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold">K</div>
+                      <span className="font-medium">@Kamlapatitri</span>
+                    </div>
+                    <div className="text-lg font-bold text-blue-800">50.378</div>
+                  </div>
+                  
+                  <div className="flex items-center justify-between p-3 bg-white rounded-lg border border-gray-200">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-full bg-indigo-500 flex items-center justify-center text-white font-bold">M</div>
+                      <span className="font-medium">@MadhurKapoor12</span>
+                    </div>
+                    <div className="text-lg font-bold text-indigo-800">19.116</div>
+                  </div>
+                  
+                  <div className="flex items-center justify-between p-3 bg-white rounded-lg border border-gray-200">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-full bg-purple-500 flex items-center justify-center text-white font-bold">O</div>
+                      <span className="font-medium">@OmprakP3015</span>
+                    </div>
+                    <div className="text-lg font-bold text-purple-800">16.301</div>
+                  </div>
+                  
+                  <div className="flex items-center justify-between p-3 bg-white rounded-lg border border-gray-200">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-full bg-sky-500 flex items-center justify-center text-white font-bold">U</div>
+                      <span className="font-medium">@ukm019</span>
+                    </div>
+                    <div className="text-lg font-bold text-sky-800">14.137</div>
+                  </div>
+                  
+                  <div className="flex items-center justify-between p-3 bg-white rounded-lg border border-gray-200">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-full bg-cyan-500 flex items-center justify-center text-white font-bold">C</div>
+                      <span className="font-medium">@chinchat09</span>
+                    </div>
+                    <div className="text-lg font-bold text-cyan-800">8.620</div>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="rounded-xl overflow-hidden shadow-md border border-gray-200">
+                <div className="bg-gradient-to-r from-indigo-600 to-purple-600 p-4 text-white">
+                  <h4 className="font-semibold flex items-center gap-2">
+                    <Users className="w-4 h-4" />
+                    En Çok Takipçiye Sahip Hesaplar (6-10)
+                  </h4>
+                </div>
+                <div className="bg-white p-4 space-y-3">
+                  <div className="flex items-center justify-between p-3 bg-white rounded-lg border border-gray-200">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-full bg-indigo-500 flex items-center justify-center text-white font-bold">D</div>
+                      <span className="font-medium">@deeksha80144</span>
+                    </div>
+                    <div className="text-lg font-bold text-indigo-800">8.329</div>
+                  </div>
+                  
+                  <div className="flex items-center justify-between p-3 bg-white rounded-lg border border-gray-200">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-full bg-purple-500 flex items-center justify-center text-white font-bold">P</div>
+                      <span className="font-medium">@Pawankumar_1305</span>
+                    </div>
+                    <div className="text-lg font-bold text-purple-800">8.051</div>
+                  </div>
+                  
+                  <div className="flex items-center justify-between p-3 bg-white rounded-lg border border-gray-200">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-full bg-sky-500 flex items-center justify-center text-white font-bold">R</div>
+                      <span className="font-medium">@rm860842</span>
+                    </div>
+                    <div className="text-lg font-bold text-sky-800">7.497</div>
+                  </div>
+                  
+                  <div className="flex items-center justify-between p-3 bg-white rounded-lg border border-gray-200">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-full bg-cyan-500 flex items-center justify-center text-white font-bold">M</div>
+                      <span className="font-medium">@MINDKRRAFT</span>
+                    </div>
+                    <div className="text-lg font-bold text-cyan-800">7.476</div>
+                  </div>
+                  
+                  <div className="flex items-center justify-between p-3 bg-gradient-to-r from-amber-50 to-orange-50 rounded-lg border border-amber-200">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-full bg-amber-500 flex items-center justify-center text-white font-bold">M</div>
+                      <span className="font-medium">@MadhurKapoor12 (eski)</span>
+                    </div>
+                    <div className="text-lg font-bold text-amber-800">19.115</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </Slide>
+
+      {/* Slide: En Çok Etkileşim Alan Tweetler */}
+      <Slide title="En Çok Etkileşim Alan 10 Tweet" bgColor="bg-gradient-to-br from-slate-50 to-purple-50">
+        <div className="space-y-4 h-full overflow-y-auto">
+          <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-200">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white shadow-md">
+                <Twitter className="w-6 h-6" />
+              </div>
+              <h3 className="text-xl font-bold text-gray-800">Tweet Etki Analizi</h3>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="md:col-span-2 bg-purple-50 p-4 rounded-lg border border-purple-100 mb-2">
+                <p className="text-purple-800 text-sm flex items-start gap-2">
+                  <Info className="w-4 h-4 mt-0.5 flex-shrink-0 text-purple-500" />
+                  <span>En çok etkileşim alan tweetlerin tamamı boykot çağrısı ve siyasi içeriklerden oluşmaktadır. Toplam etkileşim <strong>22.968 beğeni ve 6.121 RT</strong> olarak ölçülmüştür.</span>
+                </p>
+              </div>
+              
+              {/* Top 3 Tweets with special design */}
+              <div className="md:col-span-2">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div className="bg-gradient-to-br from-purple-50 to-indigo-50 rounded-xl overflow-hidden border border-purple-200 shadow-md p-4">
+                    <div className="flex items-center gap-2">
+                      <div className="w-10 h-10 rounded-full bg-purple-600 flex items-center justify-center text-white text-sm font-bold">1</div>
+                      <div>
+                        <div className="font-semibold text-purple-900">@dmuthuk</div>
+                        <div className="text-xs text-purple-700">En yüksek görüntülenme</div>
+                      </div>
+                    </div>
+                    <div className="mt-3 px-3 py-3 bg-white rounded-lg border border-purple-100 text-sm text-gray-800 italic">
+                      "Azerbaijan and Turkey earns lot of money because of Indian tourists... We should not fly Turkish airlines too..."
+                    </div>
+                    <div className="mt-3 flex flex-wrap gap-2 text-xs">
+                      <span className="flex items-center gap-1 bg-purple-100 text-purple-700 px-2 py-1 rounded-full">
+                        <ThumbsUp className="w-3 h-3" />
+                        <span className="font-semibold">9.310</span>
+                      </span>
+                      <span className="flex items-center gap-1 bg-blue-100 text-blue-700 px-2 py-1 rounded-full">
+                        <Twitter className="w-3 h-3" />
+                        <span className="font-semibold">2.212 RT</span>
+                      </span>
+                      <span className="flex items-center gap-1 bg-indigo-100 text-indigo-700 px-2 py-1 rounded-full">
+                        <Star className="w-3 h-3" />
+                        <span className="font-semibold">373.908 görüntülenme</span>
+                      </span>
+                    </div>
+                  </div>
+                  
+                  <div className="bg-gradient-to-br from-blue-50 to-sky-50 rounded-xl overflow-hidden border border-blue-200 shadow-md p-4">
+                    <div className="flex items-center gap-2">
+                      <div className="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white text-sm font-bold">2</div>
+                      <div>
+                        <div className="font-semibold text-blue-900">@Ravisutanjani</div>
+                        <div className="text-xs text-blue-700">En yüksek retweet</div>
+                      </div>
+                    </div>
+                    <div className="mt-3 px-3 py-3 bg-white rounded-lg border border-blue-100 text-sm text-gray-800 italic">
+                      "🚨 Not a Single Indian Flight Booking Apps (OTAs) Suspended Booking To Turkey... Indians Should Boycott Turkey..."
+                    </div>
+                    <div className="mt-3 flex flex-wrap gap-2 text-xs">
+                      <span className="flex items-center gap-1 bg-blue-100 text-blue-700 px-2 py-1 rounded-full">
+                        <ThumbsUp className="w-3 h-3" />
+                        <span className="font-semibold">9.254</span>
+                      </span>
+                      <span className="flex items-center gap-1 bg-sky-100 text-sky-700 px-2 py-1 rounded-full">
+                        <Twitter className="w-3 h-3" />
+                        <span className="font-semibold">2.653 RT</span>
+                      </span>
+                      <span className="flex items-center gap-1 bg-indigo-100 text-indigo-700 px-2 py-1 rounded-full">
+                        <Star className="w-3 h-3" />
+                        <span className="font-semibold">125.399 görüntülenme</span>
+                      </span>
+                    </div>
+                  </div>
+                  
+                  <div className="bg-gradient-to-br from-indigo-50 to-violet-50 rounded-xl overflow-hidden border border-indigo-200 shadow-md p-4">
+                    <div className="flex items-center gap-2">
+                      <div className="w-10 h-10 rounded-full bg-indigo-600 flex items-center justify-center text-white text-sm font-bold">3</div>
+                      <div>
+                        <div className="font-semibold text-indigo-900">@Ravisutanjani</div>
+                        <div className="text-xs text-indigo-700">Yüksek etkileşimli</div>
+                      </div>
+                    </div>
+                    <div className="mt-3 px-3 py-3 bg-white rounded-lg border border-indigo-100 text-sm text-gray-800 italic">
+                      "🚨 Boycott Turkey Campaign is Working... Surge in Turkey and Azerbaijan Flight and Hotel Cancellations..."
+                    </div>
+                    <div className="mt-3 flex flex-wrap gap-2 text-xs">
+                      <span className="flex items-center gap-1 bg-indigo-100 text-indigo-700 px-2 py-1 rounded-full">
+                        <ThumbsUp className="w-3 h-3" />
+                        <span className="font-semibold">1.819</span>
+                      </span>
+                      <span className="flex items-center gap-1 bg-violet-100 text-violet-700 px-2 py-1 rounded-full">
+                        <Twitter className="w-3 h-3" />
+                        <span className="font-semibold">319 RT</span>
+                      </span>
+                      <span className="flex items-center gap-1 bg-purple-100 text-purple-700 px-2 py-1 rounded-full">
+                        <Star className="w-3 h-3" />
+                        <span className="font-semibold">27.225 görüntülenme</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Other tweets in smaller cards */}
+              <div className="space-y-3">
+                <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-3 hover:shadow-md transition-shadow">
+                  <div className="flex items-center gap-2 mb-2">
+                    <div className="w-8 h-8 rounded-full bg-gray-600 flex items-center justify-center text-white text-xs font-bold">4</div>
+                    <div className="font-semibold text-gray-800">@seriousfunnyguy</div>
+                  </div>
+                  <p className="text-sm text-gray-700 italic mb-2">"Share Max so Turkey becomes an abuse for every Indian! Boycott Turkey for tourism..."</p>
+                  <div className="flex flex-wrap gap-2 text-xs">
+                    <span className="bg-gray-100 text-gray-700 px-2 py-0.5 rounded">👍 434</span>
+                    <span className="bg-gray-100 text-gray-700 px-2 py-0.5 rounded">🔄 233</span>
+                    <span className="bg-gray-100 text-gray-700 px-2 py-0.5 rounded">👁️ 17.483</span>
+                  </div>
+                </div>
+                
+                <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-3 hover:shadow-md transition-shadow">
+                  <div className="flex items-center gap-2 mb-2">
+                    <div className="w-8 h-8 rounded-full bg-gray-600 flex items-center justify-center text-white text-xs font-bold">5</div>
+                    <div className="font-semibold text-gray-800">@TIgerNS3</div>
+                  </div>
+                  <p className="text-sm text-gray-700 italic mb-2">"Economic Boycott of Pakistan supporters countries starts in India..."</p>
+                  <div className="flex flex-wrap gap-2 text-xs">
+                    <span className="bg-gray-100 text-gray-700 px-2 py-0.5 rounded">👍 355</span>
+                    <span className="bg-gray-100 text-gray-700 px-2 py-0.5 rounded">🔄 201</span>
+                    <span className="bg-gray-100 text-gray-700 px-2 py-0.5 rounded">👁️ 16.947</span>
+                  </div>
+                </div>
+                
+                <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-3 hover:shadow-md transition-shadow">
+                  <div className="flex items-center gap-2 mb-2">
+                    <div className="w-8 h-8 rounded-full bg-gray-600 flex items-center justify-center text-white text-xs font-bold">6</div>
+                    <div className="font-semibold text-gray-800">@Gajanan_from_MS</div>
+                  </div>
+                  <p className="text-sm text-gray-700 italic mb-2">"@ANI Boycott Turkish airlines, Flights and dramas in our country."</p>
+                  <div className="flex flex-wrap gap-2 text-xs">
+                    <span className="bg-gray-100 text-gray-700 px-2 py-0.5 rounded">👍 307</span>
+                    <span className="bg-gray-100 text-gray-700 px-2 py-0.5 rounded">🔄 72</span>
+                    <span className="bg-gray-100 text-gray-700 px-2 py-0.5 rounded">👁️ 8.981</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="space-y-3">
+                <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-3 hover:shadow-md transition-shadow">
+                  <div className="flex items-center gap-2 mb-2">
+                    <div className="w-8 h-8 rounded-full bg-gray-600 flex items-center justify-center text-white text-xs font-bold">7</div>
+                    <div className="font-semibold text-gray-800">@enbee007</div>
+                  </div>
+                  <p className="text-sm text-gray-700 italic mb-2">"Boycott Turkey!!! No tourism and no flights by Turkish airlines"</p>
+                  <div className="flex flex-wrap gap-2 text-xs">
+                    <span className="bg-gray-100 text-gray-700 px-2 py-0.5 rounded">👍 139</span>
+                    <span className="bg-gray-100 text-gray-700 px-2 py-0.5 rounded">🔄 51</span>
+                    <span className="bg-gray-100 text-gray-700 px-2 py-0.5 rounded">👁️ 5.833</span>
+                  </div>
+                </div>
+                
+                <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-3 hover:shadow-md transition-shadow">
+                  <div className="flex items-center gap-2 mb-2">
+                    <div className="w-8 h-8 rounded-full bg-gray-600 flex items-center justify-center text-white text-xs font-bold">8</div>
+                    <div className="font-semibold text-gray-800">@Akarshit78</div>
+                  </div>
+                  <p className="text-sm text-gray-700 italic mb-2">"Remember 2023 when Bharat rushed aid to Turkey... Govt must ban Turkish Airlines!"</p>
+                  <div className="flex flex-wrap gap-2 text-xs">
+                    <span className="bg-gray-100 text-gray-700 px-2 py-0.5 rounded">👍 69</span>
+                    <span className="bg-gray-100 text-gray-700 px-2 py-0.5 rounded">🔄 50</span>
+                    <span className="bg-gray-100 text-gray-700 px-2 py-0.5 rounded">👁️ 4.552</span>
+                  </div>
+                </div>
+                
+                <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-3 hover:shadow-md transition-shadow">
+                  <div className="flex items-center gap-2 mb-2">
+                    <div className="w-8 h-8 rounded-full bg-gray-600 flex items-center justify-center text-white text-xs font-bold">9</div>
+                    <div className="font-semibold text-gray-800">@prawasitv</div>
+                  </div>
+                  <p className="text-sm text-gray-700 italic mb-2">"A call to boycott Turkish Airlines! #Turkey #Pakistan #turkishairlines"</p>
+                  <div className="flex flex-wrap gap-2 text-xs">
+                    <span className="bg-gray-100 text-gray-700 px-2 py-0.5 rounded">👍 60</span>
+                    <span className="bg-gray-100 text-gray-700 px-2 py-0.5 rounded">🔄 18</span>
+                    <span className="bg-gray-100 text-gray-700 px-2 py-0.5 rounded">👁️ 15.223</span>
+                  </div>
+                </div>
+                
+                <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-3 hover:shadow-md transition-shadow">
+                  <div className="flex items-center gap-2 mb-2">
+                    <div className="w-8 h-8 rounded-full bg-gray-600 flex items-center justify-center text-white text-xs font-bold">10</div>
+                    <div className="font-semibold text-gray-800">@rojavanewsnetw</div>
+                  </div>
+                  <p className="text-sm text-gray-700 italic mb-2">"Indians call to boycott Turkish products after reports Turkey is supplying Pakistan..."</p>
+                  <div className="flex flex-wrap gap-2 text-xs">
+                    <span className="bg-gray-100 text-gray-700 px-2 py-0.5 rounded">👍 55</span>
+                    <span className="bg-gray-100 text-gray-700 px-2 py-0.5 rounded">🔄 21</span>
+                    <span className="bg-gray-100 text-gray-700 px-2 py-0.5 rounded">👁️ 3.672</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </Slide>
+
       {/* Slide 7: En Popüler Tweetler */}
       <Slide title="6. En Popüler Tweetler (Gerçek İçeriklerle)">
         <div className="space-y-6">
@@ -781,7 +1162,7 @@ const Index = () => {
                   <div className="w-6 h-6 mt-0.5 flex-shrink-0 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center">
                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-arrow-right"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
                   </div>
-                  <span>En fazla etkileşim alan içeriklerin tamamı boykot ve tepki temalıdır.</span>
+                  <span>En fazla etkileşim alan içeriklerin tamamı boykot çağrısı ve siyasi içeriklerden oluşmaktadır.</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <div className="w-6 h-6 mt-0.5 flex-shrink-0 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center">
