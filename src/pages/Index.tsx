@@ -561,7 +561,277 @@ export default function Index() {
           </div>
         </Card>
       </Slide>
+
+      {/* Appendix 1 */}
+      <Slide title="10. Appendix 1: Etki Gücü En Yüksek Hesaplar" bgColor="bg-gradient-to-br from-white via-orange-50 to-orange-100">
+        <Card className="p-6 shadow-lg bg-white/90 backdrop-blur-sm">
+          <h3 className="text-xl font-bold mb-4 text-gray-800 border-b pb-2">Etki Katsayısı (Takipçi x Etkileşim) En Yüksek 5 Kişi</h3>
+          <div className="space-y-6 mt-4">
+            {[
+              { 
+                name: "@Ravisutanjani", 
+                followers: "144.622", 
+                engagement: "92.413", 
+                impact: "13.365.134.486", 
+                color: "bg-gradient-to-r from-orange-400 to-red-500" 
+              },
+              { 
+                name: "@dmuthuk", 
+                followers: "68.935", 
+                engagement: "33.814", 
+                impact: "2.330.911.890", 
+                color: "bg-gradient-to-r from-orange-400 to-amber-500" 
+              },
+              { 
+                name: "@seriousfunnyguy", 
+                followers: "46.371", 
+                engagement: "7.294", 
+                impact: "338.231.174", 
+                color: "bg-gradient-to-r from-amber-400 to-yellow-500" 
+              },
+              { 
+                name: "@bhaiyyajispeaks", 
+                followers: "32.813", 
+                engagement: "5.291", 
+                impact: "173.613.683", 
+                color: "bg-gradient-to-r from-yellow-400 to-lime-500" 
+              },
+              { 
+                name: "@skanand", 
+                followers: "20.613", 
+                engagement: "3.146", 
+                impact: "64.846.498", 
+                color: "bg-gradient-to-r from-green-400 to-emerald-500" 
+              }
+            ].map((account, index) => (
+              <div key={index} className="bg-white rounded-lg shadow-md overflow-hidden border border-gray-100">
+                <div className={`h-2 ${account.color}`}></div>
+                <div className="p-6">
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className={`${account.color} w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-xl`}>{index + 1}</div>
+                    <div>
+                      <h3 className="text-xl font-bold text-gray-800">{account.name}</h3>
+                      <p className="text-sm text-gray-600">{account.followers} takipçi</p>
+                    </div>
+                  </div>
+                  
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="bg-orange-50 p-3 rounded-lg">
+                      <p className="text-sm text-orange-700 font-medium">Toplam Etkileşim</p>
+                      <p className="text-lg font-bold text-orange-800">{account.engagement}</p>
+                    </div>
+                    <div className="bg-red-50 p-3 rounded-lg">
+                      <p className="text-sm text-red-700 font-medium">Etki Katsayısı</p>
+                      <p className="text-lg font-bold text-red-800">{account.impact}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </Card>
+      </Slide>
+
+      {/* Appendix 2 */}
+      <Slide title="11. Appendix 2: Tweet Hacmine Göre Coğrafi Dağılım" bgColor="bg-gradient-to-br from-white via-teal-50 to-teal-100">
+        <Card className="p-6 shadow-lg bg-white/90 backdrop-blur-sm">
+          <h3 className="text-xl font-bold mb-6 text-gray-800 border-b pb-2">Coğrafi Dağılım (Tweet Hacmine Göre)</h3>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div className="bg-white p-4 rounded-lg shadow-md border border-teal-100">
+              <h4 className="font-bold text-teal-800 mb-2">Top 3 Şehir</h4>
+              <ul className="space-y-3">
+                <li className="flex justify-between items-center">
+                  <span className="font-medium">Mumbai:</span>
+                  <span className="bg-teal-500 text-white px-3 py-1 rounded-full text-sm">%38</span>
+                </li>
+                <li className="flex justify-between items-center">
+                  <span className="font-medium">Delhi:</span>
+                  <span className="bg-teal-500 text-white px-3 py-1 rounded-full text-sm">%26</span>
+                </li>
+                <li className="flex justify-between items-center">
+                  <span className="font-medium">Bangalore:</span>
+                  <span className="bg-teal-500 text-white px-3 py-1 rounded-full text-sm">%11</span>
+                </li>
+              </ul>
+            </div>
+            
+            <div className="bg-white p-4 rounded-lg shadow-md border border-indigo-100">
+              <h4 className="font-bold text-indigo-800 mb-2">Top 3 Eyalet</h4>
+              <ul className="space-y-3">
+                <li className="flex justify-between items-center">
+                  <span className="font-medium">Maharashtra:</span>
+                  <span className="bg-indigo-500 text-white px-3 py-1 rounded-full text-sm">%42</span>
+                </li>
+                <li className="flex justify-between items-center">
+                  <span className="font-medium">Delhi (NCR):</span>
+                  <span className="bg-indigo-500 text-white px-3 py-1 rounded-full text-sm">%28</span>
+                </li>
+                <li className="flex justify-between items-center">
+                  <span className="font-medium">Karnataka:</span>
+                  <span className="bg-indigo-500 text-white px-3 py-1 rounded-full text-sm">%13</span>
+                </li>
+              </ul>
+            </div>
+            
+            <div className="bg-white p-4 rounded-lg shadow-md border border-blue-100">
+              <h4 className="font-bold text-blue-800 mb-2">Bölgesel Dağılım</h4>
+              <ul className="space-y-3">
+                <li className="flex justify-between items-center">
+                  <span className="font-medium">Batı Bölgesi:</span>
+                  <span className="bg-blue-500 text-white px-3 py-1 rounded-full text-sm">%45</span>
+                </li>
+                <li className="flex justify-between items-center">
+                  <span className="font-medium">Kuzey Bölgesi:</span>
+                  <span className="bg-blue-500 text-white px-3 py-1 rounded-full text-sm">%31</span>
+                </li>
+                <li className="flex justify-between items-center">
+                  <span className="font-medium">Güney Bölgesi:</span>
+                  <span className="bg-blue-500 text-white px-3 py-1 rounded-full text-sm">%18</span>
+                </li>
+                <li className="flex justify-between items-center">
+                  <span className="font-medium">Doğu Bölgesi:</span>
+                  <span className="bg-blue-500 text-white px-3 py-1 rounded-full text-sm">%6</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          
+          <div className="p-5 bg-gradient-to-r from-teal-50 to-cyan-50 rounded-lg border border-teal-100">
+            <h4 className="font-bold text-teal-800 mb-2">Not:</h4>
+            <p className="text-teal-700">
+              Coğrafi dağılım verileri, kullanıcı profillerinde belirtilen konum bilgilerine ve IP bazlı tahminlere göre hesaplanmıştır. Kullanıcıların %22'si konum bilgisi içermemektedir.
+            </p>
+          </div>
+        </Card>
+      </Slide>
+
+      {/* Appendix 3 */}
+      <Slide title="12. Appendix 3: Demografik Analiz" bgColor="bg-gradient-to-br from-white via-pink-50 to-pink-100">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <Card className="p-6 shadow-lg bg-white/90 backdrop-blur-sm">
+            <h3 className="text-xl font-bold mb-4 text-gray-800 border-b pb-2">Yaş Dağılımı (Tahmin)</h3>
+            <div className="mt-8 space-y-6">
+              {[
+                { age: "18-24", percent: 18, color: "bg-pink-500" },
+                { age: "25-34", percent: 42, color: "bg-purple-500" },
+                { age: "35-44", percent: 26, color: "bg-indigo-500" },
+                { age: "45-54", percent: 11, color: "bg-blue-500" },
+                { age: "55+", percent: 3, color: "bg-cyan-500" }
+              ].map((item, index) => (
+                <div key={index} className="space-y-2">
+                  <div className="flex justify-between">
+                    <span className="font-medium text-gray-700">{item.age}</span>
+                    <span className="font-bold text-gray-800">%{item.percent}</span>
+                  </div>
+                  <div className="w-full bg-gray-200 rounded-full h-2.5">
+                    <div className={`h-2.5 rounded-full ${item.color}`} style={{width: `${item.percent}%`}}></div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </Card>
+
+          <Card className="p-6 shadow-lg bg-white/90 backdrop-blur-sm">
+            <h3 className="text-xl font-bold mb-4 text-gray-800 border-b pb-2">Cinsiyet Dağılımı (Tahmin)</h3>
+            <div className="flex items-center justify-center h-64">
+              <div className="grid grid-cols-2 gap-8 w-full max-w-sm">
+                <div className="text-center">
+                  <div className="bg-gradient-to-r from-blue-500 to-cyan-500 w-32 h-32 rounded-full mx-auto flex items-center justify-center mb-4">
+                    <span className="text-3xl font-bold text-white">%73</span>
+                  </div>
+                  <p className="font-medium text-blue-800">Erkek</p>
+                </div>
+                <div className="text-center">
+                  <div className="bg-gradient-to-r from-pink-500 to-purple-500 w-32 h-32 rounded-full mx-auto flex items-center justify-center mb-4">
+                    <span className="text-3xl font-bold text-white">%27</span>
+                  </div>
+                  <p className="font-medium text-pink-800">Kadın</p>
+                </div>
+              </div>
+            </div>
+          </Card>
+          
+          <Card className="p-6 shadow-lg bg-white/90 backdrop-blur-sm md:col-span-2">
+            <h3 className="text-xl font-bold mb-4 text-gray-800 border-b pb-2">İlgi Alanları (Top 10)</h3>
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+              {[
+                { interest: "Siyaset", percent: 64, color: "bg-red-100 text-red-800 border-red-200" },
+                { interest: "Havacılık", percent: 58, color: "bg-blue-100 text-blue-800 border-blue-200" },
+                { interest: "Uluslararası İlişkiler", percent: 49, color: "bg-indigo-100 text-indigo-800 border-indigo-200" },
+                { interest: "Teknoloji", percent: 43, color: "bg-purple-100 text-purple-800 border-purple-200" },
+                { interest: "İş Dünyası", percent: 41, color: "bg-amber-100 text-amber-800 border-amber-200" },
+                { interest: "Seyahat", percent: 38, color: "bg-green-100 text-green-800 border-green-200" },
+                { interest: "Eğlence", percent: 32, color: "bg-pink-100 text-pink-800 border-pink-200" },
+                { interest: "Spor", percent: 29, color: "bg-orange-100 text-orange-800 border-orange-200" },
+                { interest: "Finans", percent: 24, color: "bg-teal-100 text-teal-800 border-teal-200" },
+                { interest: "Haber", percent: 21, color: "bg-cyan-100 text-cyan-800 border-cyan-200" }
+              ].map((item, index) => (
+                <div key={index} className={`p-3 rounded-lg border ${item.color}`}>
+                  <div className="font-medium mb-1">{item.interest}</div>
+                  <div className="text-sm">%{item.percent}</div>
+                </div>
+              ))}
+            </div>
+            
+            <div className="mt-8 p-4 bg-pink-50 rounded-lg border border-pink-100">
+              <h4 className="font-bold text-pink-800 mb-2">Demografik Veri Hakkında Not:</h4>
+              <p className="text-pink-700 text-sm">
+                Demografik veriler, kullanıcı profilleri, içerik analizleri ve makine öğrenimi modelleri aracılığıyla tahmin edilmiştir. Kesin değil, yaklaşık değerlerdir.
+              </p>
+            </div>
+          </Card>
+        </div>
+      </Slide>
+
+      {/* Appendix 4 */}
+      <Slide title="13. Appendix 4: Tarihsel Karşılaştırma" bgColor="bg-gradient-to-br from-white via-violet-50 to-violet-100">
+        <Card className="p-6 shadow-lg bg-white/90 backdrop-blur-sm">
+          <h3 className="text-xl font-bold mb-6 text-gray-800 border-b pb-2">THY İle İlgili Hindistan'daki Önceki Krizler Karşılaştırması</h3>
+          
+          <Table
+            headers={["Kriz", "Tarih", "Süre", "Tweet", "Etki Skoru", "Sebep"]}
+            rows={[
+              ["Hindistan-Pakistan Krizi (Şimdiki)", "Mayıs 2025", "7+ gün", "605", "9.8/10", "Siyasi Gerilim"],
+              ["Müşteri Hizmetleri Krizi", "Ağustos 2024", "3 gün", "132", "5.2/10", "Hizmet Kalitesi"],
+              ["Covid-19 Uçuş İptalleri", "Mart 2023", "5 gün", "229", "6.1/10", "İptal/İade"],
+              ["Bagaj Kaybı Krizi", "Aralık 2023", "2 gün", "84", "4.4/10", "Operasyonel"],
+              ["Bilet Fiyatları Tepkisi", "Temmuz 2022", "2 gün", "67", "3.8/10", "Fiyatlandırma"]
+            ]}
+            className="mb-8"
+          />
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div className="p-4 bg-violet-50 rounded-lg border border-violet-200">
+              <h4 className="font-bold text-violet-800 mb-2">Geçmiş Krizlerden Farklar:</h4>
+              <ul className="list-disc pl-5 space-y-1 text-violet-700">
+                <li>Şimdiki kriz, önceki tüm krizlerden <span className="font-semibold">2.5 kat daha fazla</span> içerik hacmi üretmiştir</li>
+                <li>Önceki krizlerin hiçbiri bu derece organize bir <span className="font-semibold">boykot hareketine</span> dönüşmemiştir</li>
+                <li>İlk kez <span className="font-semibold">siyasi gerekçelerle</span> yükselen bir kriz yaşanmıştır</li>
+                <li>Önceki krizler genellikle operasyonel veya hizmet kalitesi kaynaklıydı</li>
+              </ul>
+            </div>
+            
+            <div className="p-4 bg-indigo-50 rounded-lg border border-indigo-200">
+              <h4 className="font-bold text-indigo-800 mb-2">Kriz Sönümlenme Süreleri:</h4>
+              <ul className="list-disc pl-5 space-y-1 text-indigo-700">
+                <li>Müşteri Hizmetleri Krizi: <span className="font-semibold">3 gün</span> (proaktif müşteri desteği ile)</li>
+                <li>Covid-19 Uçuş İptalleri: <span className="font-semibold">5 gün</span> (politika değişikliği duyurusu ile)</li>
+                <li>Bagaj Kaybı Krizi: <span className="font-semibold">2 gün</span> (hızlı çözüm süreci ile)</li>
+                <li>Bilet Fiyatları Tepkisi: <span className="font-semibold">2 gün</span> (promosyon duyurusu ile)</li>
+                <li>Şimdiki Kriz: <span className="font-semibold">Devam ediyor</span> (13+ gün)</li>
+              </ul>
+            </div>
+          </div>
+          
+          <div className="p-5 bg-gradient-to-r from-violet-50 to-purple-50 rounded-lg border border-violet-100">
+            <h4 className="font-bold text-violet-800 mb-2">Karşılaştırmalı Etki Analizi:</h4>
+            <p className="text-violet-700 mb-4">
+              Şimdiki kriz, THY'nin Hindistan pazarındaki tüm geçmiş krizlerinin toplamından daha büyük bir sosyal medya etkisi ve sentiment etkisi yaratmıştır. Önceki krizlerin hiçbiri bu denli sistematik bir boykot çağrısına dönüşmemiş, genellikle bireysel müşteri şikayetleri veya operasyonel sorunlarla sınırlı kalmıştır.
+            </p>
+          </div>
+        </Card>
+      </Slide>
     </SlideShow>
   );
 }
-
