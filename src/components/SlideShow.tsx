@@ -45,7 +45,7 @@ const SlideShow = ({ children, className }: SlideShowProps) => {
       <div className="absolute bottom-0 right-0 w-40 h-40 bg-gradient-to-tl from-blue-200/20 to-transparent rounded-full -mr-20 -mb-20 blur-xl"></div>
       
       {/* Current slide */}
-      <div className="absolute inset-0 transition-all duration-500 ease-in-out overflow-hidden">
+      <div className="w-full h-full transition-all duration-500 ease-in-out overflow-hidden">
         {React.Children.toArray(children)[currentSlide]}
       </div>
       

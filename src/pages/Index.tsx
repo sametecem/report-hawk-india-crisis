@@ -8,12 +8,15 @@ import {
   Bar, 
   LineChart, 
   Line, 
+  PieChart,
   Pie, 
   XAxis, 
   YAxis, 
   CartesianGrid, 
   Tooltip, 
-  Legend 
+  Legend,
+  ResponsiveContainer,
+  Cell
 } from "recharts";
 import { Card } from "@/components/ui/card";
 
@@ -96,49 +99,55 @@ export default function Index() {
         </div>
       </Slide>
 
-      {/* Yönetici Özeti */}
-      <Slide title="1. Yönetici Özeti" bgColor="bg-gradient-to-br from-white via-slate-50 to-slate-100">
-        <div className="p-6 bg-white/80 backdrop-blur-sm rounded-xl shadow-md border border-slate-100">
-          <p className="text-lg leading-relaxed mb-5">
+      {/* Yönetici Özeti - Modernized */}
+      <Slide title="1. Yönetici Özeti" bgColor="bg-gradient-to-br from-white via-slate-50 to-blue-50">
+        <div className="p-6 bg-white/90 backdrop-blur-md rounded-xl shadow-lg border border-blue-100">
+          <p className="text-lg leading-relaxed mb-6 text-gray-700">
             Son 7 ayda Hindistan kamuoyunda Türk Hava Yolları ve Türkiye'ye yönelik, sosyal medya odaklı, şimdiye kadarki en kapsamlı boykot hareketlerinden biri gerçekleşmiştir. Özellikle 8-14 Mayıs haftasında, <span className="font-semibold text-blue-600">#BoycottTurkey</span> ve <span className="font-semibold text-blue-600">#BoycottTurkishAirlines</span> etiketleriyle birlikte THY aleyhindeki içerikler tarihi bir hacme ulaşmıştır.
           </p>
 
-          <div className="mb-5">
-            <h3 className="text-xl font-bold mb-2 text-gray-800">Kriz, 8 Mayıs'ta sosyal medyada yoğun şekilde yükselişe geçmiştir:</h3>
-            <ul className="list-disc pl-6 space-y-2">
-              <li>Bir günde 90 ayrı tweet paylaşılmış, bu içerikler toplamda 10.025 beğeni, 2.366 retweet ve 444.700 görüntülenme üretmiştir.</li>
-              <li>Bu hacim, normal döneme göre 10 kattan fazladır.</li>
-            </ul>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-5 rounded-xl border border-blue-100 shadow-md">
+              <h3 className="text-xl font-bold mb-3 text-indigo-800">Kriz, 8 Mayıs'ta sosyal medyada yoğun şekilde yükselişe geçmiştir:</h3>
+              <ul className="list-disc pl-6 space-y-2 text-gray-700">
+                <li>Bir günde 90 ayrı tweet paylaşılmış, bu içerikler toplamda 10.025 beğeni, 2.366 retweet ve 444.700 görüntülenme üretmiştir.</li>
+                <li>Bu hacim, normal döneme göre 10 kattan fazladır.</li>
+              </ul>
+            </div>
+
+            <div className="bg-gradient-to-br from-purple-50 to-pink-50 p-5 rounded-xl border border-purple-100 shadow-md">
+              <h3 className="text-xl font-bold mb-3 text-purple-800">İçerik ve Tema Analizi:</h3>
+              <ul className="list-disc pl-6 space-y-2 text-gray-700">
+                <li>Rapor döneminde analiz edilen 605 tweetin %93'ü açıkça negatif tonda yazılmış, pozitif veya savunucu içerik neredeyse hiç görülmemiştir.</li>
+                <li>Tweetlerin başat teması boykot çağrısı (%68) ve "THY, Pakistan'a destek veriyor" algısı olmuştur.</li>
+              </ul>
+            </div>
           </div>
 
-          <div className="mb-5">
-            <h3 className="text-xl font-bold mb-2 text-gray-800">İçerik ve Tema Analizi:</h3>
-            <ul className="list-disc pl-6 space-y-2">
-              <li>Rapor döneminde analiz edilen 605 tweetin %93'ü açıkça negatif tonda yazılmış, pozitif veya savunucu içerik neredeyse hiç görülmemiştir.</li>
-              <li>Tweetlerin başat teması boykot çağrısı (%68) ve "THY, Pakistan'a destek veriyor" algısı olmuştur.</li>
-              <li>IndiGo ve Air India gibi alternatif havayolu önerileri öne çıkarken, THY markası neredeyse tüm tweetlerde eleştiri konusu yapılmıştır.</li>
-            </ul>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div className="bg-gradient-to-br from-cyan-50 to-teal-50 p-5 rounded-xl border border-cyan-100 shadow-md">
+              <h3 className="text-xl font-bold mb-3 text-teal-800">Yüksek Etkileşim ve Yayılım:</h3>
+              <ul className="list-disc pl-6 space-y-2 text-gray-700">
+                <li>En çok etkileşim yaratan içerikler 100.000'den fazla görüntülenme ve binlerce beğeni/retweet ile @dmuthuk ve @Ravisutanjani gibi yüksek takipçili kullanıcıların boykot çağrılarıdır.</li>
+                <li>#indigo ve #turkishairlines, en sık kullanılan hashtagler olmuş, kelime bulutunda "boycott", "turkey", "pakistan" gibi kelimeler öne çıkmıştır.</li>
+              </ul>
+            </div>
+
+            <div className="bg-gradient-to-br from-amber-50 to-orange-50 p-5 rounded-xl border border-amber-100 shadow-md">
+              <h3 className="text-xl font-bold mb-3 text-amber-800">Duygu Analizi ve Trend:</h3>
+              <ul className="list-disc pl-6 space-y-2 text-gray-700">
+                <li>Kriz boyunca günlük ortalama duygu skoru -0,95'te kalmış ve olumsuzluk oranı hiçbir zaman %85'in altına düşmemiştir.</li>
+                <li>8 Mayıs zirvesinden sonra hacim düşse de, olumsuz duygu oranı yüksek seviyede seyretmeye devam etmiştir.</li>
+              </ul>
+            </div>
           </div>
 
-          <div className="mb-5">
-            <h3 className="text-xl font-bold mb-2 text-gray-800">Yüksek Etkileşim ve Yayılım:</h3>
-            <ul className="list-disc pl-6 space-y-2">
-              <li>En çok etkileşim yaratan içerikler 100.000'den fazla görüntülenme ve binlerce beğeni/retweet ile @dmuthuk ve @Ravisutanjani gibi yüksek takipçili kullanıcıların boykot çağrılarıdır.</li>
-              <li>#indigo ve #turkishairlines, en sık kullanılan hashtagler olmuş, kelime bulutunda ise "boycott", "turkey", "pakistan", "indigo", "ban", "cancel" gibi kelimeler belirgin olarak öne çıkmıştır.</li>
-            </ul>
-          </div>
-
-          <div className="mb-5">
-            <h3 className="text-xl font-bold mb-2 text-gray-800">Duygu Analizi ve Trend:</h3>
-            <ul className="list-disc pl-6 space-y-2">
-              <li>Kriz boyunca günlük ortalama duygu skoru -0,95'te kalmış ve olumsuzluk oranı hiçbir zaman %85'in altına düşmemiştir.</li>
-              <li>8 Mayıs zirvesinden sonra hacim düşse de, olumsuz duygu oranı yüksek seviyede seyretmeye devam etmiştir.</li>
-            </ul>
-          </div>
-
-          <div className="mt-5 pt-3 border-t border-slate-200">
-            <h3 className="text-xl font-bold mb-2 text-gray-800">Özet:</h3>
-            <p className="text-lg italic text-gray-700">
+          <div className="mt-6 p-5 bg-gradient-to-r from-indigo-50 to-purple-50 rounded-xl border border-indigo-100 shadow-md">
+            <h3 className="text-xl font-bold mb-3 text-indigo-900 flex items-center">
+              <span className="w-1.5 h-6 bg-gradient-to-b from-indigo-500 to-purple-600 rounded-full mr-2"></span>
+              Özet
+            </h3>
+            <p className="text-lg italic text-gray-700 leading-relaxed">
               Bu dönem, THY'nin Hindistan'daki marka algısı için şimdiye kadar kaydedilen en olumsuz dönemi oluşturmuş, boykot ve eleştiri temalı içerikler sosyal medyada hızlı ve geniş bir yayılım göstermiştir.
             </p>
           </div>
@@ -166,15 +175,25 @@ export default function Index() {
           <Card className="p-6 shadow-lg bg-white/90 backdrop-blur-sm">
             <h3 className="text-xl font-bold mb-4 text-gray-800 border-b pb-2">İçerik Türüne Göre Duygu Dağılımı</h3>
             <div className="h-64">
-              <Pie
-                data={emotionData}
-                dataKey="value"
-                nameKey="name"
-                cx="50%"
-                cy="50%"
-                outerRadius={80}
-                label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(1)}%`}
-              />
+              <ResponsiveContainer width="100%" height="100%">
+                <PieChart>
+                  <Pie
+                    data={emotionData}
+                    dataKey="value"
+                    nameKey="name"
+                    cx="50%"
+                    cy="50%"
+                    outerRadius={80}
+                    label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(1)}%`}
+                  >
+                    {emotionData.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={entry.fill} />
+                    ))}
+                  </Pie>
+                  <Tooltip formatter={(value) => `${value}%`} />
+                  <Legend />
+                </PieChart>
+              </ResponsiveContainer>
             </div>
             <div className="mt-4 space-y-2">
               <p className="font-medium">Negatif: <span className="font-bold text-red-600">561 tweet (%92,7)</span></p>
@@ -186,19 +205,19 @@ export default function Index() {
           <Card className="p-6 shadow-lg bg-white/90 backdrop-blur-sm md:col-span-2">
             <h3 className="text-xl font-bold mb-4 text-gray-800 border-b pb-2">Dönemsel Hacim ve Zirve Günler</h3>
             <div className="h-80">
-              <LineChart
-                data={tweetVolumeData}
-                margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
-                width={800}
-                height={300}
-              >
-                <XAxis dataKey="name" />
-                <YAxis />
-                <CartesianGrid strokeDasharray="3 3" />
-                <Tooltip />
-                <Legend />
-                <Line type="monotone" dataKey="tweets" stroke="#3b82f6" strokeWidth={2} />
-              </LineChart>
+              <ResponsiveContainer width="100%" height="100%">
+                <LineChart
+                  data={tweetVolumeData}
+                  margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+                >
+                  <XAxis dataKey="name" />
+                  <YAxis />
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <Tooltip />
+                  <Legend />
+                  <Line type="monotone" dataKey="tweets" stroke="#3b82f6" strokeWidth={2} />
+                </LineChart>
+              </ResponsiveContainer>
             </div>
             <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="bg-blue-50 p-4 rounded-lg">
@@ -240,19 +259,19 @@ export default function Index() {
           <div className="mt-8">
             <h3 className="text-xl font-bold mb-4 text-gray-800">Duygu Skoru Trendi (8-14 Mayıs)</h3>
             <div className="h-64">
-              <LineChart
-                data={sentimentData}
-                margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
-                width={800}
-                height={250}
-              >
-                <XAxis dataKey="name" />
-                <YAxis domain={[-1, 0]} />
-                <CartesianGrid strokeDasharray="3 3" />
-                <Tooltip />
-                <Legend />
-                <Line type="monotone" dataKey="score" stroke="#ef4444" strokeWidth={2} />
-              </LineChart>
+              <ResponsiveContainer width="100%" height="100%">
+                <LineChart
+                  data={sentimentData}
+                  margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+                >
+                  <XAxis dataKey="name" />
+                  <YAxis domain={[-1, 0]} />
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <Tooltip />
+                  <Legend />
+                  <Line type="monotone" dataKey="score" stroke="#ef4444" strokeWidth={2} />
+                </LineChart>
+              </ResponsiveContainer>
             </div>
           </div>
         </Card>
@@ -283,15 +302,25 @@ export default function Index() {
           <Card className="p-6 shadow-lg bg-white/90 backdrop-blur-sm md:col-span-2">
             <h3 className="text-xl font-bold mb-4 text-gray-800 border-b pb-2">Kategorize Edilmiş İçerik Sınıflandırması</h3>
             <div className="h-80">
-              <Pie
-                data={categoryData}
-                dataKey="value"
-                nameKey="name"
-                cx="50%"
-                cy="50%"
-                outerRadius={100}
-                label={({ name, value }) => `${name}: %${value}`}
-              />
+              <ResponsiveContainer width="100%" height="100%">
+                <PieChart>
+                  <Pie
+                    data={categoryData}
+                    dataKey="value"
+                    nameKey="name"
+                    cx="50%"
+                    cy="50%"
+                    outerRadius={100}
+                    label={({ name, value }) => `${name}: %${value}`}
+                  >
+                    {categoryData.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={entry.fill} />
+                    ))}
+                  </Pie>
+                  <Tooltip formatter={(value) => `%${value}`} />
+                  <Legend />
+                </PieChart>
+              </ResponsiveContainer>
             </div>
             <div className="mt-4 p-4 bg-gray-50 rounded-lg">
               <p className="font-medium text-gray-800">
@@ -505,19 +534,23 @@ export default function Index() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <Card className="p-6 shadow-lg bg-white/90 backdrop-blur-sm md:col-span-2">
             <div className="h-80">
-              <BarChart 
-                data={hashtagData} 
-                margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
-                width={800}
-                height={320}
-              >
-                <XAxis dataKey="name" />
-                <YAxis />
-                <CartesianGrid strokeDasharray="3 3" />
-                <Tooltip />
-                <Legend />
-                <Bar dataKey="count" fill="#3b82f6" />
-              </BarChart>
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart 
+                  data={hashtagData} 
+                  margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+                >
+                  <XAxis dataKey="name" />
+                  <YAxis />
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <Tooltip />
+                  <Legend />
+                  <Bar dataKey="count">
+                    {hashtagData.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={entry.fill} />
+                    ))}
+                  </Bar>
+                </BarChart>
+              </ResponsiveContainer>
             </div>
           </Card>
           
