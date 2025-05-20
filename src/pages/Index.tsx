@@ -99,20 +99,20 @@ export default function Index() {
       {/* Yönetici Özeti */}
       <Slide title="1. Yönetici Özeti" bgColor="bg-gradient-to-br from-white via-slate-50 to-slate-100">
         <div className="p-6 bg-white/80 backdrop-blur-sm rounded-xl shadow-md border border-slate-100">
-          <p className="text-lg leading-relaxed mb-6">
+          <p className="text-lg leading-relaxed mb-5">
             Son 7 ayda Hindistan kamuoyunda Türk Hava Yolları ve Türkiye'ye yönelik, sosyal medya odaklı, şimdiye kadarki en kapsamlı boykot hareketlerinden biri gerçekleşmiştir. Özellikle 8-14 Mayıs haftasında, <span className="font-semibold text-blue-600">#BoycottTurkey</span> ve <span className="font-semibold text-blue-600">#BoycottTurkishAirlines</span> etiketleriyle birlikte THY aleyhindeki içerikler tarihi bir hacme ulaşmıştır.
           </p>
 
-          <div className="mb-6">
-            <h3 className="text-xl font-bold mb-3 text-gray-800">Kriz, 8 Mayıs'ta sosyal medyada yoğun şekilde yükselişe geçmiştir:</h3>
+          <div className="mb-5">
+            <h3 className="text-xl font-bold mb-2 text-gray-800">Kriz, 8 Mayıs'ta sosyal medyada yoğun şekilde yükselişe geçmiştir:</h3>
             <ul className="list-disc pl-6 space-y-2">
               <li>Bir günde 90 ayrı tweet paylaşılmış, bu içerikler toplamda 10.025 beğeni, 2.366 retweet ve 444.700 görüntülenme üretmiştir.</li>
               <li>Bu hacim, normal döneme göre 10 kattan fazladır.</li>
             </ul>
           </div>
 
-          <div className="mb-6">
-            <h3 className="text-xl font-bold mb-3 text-gray-800">İçerik ve Tema Analizi:</h3>
+          <div className="mb-5">
+            <h3 className="text-xl font-bold mb-2 text-gray-800">İçerik ve Tema Analizi:</h3>
             <ul className="list-disc pl-6 space-y-2">
               <li>Rapor döneminde analiz edilen 605 tweetin %93'ü açıkça negatif tonda yazılmış, pozitif veya savunucu içerik neredeyse hiç görülmemiştir.</li>
               <li>Tweetlerin başat teması boykot çağrısı (%68) ve "THY, Pakistan'a destek veriyor" algısı olmuştur.</li>
@@ -120,24 +120,24 @@ export default function Index() {
             </ul>
           </div>
 
-          <div className="mb-6">
-            <h3 className="text-xl font-bold mb-3 text-gray-800">Yüksek Etkileşim ve Yayılım:</h3>
+          <div className="mb-5">
+            <h3 className="text-xl font-bold mb-2 text-gray-800">Yüksek Etkileşim ve Yayılım:</h3>
             <ul className="list-disc pl-6 space-y-2">
               <li>En çok etkileşim yaratan içerikler 100.000'den fazla görüntülenme ve binlerce beğeni/retweet ile @dmuthuk ve @Ravisutanjani gibi yüksek takipçili kullanıcıların boykot çağrılarıdır.</li>
               <li>#indigo ve #turkishairlines, en sık kullanılan hashtagler olmuş, kelime bulutunda ise "boycott", "turkey", "pakistan", "indigo", "ban", "cancel" gibi kelimeler belirgin olarak öne çıkmıştır.</li>
             </ul>
           </div>
 
-          <div>
-            <h3 className="text-xl font-bold mb-3 text-gray-800">Duygu Analizi ve Trend:</h3>
+          <div className="mb-5">
+            <h3 className="text-xl font-bold mb-2 text-gray-800">Duygu Analizi ve Trend:</h3>
             <ul className="list-disc pl-6 space-y-2">
               <li>Kriz boyunca günlük ortalama duygu skoru -0,95'te kalmış ve olumsuzluk oranı hiçbir zaman %85'in altına düşmemiştir.</li>
               <li>8 Mayıs zirvesinden sonra hacim düşse de, olumsuz duygu oranı yüksek seviyede seyretmeye devam etmiştir.</li>
             </ul>
           </div>
 
-          <div className="mt-6 pt-4 border-t border-slate-200">
-            <h3 className="text-xl font-bold mb-3 text-gray-800">Özet:</h3>
+          <div className="mt-5 pt-3 border-t border-slate-200">
+            <h3 className="text-xl font-bold mb-2 text-gray-800">Özet:</h3>
             <p className="text-lg italic text-gray-700">
               Bu dönem, THY'nin Hindistan'daki marka algısı için şimdiye kadar kaydedilen en olumsuz dönemi oluşturmuş, boykot ve eleştiri temalı içerikler sosyal medyada hızlı ve geniş bir yayılım göstermiştir.
             </p>
@@ -189,6 +189,8 @@ export default function Index() {
               <LineChart
                 data={tweetVolumeData}
                 margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+                width={800}
+                height={300}
               >
                 <XAxis dataKey="name" />
                 <YAxis />
@@ -241,6 +243,8 @@ export default function Index() {
               <LineChart
                 data={sentimentData}
                 margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+                width={800}
+                height={250}
               >
                 <XAxis dataKey="name" />
                 <YAxis domain={[-1, 0]} />
@@ -362,7 +366,7 @@ export default function Index() {
 
       {/* En Popüler 10 Tweet */}
       <Slide title="6. En Çok Etkileşim Alan 10 Tweet" bgColor="bg-gradient-to-br from-white via-amber-50 to-amber-100">
-        <div className="space-y-4 max-h-[calc(100vh-180px)] overflow-y-auto pr-2">
+        <div className="space-y-4 max-h-[calc(100vh-200px)] overflow-y-auto pr-2">
           {[
             {
               user: "@Ravisutanjani",
@@ -504,6 +508,8 @@ export default function Index() {
               <BarChart 
                 data={hashtagData} 
                 margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+                width={800}
+                height={320}
               >
                 <XAxis dataKey="name" />
                 <YAxis />

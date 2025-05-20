@@ -19,12 +19,12 @@ const Slide = ({ children, className, title, bgColor = "bg-white" }: SlideProps)
       
       <div className="w-full max-w-6xl mx-auto h-full overflow-y-auto py-8 px-6 md:px-10 relative z-10">
         {title && (
-          <h2 className="text-2xl md:text-4xl font-bold mb-8 text-gray-800 border-b pb-3 relative">
+          <h2 className="text-2xl md:text-4xl font-bold mb-6 text-gray-800 border-b pb-3 relative">
             {title}
             <span className="absolute -bottom-0.5 left-0 w-32 h-1 bg-gradient-to-r from-blue-500 to-purple-500"></span>
           </h2>
         )}
-        <div className="flex-1">
+        <div className="flex-1 overflow-y-auto pr-1">
           {children}
         </div>
       </div>

@@ -45,12 +45,12 @@ const SlideShow = ({ children, className }: SlideShowProps) => {
       <div className="absolute bottom-0 right-0 w-40 h-40 bg-gradient-to-tl from-blue-200/20 to-transparent rounded-full -mr-20 -mb-20 blur-xl"></div>
       
       {/* Current slide */}
-      <div className="absolute inset-0 transition-all duration-500 ease-in-out">
+      <div className="absolute inset-0 transition-all duration-500 ease-in-out overflow-hidden">
         {React.Children.toArray(children)[currentSlide]}
       </div>
       
       {/* Progress indicator */}
-      <div className="absolute top-4 left-0 right-0 flex justify-center">
+      <div className="absolute top-4 left-0 right-0 flex justify-center z-20">
         <div className="bg-white/80 backdrop-blur-sm px-3 py-1 rounded-full shadow-md flex items-center gap-1">
           {[...Array(totalSlides)].map((_, i) => (
             <button
@@ -68,7 +68,7 @@ const SlideShow = ({ children, className }: SlideShowProps) => {
       </div>
       
       {/* Navigation controls */}
-      <div className="absolute bottom-5 left-0 right-0 flex justify-center items-center gap-4 z-10">
+      <div className="absolute bottom-5 left-0 right-0 flex justify-center items-center gap-4 z-20">
         <button 
           onClick={prevSlide} 
           disabled={currentSlide === 0}
