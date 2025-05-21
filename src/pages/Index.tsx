@@ -18,6 +18,7 @@ import WordCloudSlide from "@/components/slides/WordCloudSlide";
 import ConclusionSlide from "@/components/slides/ConclusionSlide";
 import GeographicDistributionSlide from "@/components/slides/GeographicDistributionSlide";
 import HighImpactAccountsSlide from "@/components/slides/HighImpactAccountsSlide";
+import InstagramAnalysisSlide from "@/components/slides/InstagramAnalysisSlide";
 
 export default function Index() {
   return (
@@ -34,6 +35,7 @@ export default function Index() {
       <PopularHashtagsSlide />
       <MostViewedTweetsSlide />
       <WordCloudSlide />
+      <InstagramAnalysisSlide />
       <ConclusionSlide />
       <HighImpactAccountsSlide />
       <GeographicDistributionSlide />

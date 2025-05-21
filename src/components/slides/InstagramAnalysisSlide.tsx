@@ -1,0 +1,198 @@
+
+import React, { useState } from 'react';
+import Slide from '@/components/Slide';
+import { Card, CardContent } from '@/components/ui/card';
+import { Table } from '@/components/ui/table';
+import { Instagram, Calendar, BarChart2, Users, SortAsc, SortDesc, Link } from 'lucide-react';
+import { instagramData, topPostsByLikes, hashtagData, instagramMetrics } from '@/data/instagramData';
+import Image from '@/components/ui/Image';
+
+const InstagramAnalysisSlide = () => {
+  const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('desc');
+
+  const sortedPosts = [...topPostsByLikes].sort((a, b) => 
+    sortDirection === 'desc' ? b.likeCount - a.likeCount : a.likeCount - b.likeCount
+  );
+
+  const toggleSortDirection = () => {
+    setSortDirection(prev => prev === 'desc' ? 'asc' : 'desc');
+  };
+
+  const formatNumber = (num: number): string => {
+    return new Intl.NumberFormat('tr-TR').format(num);
+  };
+
+  return (
+    <Slide 
+      title="Instagram Analizi"
+      subtitle="Türk Hava Yolları Sosyal Medya Krizi"
+      bgColor="bg-gradient-to-br from-white via-slate-50 to-blue-50"
+      contentClassName="space-y-6"
+    >
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* Summary Card */}
+        <Card className="shadow-md bg-white/90 backdrop-blur-sm">
+          <CardContent className="pt-6">
+            <div className="flex items-center gap-3 mb-4">
+              <Instagram className="h-6 w-6 text-purple-500" />
+              <h3 className="text-xl font-bold text-gray-800">Instagram Özet</h3>
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              <div className="bg-purple-50 p-3 rounded-lg">
+                <p className="text-sm text-gray-600">Toplam Gönderiler</p>
+                <p className="text-2xl font-bold text-purple-700">{formatNumber(instagramMetrics.totalPosts)}</p>
+              </div>
+              <div className="bg-pink-50 p-3 rounded-lg">
+                <p className="text-sm text-gray-600">Toplam Beğeniler</p>
+                <p className="text-2xl font-bold text-pink-600">{formatNumber(instagramMetrics.totalLikes)}</p>
+              </div>
+              <div className="bg-blue-50 p-3 rounded-lg">
+                <p className="text-sm text-gray-600">Toplam Yorumlar</p>
+                <p className="text-2xl font-bold text-blue-600">{formatNumber(instagramMetrics.totalComments)}</p>
+              </div>
+              <div className="bg-amber-50 p-3 rounded-lg">
+                <p className="text-sm text-gray-600">Toplam İzlenmeler</p>
+                <p className="text-2xl font-bold text-amber-600">{formatNumber(instagramMetrics.totalPlays)}</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Gallery Preview */}
+        <Card className="shadow-md bg-white/90 backdrop-blur-sm">
+          <CardContent className="pt-6">
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-3">
+                <Calendar className="h-5 w-5 text-blue-500" />
+                <h3 className="text-xl font-bold text-gray-800">En Yüksek Etkileşimli Günler</h3>
+              </div>
+            </div>
+            <div className="grid grid-cols-3 gap-2">
+              <div className="relative aspect-square overflow-hidden rounded-lg shadow-sm">
+                <Image 
+                  src="https://images.unsplash.com/photo-1582650625119-3a31f8fa2699?q=80&w=400" 
+                  alt="Instagram post"
+                  className="object-cover h-full w-full"
+                />
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-2">
+                  <p className="text-xs text-white">8 Mayıs</p>
+                </div>
+              </div>
+              <div className="relative aspect-square overflow-hidden rounded-lg shadow-sm">
+                <Image 
+                  src="https://images.unsplash.com/photo-1574691250077-03a929faece5?q=80&w=400" 
+                  alt="Instagram post"
+                  className="object-cover h-full w-full"
+                />
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-2">
+                  <p className="text-xs text-white">10 Mayıs</p>
+                </div>
+              </div>
+              <div className="relative aspect-square overflow-hidden rounded-lg shadow-sm">
+                <Image 
+                  src="https://images.unsplash.com/photo-1542296332-2e4473faf563?q=80&w=400" 
+                  alt="Instagram post"
+                  className="object-cover h-full w-full"
+                />
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-2">
+                  <p className="text-xs text-white">15 Mayıs</p>
+                </div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Top Posts Table */}
+      <Card className="shadow-md bg-white/90 backdrop-blur-sm">
+        <CardContent className="pt-6">
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center gap-3">
+              <Users className="h-5 w-5 text-indigo-500" />
+              <h3 className="text-xl font-bold text-gray-800">En Çok Beğeni Alan Gönderiler</h3>
+            </div>
+            <button 
+              onClick={toggleSortDirection}
+              className="flex items-center gap-1 text-xs bg-gray-100 hover:bg-gray-200 px-3 py-1.5 rounded-full transition-all"
+            >
+              {sortDirection === 'desc' ? (
+                <>
+                  <SortDesc className="h-3.5 w-3.5" /> Azalan
+                </>
+              ) : (
+                <>
+                  <SortAsc className="h-3.5 w-3.5" /> Artan
+                </>
+              )}
+            </button>
+          </div>
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead>
+                <tr className="border-b border-gray-200">
+                  <th className="text-left py-3 px-4 text-sm font-medium text-gray-600">Kullanıcı</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-gray-600">Tarih</th>
+                  <th className="text-right py-3 px-4 text-sm font-medium text-gray-600">Beğeni</th>
+                  <th className="text-right py-3 px-4 text-sm font-medium text-gray-600">Yorum</th>
+                  <th className="text-right py-3 px-4 text-sm font-medium text-gray-600">İzlenme</th>
+                  <th className="text-center py-3 px-4 text-sm font-medium text-gray-600">Link</th>
+                </tr>
+              </thead>
+              <tbody>
+                {sortedPosts.map((post, index) => (
+                  <tr key={index} className={index % 2 === 0 ? 'bg-gray-50/50' : 'bg-white'}>
+                    <td className="py-3 px-4 text-sm text-gray-800">
+                      @{post.username}
+                    </td>
+                    <td className="py-3 px-4 text-sm text-gray-600">{post.date}</td>
+                    <td className="py-3 px-4 text-right text-sm font-medium text-pink-600">{formatNumber(post.likeCount)}</td>
+                    <td className="py-3 px-4 text-right text-sm text-gray-600">{formatNumber(post.commentCount)}</td>
+                    <td className="py-3 px-4 text-right text-sm text-gray-600">{formatNumber(post.playCount)}</td>
+                    <td className="py-3 px-4 text-center">
+                      <a 
+                        href={post.instagramLink} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="inline-flex hover:text-blue-600 text-blue-500"
+                      >
+                        <Link className="h-4 w-4" />
+                      </a>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Hashtags */}
+      <Card className="shadow-md bg-white/90 backdrop-blur-sm">
+        <CardContent className="pt-6">
+          <div className="flex items-center gap-3 mb-4">
+            <BarChart2 className="h-5 w-5 text-green-500" />
+            <h3 className="text-xl font-bold text-gray-800">En Popüler Hashtagler</h3>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {hashtagData.map((tag, index) => (
+              <div 
+                key={index}
+                className={`
+                  px-3 py-1.5 rounded-full text-sm
+                  ${index < 3 ? 'bg-blue-100 text-blue-700' : 
+                    index < 7 ? 'bg-indigo-100 text-indigo-700' :
+                    index < 12 ? 'bg-purple-100 text-purple-700' :
+                    'bg-gray-100 text-gray-700'}
+                `}
+              >
+                #{tag.name} ({tag.count})
+              </div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+    </Slide>
+  );
+};
+
+export default InstagramAnalysisSlide;
