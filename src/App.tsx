@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import ThyBoycottAnalysis from "./pages/ThyBoycottAnalysis";
+import InstagramCommentAnalysis from "./pages/InstagramCommentAnalysis";
 
 const queryClient = new QueryClient();
 
@@ -19,6 +20,7 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/thy-boycott-analysis" element={<ThyBoycottAnalysis />} />
+          <Route path="/instagram-comment-analysis" element={<InstagramCommentAnalysis />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
