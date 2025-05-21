@@ -3,9 +3,16 @@ import React, { useState } from 'react';
 import Slide from '@/components/Slide';
 import { Card, CardContent } from '@/components/ui/card';
 import { Table } from '@/components/ui/table';
-import { Instagram, Calendar, BarChart2, Users, SortAsc, SortDesc, Link } from 'lucide-react';
+import { Instagram, Calendar, BarChart2, Users, SortAsc, SortDesc, Link, BarChart } from 'lucide-react';
 import { instagramData, topPostsByLikes, hashtagData, instagramMetrics } from '@/data/instagramData';
 import Image from '@/components/ui/Image';
+import {
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from '@/components/ui/chart';
+import { BarChart as RechartsBarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Line, ComposedChart } from 'recharts';
+import DataChart from '@/components/DataChart';
 
 const InstagramAnalysisSlide = () => {
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('desc');
@@ -21,6 +28,22 @@ const InstagramAnalysisSlide = () => {
   const formatNumber = (num: number): string => {
     return new Intl.NumberFormat('tr-TR').format(num);
   };
+
+  const getFormattedDate = (dateStr: string) => {
+    const date = new Date(dateStr);
+    return new Intl.DateTimeFormat('tr-TR', { day: 'numeric', month: 'short' }).format(date);
+  };
+
+  // Prepare data for charts
+  const chartData = instagramData.map(item => ({
+    date: getFormattedDate(item.date),
+    rawDate: item.date,
+    posts: item.posts,
+    likes: item.likes,
+    comments: item.comments,
+    plays: item.plays,
+    er: item.er,
+  })).filter(item => item.posts > 0);
 
   return (
     <Slide 
@@ -102,6 +125,103 @@ const InstagramAnalysisSlide = () => {
           </CardContent>
         </Card>
       </div>
+
+      {/* Daily Metrics Chart */}
+      <Card className="shadow-md bg-white/90 backdrop-blur-sm">
+        <CardContent className="pt-6">
+          <div className="flex items-center gap-3 mb-4">
+            <BarChart className="h-6 w-6 text-indigo-500" />
+            <h3 className="text-xl font-bold text-gray-800">Günlük Instagram Metrikleri</h3>
+          </div>
+          
+          <div className="h-80 w-full">
+            <ResponsiveContainer width="100%" height="100%">
+              <ComposedChart 
+                data={chartData} 
+                margin={{ top: 10, right: 30, left: 0, bottom: 20 }}
+              >
+                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f0f0f0" />
+                <XAxis 
+                  dataKey="date" 
+                  tick={{ fontSize: 11 }}
+                  angle={-45}
+                  textAnchor="end"
+                  axisLine={false}
+                  tickLine={false}
+                  dy={10}
+                />
+                <YAxis 
+                  yAxisId="left"
+                  axisLine={false}
+                  tickLine={false}
+                  tick={{ fontSize: 11 }}
+                  width={40}
+                />
+                <YAxis 
+                  yAxisId="right"
+                  orientation="right"
+                  axisLine={false}
+                  tickLine={false}
+                  tick={{ fontSize: 11 }}
+                  width={40}
+                />
+                <Tooltip 
+                  content={({ active, payload, label }) => {
+                    if (active && payload && payload.length) {
+                      const data = payload[0].payload;
+                      return (
+                        <div className="bg-white p-3 border border-gray-200 shadow-md rounded-md text-xs">
+                          <p className="font-medium mb-1">{label}</p>
+                          <p className="text-pink-600">Beğeniler: {formatNumber(data.likes || 0)}</p>
+                          <p className="text-blue-600">Yorumlar: {formatNumber(data.comments || 0)}</p>
+                          <p className="text-purple-600">Gönderiler: {formatNumber(data.posts || 0)}</p>
+                          <p className="text-amber-600">İzlenmeler: {formatNumber(data.plays || 0)}</p>
+                          {data.er > 0 && <p className="text-green-600">ER: %{data.er}</p>}
+                        </div>
+                      );
+                    }
+                    return null;
+                  }}
+                />
+                <Legend />
+                <Bar 
+                  yAxisId="left" 
+                  dataKey="posts" 
+                  name="Gönderiler" 
+                  fill="#8b5cf6" 
+                  radius={[4, 4, 0, 0]} 
+                  barSize={6}
+                />
+                <Bar 
+                  yAxisId="left" 
+                  dataKey="likes" 
+                  name="Beğeniler" 
+                  fill="#ec4899" 
+                  radius={[4, 4, 0, 0]} 
+                  barSize={20} 
+                />
+                <Bar 
+                  yAxisId="left" 
+                  dataKey="comments" 
+                  name="Yorumlar" 
+                  fill="#3b82f6" 
+                  radius={[4, 4, 0, 0]} 
+                  barSize={12} 
+                />
+                <Line 
+                  yAxisId="right" 
+                  type="monotone" 
+                  dataKey="plays" 
+                  name="İzlenmeler" 
+                  stroke="#f59e0b" 
+                  strokeWidth={2} 
+                  dot={{ r: 4 }} 
+                />
+              </ComposedChart>
+            </ResponsiveContainer>
+          </div>
+        </CardContent>
+      </Card>
 
       {/* Top Posts Table */}
       <Card className="shadow-md bg-white/90 backdrop-blur-sm">
