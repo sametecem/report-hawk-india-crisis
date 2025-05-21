@@ -208,7 +208,10 @@ const InstagramCommentAnalysis = () => {
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey="date" />
                     <YAxis domain={[-1, 1]} />
-                    <Tooltip formatter={(value) => `Skor: ${value.toFixed(2)}`} />
+                    <Tooltip formatter={(value) => {
+                      // Fix: Check if value is a number before using toFixed
+                      return `Skor: ${typeof value === 'number' ? value.toFixed(2) : value}`;
+                    }} />
                     <Line type="monotone" dataKey="score" stroke="#ef4444" dot={{ r: 4 }} />
                   </LineChart>
                 </ResponsiveContainer>
