@@ -6,7 +6,7 @@ import { ExternalLink } from 'lucide-react';
 
 const HighImpactAccountsSlide = () => {
   return (
-    <Slide title="13. Appendix: Etki Gücü En Yüksek Hesaplar" bgColor="bg-gradient-to-br from-white via-orange-50 to-orange-100">
+    <Slide title="Appendix: Etki Gücü En Yüksek Hesaplar" bgColor="bg-gradient-to-br from-white via-orange-50 to-orange-100">
       <Card className="p-6 shadow-lg bg-white/90 backdrop-blur-sm">
         <h3 className="text-xl font-bold mb-4 text-gray-800 border-b pb-2">Etki Katsayısı (Takipçi x Etkileşim) En Yüksek 5 Kişi</h3>
         <div className="space-y-6 mt-4">
