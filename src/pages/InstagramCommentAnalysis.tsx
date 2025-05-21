@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -388,7 +389,7 @@ const InstagramCommentAnalysis = () => {
                     Toksisite & Hakaret Filtresi
                   </CardTitle>
                   <CardDescription>
-                    Toksik içerik oranı ve saatlik dağılım (Perspective API > 0.8)
+                    Toksik içerik oranı ve saatlik dağılım (Perspective API {">"} 0.8)
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -981,3 +982,4 @@ const InstagramCommentAnalysis = () => {
 };
 
 export default InstagramCommentAnalysis;
+
