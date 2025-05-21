@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -419,7 +418,7 @@ const InstagramCommentAnalysis = () => {
                           width={40}
                         />
                         <Tooltip
-                          formatter={(value) => [`${value}%`, "Toksisite"]}
+                          formatter={(value: any) => [`${Number(value)}%`, "Toksisite"]}
                         />
                         <Bar
                           dataKey="toxicityPercentage"
@@ -765,7 +764,7 @@ const InstagramCommentAnalysis = () => {
                               ))}
                             </Pie>
                             <Tooltip
-                              formatter={(value) => [`${value}%`, "Yüzde"]}
+                              formatter={(value: any) => [`${Number(value)}%`, "Yüzde"]}
                             />
                           </PieChart>
                         </ResponsiveContainer>
@@ -982,4 +981,3 @@ const InstagramCommentAnalysis = () => {
 };
 
 export default InstagramCommentAnalysis;
-
