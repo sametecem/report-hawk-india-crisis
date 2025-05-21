@@ -2,12 +2,16 @@
 import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { topComments } from '@/data/instagramCommentAnalysisData';
+import { MessageSquare } from 'lucide-react';
 
 const TopCommentsCard = () => {
   return (
     <Card>
       <CardHeader className="pb-2">
-        <CardTitle className="text-xl font-bold">En Etkileşimli Yorumlar</CardTitle>
+        <div className="flex items-center gap-2">
+          <MessageSquare className="h-5 w-5 text-blue-500" />
+          <CardTitle className="text-xl font-bold">En Etkileşimli Yorumlar</CardTitle>
+        </div>
         <CardDescription>
           En çok etki yaratan yorumlar
         </CardDescription>
