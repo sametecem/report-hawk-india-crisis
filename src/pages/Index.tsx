@@ -41,10 +41,10 @@ export default function Index() {
       <InstagramAnalysisSlide />
       <InstagramAnalysisSlide2 />
       <NewsSlide />
+      <YouTubeAnalysisSlide />
       <HighImpactAccountsSlide />
       <GeographicDistributionSlide />
       <ConclusionSlide />
-      <YouTubeAnalysisSlide />
     </SlideShow>
   );
 }

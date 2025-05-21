@@ -5,7 +5,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import Table from '@/components/Table';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Line, ComposedChart } from 'recharts';
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
-import { Play, Youtube, BarChart2, MessageSquare, TrendingUp } from 'lucide-react';
+import { Play, Youtube, BarChart2, MessageSquare, TrendingUp, Users } from 'lucide-react';
 
 // Summary data
 const summaryData = {
@@ -30,7 +30,7 @@ const topVideos = [
   {
     id: '2',
     thumbnail: 'https://i.imgur.com/gE3SFmt.jpg',
-    title: 'Turkish Airlines İsrail Uçuşları Durduruldu mu?',
+    title: "Turkish Airlines İsrail Uçuşları Durduruldu mu?",
     channel: 'Gündem Analiz',
     publishDate: '16 Nis 2023',
     views: 987000,
@@ -79,14 +79,19 @@ const topVideos = [
   },
 ];
 
-// Channel data
+// Channel data - sorted by subscribers in descending order
 const channelData = [
   { name: 'Havacılık Dünyası', subscribers: 1240000, videos: 24, totalViews: 4320000 },
   { name: 'Gündem Analiz', subscribers: 980000, videos: 18, totalViews: 2850000 },
   { name: 'Ekonomi Haberleri', subscribers: 875000, videos: 12, totalViews: 1980000 },
   { name: 'Haber Merkezi', subscribers: 720000, videos: 15, totalViews: 1640000 },
   { name: 'Uçuş Bilgileri', subscribers: 510000, videos: 8, totalViews: 920000 },
-];
+  { name: 'Aviation Today', subscribers: 430000, videos: 6, totalViews: 780000 },
+  { name: 'THY Takipçisi', subscribers: 380000, videos: 14, totalViews: 650000 },
+  { name: 'Seyahat Rehberi', subscribers: 320000, videos: 7, totalViews: 520000 },
+  { name: 'Havacılık ve Uzay', subscribers: 290000, videos: 5, totalViews: 480000 },
+  { name: 'Dünya Gündem', subscribers: 240000, videos: 9, totalViews: 410000 },
+].sort((a, b) => b.subscribers - a.subscribers);
 
 // Daily upload data
 const dailyData = [
@@ -114,7 +119,7 @@ const timeCodeData = [
     timeCodes: ['00:41', '01:57', '03:24', '05:12', '08:37'],
   },
   {
-    videoTitle: 'Turkish Airlines İsrail Uçuşları Durduruldu mu?',
+    videoTitle: "Turkish Airlines İsrail Uçuşları Durduruldu mu?",
     thumbnail: 'https://i.imgur.com/gE3SFmt.jpg',
     timeCodes: ['00:23', '02:45', '04:19', '07:36'],
   },
@@ -280,11 +285,11 @@ const YouTubeAnalysisSlide = () => {
 
         {/* 4. Two Column Section */}
         <div className="grid grid-cols-2 gap-4">
-          {/* Channel Data */}
+          {/* Channel Data - Enhanced with more channels and sorted by followers */}
           <Card className="bg-white shadow-md">
             <CardContent className="p-6">
               <h3 className="font-semibold text-lg mb-4 flex items-center">
-                <Youtube size={18} className="mr-2 text-red-500" /> Kanal Etkisi
+                <Users size={18} className="mr-2 text-blue-500" /> En Popüler Kanallar (Abone Sayısı)
               </h3>
               <Table
                 headers={["Kanal", "Abone", "Video", "İzlenme"]}
@@ -296,6 +301,7 @@ const YouTubeAnalysisSlide = () => {
                 ])}
                 compact={true}
                 striped={true}
+                highlightFirstColumn={true}
               />
             </CardContent>
           </Card>
