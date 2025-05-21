@@ -47,7 +47,7 @@ const topVideos = [
   {
     id: '4',
     thumbnail: 'https://i.imgur.com/B4f9MAu.jpg',
-    title: 'CEO Açıkladı: THY'nin Yeni Rotaları ve Stratejisi',
+    title: "CEO Açıkladı: THY'nin Yeni Rotaları ve Stratejisi",
     channel: 'Havacılık Dünyası',
     publishDate: '21 Nis 2023',
     views: 685000,
