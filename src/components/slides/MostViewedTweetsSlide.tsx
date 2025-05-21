@@ -67,7 +67,7 @@ const MostViewedTweetsSlide = () => {
                 <XAxis dataKey="name" />
                 <YAxis />
                 <Tooltip 
-                  formatter={(value, name) => {
+                  formatter={(value: number, name: string) => {
                     return [new Intl.NumberFormat('tr-TR').format(value), 
                       name === "views" ? "Görüntülenme" : 
                       name === "likes" ? "Beğeni" : "Retweet"

@@ -9,6 +9,7 @@ interface TableProps {
   highlightFirstColumn?: boolean;
   compact?: boolean;
   striped?: boolean;
+  hoverEffect?: boolean;
 }
 
 const Table = ({ 
@@ -18,6 +19,7 @@ const Table = ({
   highlightFirstColumn = false,
   compact = false,
   striped = true,
+  hoverEffect = true,
 }: TableProps) => {
   return (
     <div className={cn("w-full overflow-x-auto rounded-lg shadow-md", className)}>
@@ -39,7 +41,8 @@ const Table = ({
             <tr 
               key={rowIndex} 
               className={cn(
-                "border-b border-gray-100 hover:bg-gray-50 transition-colors",
+                "border-b border-gray-100",
+                hoverEffect && "hover:bg-gray-50 transition-colors",
                 striped ? (rowIndex % 2 === 0 ? 'bg-white' : 'bg-gray-50/50') : 'bg-white'
               )}
             >
@@ -49,7 +52,9 @@ const Table = ({
                   className={cn(
                     "py-3 px-4 text-gray-800",
                     compact ? "py-2 px-3 text-sm" : "",
-                    highlightFirstColumn && cellIndex === 0 ? "font-medium" : ""
+                    highlightFirstColumn && cellIndex === 0 ? "font-medium" : "",
+                    typeof cell === 'number' && "text-right",
+                    (typeof cell === 'string' && cell.toString().startsWith('@')) && "text-blue-600"
                   )}
                 >
                   {cell}

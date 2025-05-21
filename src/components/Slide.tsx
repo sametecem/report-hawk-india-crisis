@@ -6,11 +6,12 @@ interface SlideProps {
   children: React.ReactNode;
   className?: string;
   title?: string;
+  subtitle?: string;
   bgColor?: string;
   contentClassName?: string;
 }
 
-const Slide = ({ children, className, title, bgColor = "bg-white", contentClassName }: SlideProps) => {
+const Slide = ({ children, className, title, subtitle, bgColor = "bg-white", contentClassName }: SlideProps) => {
   return (
     <div className={cn("h-full w-full flex flex-col relative overflow-hidden", bgColor, className)}>
       {/* Enhanced decorative elements for visual interest */}
@@ -20,10 +21,15 @@ const Slide = ({ children, className, title, bgColor = "bg-white", contentClassN
       
       <div className="w-full max-w-6xl mx-auto h-full py-8 px-6 md:px-10 relative z-10 overflow-auto">
         {title && (
-          <h2 className="text-2xl md:text-4xl font-bold mb-6 text-gray-800 border-b pb-3 relative">
-            {title}
-            <span className="absolute -bottom-0.5 left-0 w-32 h-1 bg-gradient-to-r from-blue-500 to-purple-500"></span>
-          </h2>
+          <div className="mb-6">
+            <h2 className="text-2xl md:text-4xl font-bold text-gray-800 border-b pb-3 relative">
+              {title}
+              <span className="absolute -bottom-0.5 left-0 w-32 h-1 bg-gradient-to-r from-blue-500 to-purple-500"></span>
+            </h2>
+            {subtitle && (
+              <p className="mt-2 text-gray-600 italic">{subtitle}</p>
+            )}
+          </div>
         )}
         <div className={cn("flex-1", contentClassName)}>
           {children}

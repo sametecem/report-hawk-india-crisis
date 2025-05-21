@@ -96,7 +96,7 @@ const TopAccountsFollowersSlide = () => {
                 />
                 <YAxis />
                 <Tooltip 
-                  formatter={(value) => [`${new Intl.NumberFormat('tr-TR').format(value)} takipçi`, "Takipçi Sayısı"]}
+                  formatter={(value: number) => [`${new Intl.NumberFormat('tr-TR').format(value)} takipçi`, "Takipçi Sayısı"]}
                 />
                 <Bar dataKey="followers" fill="#3b82f6">
                   {topFollowers.slice(0, 10).map((entry, index) => (
