@@ -9,7 +9,6 @@ import CTAHourlyChart from '@/components/instagram-analysis/CTAHourlyChart';
 import LanguageDistributionChart from '@/components/instagram-analysis/LanguageDistributionChart';
 import UserPersonaChart from '@/components/instagram-analysis/UserPersonaChart';
 import ToxicityAnalysisChart from '@/components/instagram-analysis/ToxicityAnalysisChart';
-import TopCommentsCard from '@/components/instagram-analysis/TopCommentsCard';
 
 const InstagramCommentAnalysis = () => {
   return (
@@ -52,12 +51,9 @@ const InstagramCommentAnalysis = () => {
           <UserPersonaChart />
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 gap-8">
           {/* Toksisite Oranı */}
           <ToxicityAnalysisChart />
-
-          {/* En Etkileşimli Yorumlar */}
-          <TopCommentsCard />
         </div>
       </div>
     </div>
