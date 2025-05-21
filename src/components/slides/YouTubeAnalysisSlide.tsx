@@ -3,12 +3,15 @@ import React from 'react';
 import Slide from '@/components/Slide';
 import { Card, CardContent } from '@/components/ui/card';
 import Table from '@/components/Table';
-import { Play, Youtube } from 'lucide-react';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Line, ComposedChart } from 'recharts';
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
+import { Play, Youtube, BarChart2, MessageSquare, TrendingUp } from 'lucide-react';
 
 // Summary data
 const summaryData = {
   videoCount: 245,
   totalViews: 12843500,
+  totalComments: 67450,
   avgLikesPer1000Views: 48.3,
 };
 
@@ -87,13 +90,20 @@ const channelData = [
 
 // Daily upload data
 const dailyData = [
-  { date: '12 Nis', uploads: 18, views: 923000 },
-  { date: '13 Nis', uploads: 24, views: 1245000 },
-  { date: '14 Nis', uploads: 42, views: 2187000 },
-  { date: '15 Nis', uploads: 65, views: 3420000 },
-  { date: '16 Nis', uploads: 38, views: 1876000 },
-  { date: '17 Nis', uploads: 29, views: 1493000 },
-  { date: '18 Nis', uploads: 17, views: 842000 },
+  { date: '12 Nis', uploads: 18, views: 923000, interactions: 53200 },
+  { date: '13 Nis', uploads: 24, views: 1245000, interactions: 78900 },
+  { date: '14 Nis', uploads: 42, views: 2187000, interactions: 142600 },
+  { date: '15 Nis', uploads: 65, views: 3420000, interactions: 215800 },
+  { date: '16 Nis', uploads: 38, views: 1876000, interactions: 124300 },
+  { date: '17 Nis', uploads: 29, views: 1493000, interactions: 96500 },
+  { date: '18 Nis', uploads: 17, views: 842000, interactions: 52400 },
+];
+
+// Interaction data (likes, comments, shares)
+const interactionData = [
+  { type: 'Beğeni', count: 246800 },
+  { type: 'Yorum', count: 67450 },
+  { type: 'Paylaşım', count: 34200 },
 ];
 
 // Time codes for brand mentions
@@ -120,46 +130,126 @@ const YouTubeAnalysisSlide = () => {
     <Slide title="YouTube Etkisi Analizi" subtitle="THY Boykot Konulu Video Analizi">
       <div className="grid grid-cols-1 gap-6">
         {/* 1. Summary section */}
-        <div className="grid grid-cols-3 gap-4">
-          <Card className="bg-white shadow-md">
+        <div className="grid grid-cols-4 gap-4">
+          <Card className="bg-gradient-to-br from-blue-50 to-blue-100 shadow-md border-blue-200 overflow-hidden relative">
+            <div className="absolute top-0 right-0 p-2 text-blue-400 opacity-20">
+              <Youtube size={40} />
+            </div>
             <CardContent className="p-6">
-              <div className="flex flex-col items-center">
-                <div className="text-2xl font-bold text-blue-600 mb-1">
+              <div className="flex flex-col">
+                <div className="text-sm text-blue-600 font-medium mb-1">Video Adedi</div>
+                <div className="text-2xl font-bold text-blue-800">
                   {formatNumber(summaryData.videoCount)}
                 </div>
-                <div className="text-sm text-gray-500 text-center">Video Adedi</div>
               </div>
             </CardContent>
           </Card>
-          <Card className="bg-white shadow-md">
+          <Card className="bg-gradient-to-br from-purple-50 to-purple-100 shadow-md border-purple-200 overflow-hidden relative">
+            <div className="absolute top-0 right-0 p-2 text-purple-400 opacity-20">
+              <TrendingUp size={40} />
+            </div>
             <CardContent className="p-6">
-              <div className="flex flex-col items-center">
-                <div className="text-2xl font-bold text-blue-600 mb-1">
+              <div className="flex flex-col">
+                <div className="text-sm text-purple-600 font-medium mb-1">Toplam İzlenme</div>
+                <div className="text-2xl font-bold text-purple-800">
                   {formatNumber(summaryData.totalViews)}
                 </div>
-                <div className="text-sm text-gray-500 text-center">Toplam İzlenme</div>
               </div>
             </CardContent>
           </Card>
-          <Card className="bg-white shadow-md">
+          <Card className="bg-gradient-to-br from-indigo-50 to-indigo-100 shadow-md border-indigo-200 overflow-hidden relative">
+            <div className="absolute top-0 right-0 p-2 text-indigo-400 opacity-20">
+              <MessageSquare size={40} />
+            </div>
             <CardContent className="p-6">
-              <div className="flex flex-col items-center">
-                <div className="text-2xl font-bold text-blue-600 mb-1">
-                  {summaryData.avgLikesPer1000Views}
+              <div className="flex flex-col">
+                <div className="text-sm text-indigo-600 font-medium mb-1">Toplam Yorum</div>
+                <div className="text-2xl font-bold text-indigo-800">
+                  {formatNumber(summaryData.totalComments)}
                 </div>
-                <div className="text-sm text-gray-500 text-center">
-                  Ort. Beğeni / 1.000 İzlenme
+              </div>
+            </CardContent>
+          </Card>
+          <Card className="bg-gradient-to-br from-cyan-50 to-cyan-100 shadow-md border-cyan-200 overflow-hidden relative">
+            <div className="absolute top-0 right-0 p-2 text-cyan-400 opacity-20">
+              <BarChart2 size={40} />
+            </div>
+            <CardContent className="p-6">
+              <div className="flex flex-col">
+                <div className="text-sm text-cyan-600 font-medium mb-1">Beğeni / 1.000 İzlenme</div>
+                <div className="text-2xl font-bold text-cyan-800">
+                  {summaryData.avgLikesPer1000Views}
                 </div>
               </div>
             </CardContent>
           </Card>
         </div>
-
-        {/* 2. Top 10 Videos */}
+        
+        {/* 2. Daily Views & Interactions Chart */}
         <Card className="bg-white shadow-md overflow-hidden">
           <CardContent className="p-6">
             <h3 className="font-semibold text-lg mb-4 flex items-center">
-              <Youtube size={18} className="mr-2" /> En Popüler Videolar
+              <BarChart2 size={18} className="mr-2 text-blue-600" /> Günlük İzlenme ve Etkileşim Analizi
+            </h3>
+            <div className="h-80 w-full">
+              <ChartContainer config={{
+                views: {
+                  label: "İzlenmeler",
+                  theme: { light: "#6366f1", dark: "#818cf8" }
+                },
+                interactions: {
+                  label: "Etkileşimler",
+                  theme: { light: "#ec4899", dark: "#f472b6" }
+                },
+                uploads: {
+                  label: "Video Yüklemeleri",
+                  theme: { light: "#10b981", dark: "#34d399" }
+                }
+              }}>
+                <ComposedChart data={dailyData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f0f0f0" />
+                  <XAxis dataKey="date" />
+                  <YAxis yAxisId="left" orientation="left" />
+                  <YAxis yAxisId="right" orientation="right" />
+                  <ChartTooltip content={<ChartTooltipContent />} />
+                  <Legend />
+                  <Bar 
+                    yAxisId="right"
+                    dataKey="uploads" 
+                    name="Video Adedi" 
+                    fill="var(--color-uploads)" 
+                    radius={[4, 4, 0, 0]} 
+                    barSize={30} 
+                  />
+                  <Bar 
+                    yAxisId="left"
+                    dataKey="views" 
+                    name="İzlenme" 
+                    fill="var(--color-views)" 
+                    radius={[4, 4, 0, 0]} 
+                    barSize={30} 
+                  />
+                  <Line 
+                    yAxisId="left"
+                    type="monotone" 
+                    dataKey="interactions" 
+                    name="Etkileşim" 
+                    stroke="var(--color-interactions)" 
+                    strokeWidth={2} 
+                    dot={{ r: 4 }} 
+                    activeDot={{ r: 6 }} 
+                  />
+                </ComposedChart>
+              </ChartContainer>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* 3. Top 10 Videos */}
+        <Card className="bg-white shadow-md overflow-hidden">
+          <CardContent className="p-6">
+            <h3 className="font-semibold text-lg mb-4 flex items-center">
+              <Youtube size={18} className="mr-2 text-red-500" /> En Popüler Videolar
             </h3>
             <Table
               headers={["Video", "Kanal", "Yayın Tarihi", "İzlenme", "Beğeni", "Yorum"]}
@@ -188,13 +278,13 @@ const YouTubeAnalysisSlide = () => {
           </CardContent>
         </Card>
 
-        {/* 3. Channel Data and 4. Time Codes (Two Columns) */}
+        {/* 4. Two Column Section */}
         <div className="grid grid-cols-2 gap-4">
           {/* Channel Data */}
           <Card className="bg-white shadow-md">
             <CardContent className="p-6">
               <h3 className="font-semibold text-lg mb-4 flex items-center">
-                <Youtube size={18} className="mr-2" /> Kanal Etkisi
+                <Youtube size={18} className="mr-2 text-red-500" /> Kanal Etkisi
               </h3>
               <Table
                 headers={["Kanal", "Abone", "Video", "İzlenme"]}
@@ -213,7 +303,10 @@ const YouTubeAnalysisSlide = () => {
           {/* Time Codes */}
           <Card className="bg-white shadow-md">
             <CardContent className="p-6">
-              <h3 className="font-semibold text-lg mb-4">Zaman Kodu Listesi (Markaya Referans)</h3>
+              <h3 className="font-semibold text-lg mb-4 flex items-center">
+                <MessageSquare size={18} className="mr-2 text-blue-500" /> 
+                Zaman Kodu Listesi (Markaya Referans)
+              </h3>
               <div className="space-y-4">
                 {timeCodeData.map((item, index) => (
                   <div key={index} className="flex gap-3">
@@ -233,7 +326,7 @@ const YouTubeAnalysisSlide = () => {
                         {item.timeCodes.map((time, tIndex) => (
                           <span 
                             key={tIndex}
-                            className="bg-blue-100 text-blue-700 text-xs px-2 py-1 rounded-md hover:bg-blue-200 cursor-pointer"
+                            className="bg-indigo-100 text-indigo-700 text-xs px-2 py-1 rounded-md hover:bg-indigo-200 cursor-pointer transition-colors"
                           >
                             {time}
                           </span>
@@ -246,6 +339,31 @@ const YouTubeAnalysisSlide = () => {
             </CardContent>
           </Card>
         </div>
+
+        {/* 5. Interaction Types Breakdown */}
+        <Card className="bg-white shadow-md">
+          <CardContent className="p-6">
+            <h3 className="font-semibold text-lg mb-4 flex items-center">
+              <MessageSquare size={18} className="mr-2 text-purple-500" /> Etkileşim Dağılımı
+            </h3>
+            <div className="h-60">
+              <ChartContainer config={{
+                count: {
+                  label: "Etkileşim Adedi",
+                  theme: { light: "#8b5cf6", dark: "#a78bfa" }
+                }
+              }}>
+                <BarChart data={interactionData} margin={{ top: 10, right: 30, left: 20, bottom: 20 }}>
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f0f0f0" />
+                  <XAxis dataKey="type" />
+                  <YAxis />
+                  <ChartTooltip content={<ChartTooltipContent />} />
+                  <Bar dataKey="count" name="Adet" fill="var(--color-count)" radius={[4, 4, 0, 0]} barSize={60} />
+                </BarChart>
+              </ChartContainer>
+            </div>
+          </CardContent>
+        </Card>
       </div>
     </Slide>
   );
