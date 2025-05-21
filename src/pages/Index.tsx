@@ -21,6 +21,7 @@ import HighImpactAccountsSlide from "@/components/slides/HighImpactAccountsSlide
 import InstagramAnalysisSlide from "@/components/slides/InstagramAnalysisSlide";
 import NewsSlide from "@/components/slides/NewsSlide";
 import InstagramAnalysisSlide2 from "@/components/slides/InstagramAnalysisSlide2";
+import YouTubeAnalysisSlide from "@/components/slides/YouTubeAnalysisSlide";
 
 export default function Index() {
   return (
@@ -40,9 +41,10 @@ export default function Index() {
       <InstagramAnalysisSlide />
       <InstagramAnalysisSlide2 />
       <NewsSlide />
-      <ConclusionSlide />
       <HighImpactAccountsSlide />
       <GeographicDistributionSlide />
+      <ConclusionSlide />
+      <YouTubeAnalysisSlide />
     </SlideShow>
   );
 }
