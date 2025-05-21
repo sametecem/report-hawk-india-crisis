@@ -8,43 +8,78 @@ const HighImpactAccountsSlide = () => {
   return (
     <Slide title="Appendix: Etki Gücü En Yüksek Hesaplar" bgColor="bg-gradient-to-br from-white via-orange-50 to-orange-100">
       <Card className="p-6 shadow-lg bg-white/90 backdrop-blur-sm">
-        <h3 className="text-xl font-bold mb-4 text-gray-800 border-b pb-2">Etki Katsayısı (Takipçi x Etkileşim) En Yüksek 5 Kişi</h3>
+        <h3 className="text-xl font-bold mb-4 text-gray-800 border-b pb-2">Etki Katsayısı En Yüksek 10 Hesap</h3>
         <div className="space-y-6 mt-4">
           {[
             { 
-              name: "@TwitterUser1", 
-              followers: "144.622", 
-              engagement: "92.413", 
-              impact: "13.365.134.486", 
+              name: "@Kisna179", 
+              followers: "177", 
+              views: "5.686", 
+              impact: "32 ×", 
               color: "bg-gradient-to-r from-orange-400 to-red-500" 
             },
             { 
-              name: "@TwitterUser2", 
-              followers: "68.935", 
-              engagement: "33.814", 
-              impact: "2.330.911.890", 
+              name: "@gogoi51422", 
+              followers: "533", 
+              views: "16.978", 
+              impact: "31,9 ×", 
               color: "bg-gradient-to-r from-orange-400 to-amber-500" 
             },
             { 
-              name: "@TwitterUser3", 
-              followers: "46.371", 
-              engagement: "7.294", 
-              impact: "338.231.174", 
+              name: "@biyatchwhatup", 
+              followers: "256", 
+              views: "6.110", 
+              impact: "23,9 ×", 
               color: "bg-gradient-to-r from-amber-400 to-yellow-500" 
             },
             { 
-              name: "@TwitterUser4", 
-              followers: "32.813", 
-              engagement: "5.291", 
-              impact: "173.613.683", 
+              name: "@prawasitv", 
+              followers: "1.575", 
+              views: "30.448", 
+              impact: "19,3 ×", 
               color: "bg-gradient-to-r from-yellow-400 to-lime-500" 
             },
             { 
-              name: "@TwitterUser5", 
-              followers: "20.613", 
-              engagement: "3.146", 
-              impact: "64.846.498", 
+              name: "@smartyevans", 
+              followers: "130", 
+              views: "2.371", 
+              impact: "18,2 ×", 
               color: "bg-gradient-to-r from-green-400 to-emerald-500" 
+            },
+            { 
+              name: "@RepublicHindu5", 
+              followers: "355", 
+              views: "6.103", 
+              impact: "17,2 ×", 
+              color: "bg-gradient-to-r from-emerald-400 to-teal-500" 
+            },
+            { 
+              name: "@RJainaviation", 
+              followers: "673", 
+              views: "9.060", 
+              impact: "13,5 ×", 
+              color: "bg-gradient-to-r from-teal-400 to-cyan-500" 
+            },
+            { 
+              name: "@pande_krish", 
+              followers: "181", 
+              views: "2.192", 
+              impact: "12,1 ×", 
+              color: "bg-gradient-to-r from-cyan-400 to-blue-500" 
+            },
+            { 
+              name: "@CHANDANIMAYANK", 
+              followers: "117", 
+              views: "1.392", 
+              impact: "11,9 ×", 
+              color: "bg-gradient-to-r from-blue-400 to-indigo-500" 
+            },
+            { 
+              name: "@seetharamankc", 
+              followers: "633", 
+              views: "7.486", 
+              impact: "11,8 ×", 
+              color: "bg-gradient-to-r from-indigo-400 to-purple-500" 
             }
           ].map((account, index) => (
             <div key={index} className="bg-white rounded-lg shadow-md overflow-hidden border border-gray-100">
@@ -69,13 +104,13 @@ const HighImpactAccountsSlide = () => {
                 </div>
                 
                 <div className="grid grid-cols-2 gap-4">
-                  <div className="bg-orange-50 p-3 rounded-lg">
-                    <p className="text-sm text-orange-700 font-medium">Toplam Etkileşim</p>
-                    <p className="text-lg font-bold text-orange-800">{account.engagement}</p>
+                  <div className="bg-blue-50 p-3 rounded-lg">
+                    <p className="text-sm text-blue-700 font-medium">Toplam Gösterim</p>
+                    <p className="text-lg font-bold text-blue-800">{account.views}</p>
                   </div>
-                  <div className="bg-red-50 p-3 rounded-lg">
-                    <p className="text-sm text-red-700 font-medium">Etki Katsayısı</p>
-                    <p className="text-lg font-bold text-red-800">{account.impact}</p>
+                  <div className="bg-purple-50 p-3 rounded-lg">
+                    <p className="text-sm text-purple-700 font-medium">Etki Katsayısı</p>
+                    <p className="text-lg font-bold text-purple-800">{account.impact}</p>
                   </div>
                 </div>
               </div>
