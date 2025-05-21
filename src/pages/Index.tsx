@@ -21,54 +21,70 @@ import {
 import { Card } from "@/components/ui/card";
 
 export default function Index() {
-  // Sample data for charts
+  // Updated sentiment data
   const sentimentData = [
-    { name: "8 Mayıs", score: -0.94 },
-    { name: "9 Mayıs", score: -0.87 },
-    { name: "10 Mayıs", score: -0.93 },
-    { name: "11 Mayıs", score: -0.95 },
-    { name: "12 Mayıs", score: -1.0 },
-    { name: "13 Mayıs", score: -0.95 },
-    { name: "14 Mayıs", score: -0.92 },
+    { name: "8 Mayıs", score: -0.88 },
+    { name: "10 Mayıs", score: 0.07 },
+    { name: "11 Mayıs", score: 0.15 },
+    { name: "12 Mayıs", score: 0.04 },
+    { name: "13 Mayıs", score: 0.10 },
+    { name: "14 Mayıs", score: -0.04 },
+    { name: "15 Mayıs", score: -0.29 },
   ];
 
+  // Updated tweet volume data with the new values
   const tweetVolumeData = [
-    { name: "8 Mayıs", tweets: 90 },
-    { name: "9 Mayıs", tweets: 61 },
-    { name: "10 Mayıs", tweets: 90 },
-    { name: "11 Mayıs", tweets: 20 },
-    { name: "12 Mayıs", tweets: 24 },
-    { name: "13 Mayıs", tweets: 86 },
-    { name: "14 Mayıs", tweets: 72 },
-    { name: "15 Mayıs", tweets: 32 },
-    { name: "16 Mayıs", tweets: 27 },
-    { name: "17 Mayıs", tweets: 14 },
-    { name: "18 Mayıs", tweets: 2 },
-    { name: "19 Mayıs", tweets: 10 },
-    { name: "20 Mayıs", tweets: 3 },
+    { name: "23 Nisan", tweets: 2 },
+    { name: "24 Nisan", tweets: 3 },
+    { name: "25 Nisan", tweets: 4 },
+    { name: "26 Nisan", tweets: 2 },
+    { name: "28 Nisan", tweets: 19 },
+    { name: "29 Nisan", tweets: 33 },
+    { name: "30 Nisan", tweets: 27 },
+    { name: "1 Mayıs", tweets: 4 },
+    { name: "3 Mayıs", tweets: 24 },
+    { name: "8 Mayıs", tweets: 213 },
+    { name: "10 Mayıs", tweets: 225 },
+    { name: "11 Mayıs", tweets: 29 },
+    { name: "12 Mayıs", tweets: 48 },
+    { name: "13 Mayıs", tweets: 175 },
+    { name: "14 Mayıs", tweets: 91 },
+    { name: "15 Mayıs", tweets: 35 },
+    { name: "16 Mayıs", tweets: 48 },
+    { name: "17 Mayıs", tweets: 34 },
+    { name: "18 Mayıs", tweets: 5 },
+    { name: "19 Mayıs", tweets: 15 },
+    { name: "20 Mayıs", tweets: 8 },
+    { name: "21 Mayıs", tweets: 10 },
   ];
 
+  // Updated emotion data based on new values
   const emotionData = [
-    { name: "Negatif", value: 92.7, fill: "#ef4444" },
-    { name: "Nötr", value: 7.3, fill: "#9ca3af" },
-    { name: "Pozitif", value: 0, fill: "#22c55e" },
+    { name: "Negatif", value: 14.7, fill: "#ef4444" },
+    { name: "Nötr", value: 63.2, fill: "#9ca3af" },
+    { name: "Pozitif", value: 22.1, fill: "#22c55e" },
   ];
 
+  // Updated category data with new values
   const categoryData = [
-    { name: "Boykot çağrısı", value: 67.8, fill: "#f87171" },
-    { name: "Siyasi gerekçeler", value: 17.2, fill: "#fb923c" },
-    { name: "Alternatif önerisi", value: 3.5, fill: "#fbbf24" },
-    { name: "Haber/duyuru", value: 5.3, fill: "#a3e635" },
-    { name: "Kişisel şikayet", value: 4.0, fill: "#38bdf8" },
-    { name: "Nötr içerik", value: 2.2, fill: "#a5b4fc" },
+    { name: "Boykot çağrısı", value: 95.3, fill: "#f87171" },
+    { name: "Nötr içerik", value: 1.7, fill: "#9ca3af" },
+    { name: "Siyasi gerekçeler", value: 1.5, fill: "#fb923c" },
+    { name: "Alternatif önerisi", value: 1.4, fill: "#fbbf24" },
+    { name: "Kişisel şikayet", value: 0.1, fill: "#38bdf8" },
   ];
 
+  // Updated hashtag data
   const hashtagData = [
     { name: "#indigo", count: 130, fill: "#60a5fa" },
     { name: "#turkishairlines", count: 46, fill: "#a78bfa" },
     { name: "#turkey", count: 35, fill: "#f472b6" },
-    { name: "#boycott", count: 21, fill: "#fb7185" },
+    { name: "#boycott", count: 46, fill: "#fb7185" },
+    { name: "#boycottturkey", count: 112, fill: "#f43f5e" },
+    { name: "#boycottturkishairlines", count: 49, fill: "#e11d48" },
     { name: "#pakistan", count: 9, fill: "#fbbf24" },
+    { name: "#operationsindoor", count: 24, fill: "#84cc16" },
+    { name: "#boycottazerbaijan", count: 13, fill: "#14b8a6" },
     { name: "#airindia", count: 2, fill: "#34d399" },
   ];
 
@@ -83,13 +99,13 @@ export default function Index() {
             </h1>
             <div className="space-y-4">
               <p className="text-lg md:text-xl text-gray-700">
-                <span className="font-medium">Rapor Dönemi:</span> 15 Ekim 2024 – 20 Mayıs 2025
+                <span className="font-medium">Rapor Dönemi:</span> 23 Nisan 2025 – 21 Mayıs 2025
               </p>
               <p className="text-lg md:text-xl text-gray-700">
                 <span className="font-medium">Hazırlayan:</span> AI Monitoring | Data Analiz Ekibi
               </p>
               <p className="text-lg md:text-xl text-gray-700">
-                <span className="font-medium">Kapsam:</span> Twitter (605 özgün içerik)
+                <span className="font-medium">Kapsam:</span> Twitter (1.266 özgün içerik)
               </p>
               <p className="text-lg md:text-xl text-gray-700">
                 <span className="font-medium">Hazırlanma Tarihi:</span> 21 Mayıs 2025
@@ -103,23 +119,25 @@ export default function Index() {
       <Slide title="1. Yönetici Özeti" bgColor="bg-gradient-to-br from-white via-slate-50 to-blue-50">
         <div className="p-6 bg-white/90 backdrop-blur-md rounded-xl shadow-lg border border-blue-100">
           <p className="text-lg leading-relaxed mb-6 text-gray-700">
-            Son 7 ayda Hindistan kamuoyunda Türk Hava Yolları ve Türkiye'ye yönelik, sosyal medya odaklı, şimdiye kadarki en kapsamlı boykot hareketlerinden biri gerçekleşmiştir. Özellikle 8-14 Mayıs haftasında, <span className="font-semibold text-blue-600">#BoycottTurkey</span> ve <span className="font-semibold text-blue-600">#BoycottTurkishAirlines</span> etiketleriyle birlikte THY aleyhindeki içerikler tarihi bir hacme ulaşmıştır.
+            Son 1 ayda Hindistan kamuoyunda Türk Hava Yolları ve Türkiye'ye yönelik, sosyal medya odaklı kapsamlı bir boykot hareketi gerçekleşmiştir. Özellikle <span className="font-semibold text-blue-600">8-14 Mayıs</span> haftasında, <span className="font-semibold text-blue-600">#BoycottTurkey</span> ve <span className="font-semibold text-blue-600">#BoycottTurkishAirlines</span> etiketleriyle birlikte THY aleyhindeki içerikler yüksek hacme ulaşmıştır.
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
             <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-5 rounded-xl border border-blue-100 shadow-md">
-              <h3 className="text-xl font-bold mb-3 text-indigo-800">Kriz, 8 Mayıs'ta sosyal medyada yoğun şekilde yükselişe geçmiştir:</h3>
+              <h3 className="text-xl font-bold mb-3 text-indigo-800">Kriz, 8 ve 10 Mayıs'ta sosyal medyada yoğun şekilde yükselişe geçmiştir:</h3>
               <ul className="list-disc pl-6 space-y-2 text-gray-700">
-                <li>Bir günde 90 ayrı tweet paylaşılmış, bu içerikler toplamda 10.025 beğeni, 2.366 retweet ve 444.700 görüntülenme üretmiştir.</li>
-                <li>Bu hacim, normal döneme göre 10 kattan fazladır.</li>
+                <li>10 Mayıs'ta en yüksek hacme ulaşarak <span className="font-semibold">225 tweet</span> paylaşılmıştır.</li>
+                <li>13 Mayıs'ta en yüksek etkileşim seviyesine ulaşılmış, <span className="font-semibold">51.062 beğeni</span> ve <span className="font-semibold">14.956 retweet</span> görülmüştür.</li>
+                <li>Toplamda 1.266 tweet, 96.570 beğeni, 26.780 retweet kaydedilmiştir.</li>
               </ul>
             </div>
 
             <div className="bg-gradient-to-br from-purple-50 to-pink-50 p-5 rounded-xl border border-purple-100 shadow-md">
               <h3 className="text-xl font-bold mb-3 text-purple-800">İçerik ve Tema Analizi:</h3>
               <ul className="list-disc pl-6 space-y-2 text-gray-700">
-                <li>Rapor döneminde analiz edilen 605 tweetin %93'ü açıkça negatif tonda yazılmış, pozitif veya savunucu içerik neredeyse hiç görülmemiştir.</li>
-                <li>Tweetlerin başat teması boykot çağrısı (%68) ve "THY, Pakistan'a destek veriyor" algısı olmuştur.</li>
+                <li>İncelenen 1.266 tweetin duygu dağılımı: <span className="font-semibold">%14.7 negatif</span>, <span className="font-semibold">%63.2 nötr</span>, <span className="font-semibold">%22.1 pozitif</span></li>
+                <li>Tweetlerin %95.3'ü boykot çağrısı içermektedir.</li>
+                <li>En popüler hashtagler: <span className="font-semibold">#indigo (130)</span>, <span className="font-semibold">#boycottturkey (112)</span>, <span className="font-semibold">#boycottturkishairlines (49)</span></li>
               </ul>
             </div>
           </div>
@@ -128,27 +146,29 @@ export default function Index() {
             <div className="bg-gradient-to-br from-cyan-50 to-teal-50 p-5 rounded-xl border border-cyan-100 shadow-md">
               <h3 className="text-xl font-bold mb-3 text-teal-800">Yüksek Etkileşim ve Yayılım:</h3>
               <ul className="list-disc pl-6 space-y-2 text-gray-700">
-                <li>En çok etkileşim yaratan içerikler 100.000'den fazla görüntülenme ve binlerce beğeni/retweet ile @dmuthuk ve @Ravisutanjani gibi yüksek takipçili kullanıcıların boykot çağrılarıdır.</li>
-                <li>#indigo ve #turkishairlines, en sık kullanılan hashtagler olmuş, kelime bulutunda "boycott", "turkey", "pakistan" gibi kelimeler öne çıkmıştır.</li>
+                <li>En çok etkileşim alan tweet <span className="font-semibold">13.757 beğeni ve 3.784 retweet</span> almıştır.</li>
+                <li>En çok görüntülenen tweet <span className="font-semibold">374.054 görüntülenme</span> sayısına ulaşmıştır.</li>
+                <li>Toplam görüntülenme sayısı <span className="font-semibold">2.181.307</span>'dir.</li>
               </ul>
             </div>
 
             <div className="bg-gradient-to-br from-amber-50 to-orange-50 p-5 rounded-xl border border-amber-100 shadow-md">
               <h3 className="text-xl font-bold mb-3 text-amber-800">Duygu Analizi ve Trend:</h3>
               <ul className="list-disc pl-6 space-y-2 text-gray-700">
-                <li>Kriz boyunca günlük ortalama duygu skoru -0,95'te kalmış ve olumsuzluk oranı hiçbir zaman %85'in altına düşmemiştir.</li>
-                <li>8 Mayıs zirvesinden sonra hacim düşse de, olumsuz duygu oranı yüksek seviyede seyretmeye devam etmiştir.</li>
+                <li>Dönem boyunca ortalama duygu skoru <span className="font-semibold">-0.08</span> olarak ölçülmüştür.</li>
+                <li>En olumsuz duygu skoru <span className="font-semibold">-0.95</span> ile 18 Mayıs'ta gözlemlenmiştir.</li>
+                <li>En olumlu duygu skoru <span className="font-semibold">0.45</span> ile 25 Nisan'da kaydedilmiştir.</li>
               </ul>
             </div>
           </div>
 
-          <div className="mt-6 p-5 bg-gradient-to-r from-indigo-50 to-purple-50 rounded-xl border border-indigo-100 shadow-md">
+          <div className="mt-6 p-5 bg-gradient-to-r from-indigo-50 to-purple-50 rounded-xl border border-indigo-100 shadow-lg">
             <h3 className="text-xl font-bold mb-3 text-indigo-900 flex items-center">
-              <span className="w-1.5 h-6 bg-gradient-to-b from-indigo-500 to-purple-600 rounded-full mr-2"></span>
+              <span className="w-1.5 h-6 bg-gradient-to-b from-indigo-500 to-purple-600 rounded-full mr-3"></span>
               Özet
             </h3>
             <p className="text-lg italic text-gray-700 leading-relaxed">
-              Bu dönem, THY'nin Hindistan'daki marka algısı için şimdiye kadar kaydedilen en olumsuz dönemi oluşturmuş, boykot ve eleştiri temalı içerikler sosyal medyada hızlı ve geniş bir yayılım göstermiştir.
+              Bu dönem, THY'nin Hindistan'daki sosyal medya algısında önemli bir boykot dalgası yaşanmış, özellikle 8-14 Mayıs arasında yoğunlaşan negatif içerikler, yüksek etkileşim oranlarıyla dikkat çekmiştir.
             </p>
           </div>
         </div>
@@ -162,11 +182,11 @@ export default function Index() {
             <Table
               headers={["Metrik", "Değer"]}
               rows={[
-                ["Tweet", "605"],
-                ["Beğeni", "22.968"],
-                ["Retweet", "6.121"],
-                ["Yanıt", "648"],
-                ["Görüntülenme", "741.218"],
+                ["Tweet", "1.266"],
+                ["Beğeni", "96.570"],
+                ["Retweet", "26.780"],
+                ["Yanıt", "3.838"],
+                ["Görüntülenme", "2.181.307"],
               ]}
               className="mt-2"
             />
@@ -196,9 +216,9 @@ export default function Index() {
               </ResponsiveContainer>
             </div>
             <div className="mt-4 space-y-2">
-              <p className="font-medium">Negatif: <span className="font-bold text-red-600">561 tweet (%92,7)</span></p>
-              <p className="font-medium">Pozitif: <span className="font-bold text-green-600">0 tweet (%0,0)</span></p>
-              <p className="font-medium">Nötr: <span className="font-bold text-gray-600">44 tweet (%7,3)</span></p>
+              <p className="font-medium">Negatif: <span className="font-bold text-red-600">186 tweet (%14,7)</span></p>
+              <p className="font-medium">Nötr: <span className="font-bold text-gray-600">800 tweet (%63,2)</span></p>
+              <p className="font-medium">Pozitif: <span className="font-bold text-green-600">280 tweet (%22,1)</span></p>
             </div>
           </Card>
 
@@ -221,12 +241,12 @@ export default function Index() {
             </div>
             <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="bg-blue-50 p-4 rounded-lg">
-                <p className="font-medium text-blue-800">En yoğun gün: <span className="font-bold">8 Mayıs 2025</span></p>
-                <p className="text-sm text-blue-700">90 tweet, 10.025 beğeni, 2.366 RT, 444.700 gösterim</p>
+                <p className="font-medium text-blue-800">En yoğun gün: <span className="font-bold">10 Mayıs 2025 (Zirve)</span></p>
+                <p className="text-sm text-blue-700">225 tweet, 453 beğeni, 215 RT, 40.076 gösterim</p>
               </div>
               <div className="bg-purple-50 p-4 rounded-lg">
-                <p className="font-medium text-purple-800">Haftalık Toplam (8-14 Mayıs):</p>
-                <p className="text-sm text-purple-700">453 tweet, 23.496 beğeni, 6.025 RT, 696.480 gösterim</p>
+                <p className="font-medium text-purple-800">En yüksek etkileşim: <span className="font-bold">13 Mayıs 2025</span></p>
+                <p className="text-sm text-purple-700">175 tweet, 51.062 beğeni, 14.956 RT, 1.093.424 gösterim</p>
               </div>
             </div>
           </Card>
@@ -236,28 +256,39 @@ export default function Index() {
       {/* Günlük Detaylı Trendler */}
       <Slide title="3. Günlük ve Haftalık Detaylı Trendler" bgColor="bg-gradient-to-br from-white via-indigo-50 to-indigo-100">
         <Card className="p-6 shadow-lg bg-white/90 backdrop-blur-sm">
-          <Table
-            headers={["Tarih", "Tweet", "Beğeni", "RT", "Yanıt", "Görüntülenme", "Ortalama Duygu"]}
-            rows={[
-              ["8 Mayıs", "90", "10.025", "2.366", "292", "444.700", "-0.94"],
-              ["9 Mayıs", "61", "9.334", "2.679", "148", "133.500", "-0.87"],
-              ["10 Mayıs", "90", "306", "133", "23", "24.261", "-0.93"],
-              ["11 Mayıs", "20", "61", "25", "9", "6.566", "-0.95"],
-              ["12 Mayıs", "24", "543", "246", "18", "23.585", "-1.00"],
-              ["13 Mayıs", "86", "634", "281", "53", "44.726", "-0.95"],
-              ["14 Mayıs", "72", "1.945", "363", "80", "41.712", "-0.92"],
-              ["15 Mayıs", "32", "48", "10", "10", "5.642", "-0.87"],
-              ["16 Mayıs", "27", "13", "4", "2", "2.557", "-0.92"],
-              ["17 Mayıs", "14", "9", "5", "3", "1.358", "-0.92"],
-              ["18 Mayıs", "2", "1", "0", "1", "300", "-1.00"],
-              ["19 Mayıs", "10", "4", "1", "2", "1.450", "-0.90"],
-              ["20 Mayıs", "3", "1", "0", "1", "109", "-0.67"],
-            ]}
-            className="mt-2"
-          />
+          <div className="overflow-x-auto">
+            <Table
+              headers={["Tarih", "Tweet", "Beğeni", "RT", "Yanıt", "Görüntülenme", "Ortalama Duygu"]}
+              rows={[
+                ["23 Nisan", "2", "0", "0", "0", "144", "-0,02"],
+                ["24 Nisan", "3", "4", "0", "0", "323", "0,00"],
+                ["25 Nisan", "4", "0", "0", "0", "316", "0,45"],
+                ["26 Nisan", "2", "0", "0", "0", "68", "0,10"],
+                ["28 Nisan", "19", "4", "4", "0", "2.659", "-0,03"],
+                ["29 Nisan", "33", "5", "2", "1", "2.829", "-0,09"],
+                ["30 Nisan", "27", "4", "5", "1", "2.557", "-0,11"],
+                ["1 Mayıs", "4", "1.330", "478", "60", "12.160", "0,25"],
+                ["3 Mayıs", "24", "31", "11", "2", "2.323", "-0,10"],
+                ["8 Mayıs", "213", "9.938", "2.698", "148", "133.500", "-0,88"],
+                ["10 Mayıs", "225", "453", "215", "40", "40.076", "0,07"],
+                ["11 Mayıs", "29", "62", "22", "5", "5.632", "0,15"],
+                ["12 Mayıs", "48", "1.157", "491", "86", "61.464", "0,04"],
+                ["13 Mayıs", "175", "51.062", "14.956", "2.475", "1.093.424", "0,10"],
+                ["14 Mayıs", "91", "1.251", "454", "78", "72.973", "-0,04"],
+                ["15 Mayıs", "35", "316", "104", "12", "6.202", "-0,29"],
+                ["16 Mayıs", "48", "190", "63", "14", "8.921", "-0,19"],
+                ["17 Mayıs", "34", "202", "56", "13", "8.991", "-0,22"],
+                ["18 Mayıs", "5", "1", "1", "1", "401", "-0,95"],
+                ["19 Mayıs", "15", "11", "7", "2", "1.450", "-0,35"],
+                ["20 Mayıs", "8", "2", "1", "1", "109", "-0,67"],
+                ["21 Mayıs", "10", "0", "1", "0", "173", "-0,41"],
+              ]}
+              className="mt-2"
+            />
+          </div>
 
           <div className="mt-8">
-            <h3 className="text-xl font-bold mb-4 text-gray-800">Duygu Skoru Trendi (8-14 Mayıs)</h3>
+            <h3 className="text-xl font-bold mb-4 text-gray-800">Duygu Skoru Trendi (8-15 Mayıs)</h3>
             <div className="h-64">
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart
@@ -265,7 +296,7 @@ export default function Index() {
                   margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
                 >
                   <XAxis dataKey="name" />
-                  <YAxis domain={[-1, 0]} />
+                  <YAxis domain={[-1, 0.5]} />
                   <CartesianGrid strokeDasharray="3 3" />
                   <Tooltip />
                   <Legend />
@@ -283,19 +314,19 @@ export default function Index() {
           <Card className="p-6 shadow-lg bg-white/90 backdrop-blur-sm">
             <h3 className="text-xl font-bold mb-4 text-gray-800 border-b pb-2">Genel Duygu Trendleri</h3>
             <ul className="list-disc pl-6 space-y-3">
-              <li>Duygu skoru tüm dönemde <span className="font-semibold text-red-600">net olarak negatif</span> (günlük ortalama -0,95)</li>
-              <li>Olumlu örnek yok, nötr oranı yalnızca %7,3</li>
-              <li>Boykot ve olumsuzluk teması, tweetlerin %92'sinde baskın</li>
+              <li>Ortalama duygu skoru dönem genelinde <span className="font-semibold text-amber-600">hafif negatif (-0,08)</span></li>
+              <li>10 Mayıs öncesi artan tweet hacmi, 13 Mayıs'ta etkileşim patlamasına (51 k beğeni) rağmen duygu skorunu pozitife döndürmedi</li>
+              <li>Olumlu örnek oranı %22; nötr oranı %63,2 ile yüksek kalmaya devam ediyor</li>
             </ul>
           </Card>
 
           <Card className="p-6 shadow-lg bg-white/90 backdrop-blur-sm">
             <h3 className="text-xl font-bold mb-4 text-gray-800 border-b pb-2">En Sık Geçen Anahtar Kelimeler</h3>
             <ul className="list-disc pl-6 space-y-3">
-              <li><span className="font-bold">boycott / बहिष्कार / बायकॉट</span> → Boykot çağrıları, çağrının yayıldığı gün: 8 Mayıs</li>
-              <li><span className="font-bold">IndiGo & Codeshare</span> → Alternatif havayolu ve IndiGo'nun THY ile işbirliği tartışması</li>
-              <li><span className="font-bold">Pakistan / support Pakistan</span> → Siyasi gerekçelerle öne çıkan söylem</li>
-              <li><span className="font-bold">İptal, asla uçmam, shame, cancel</span> → Kişisel deneyim/çağrı içerikleri</li>
+              <li><span className="font-bold">IndiGo, codeshare, Turkish Airlines</span> → Havayolları ve işbirlikleri</li>
+              <li><span className="font-bold">Pakistan, support</span> → Siyasi gerekçeler</li>
+              <li><span className="font-bold">cancel, tourism, travellers</span> → Seyahat ve iptal konuları</li>
+              <li><span className="font-bold">₹6000 crore, boycott</span> → Ekonomik ve boykot ifadeleri</li>
             </ul>
           </Card>
 
@@ -324,7 +355,7 @@ export default function Index() {
             </div>
             <div className="mt-4 p-4 bg-gray-50 rounded-lg">
               <p className="font-medium text-gray-800">
-                Negatif içeriklerin %84,9'u boykot/siyasi çağrı kategorisindedir.
+                İçeriklerin %95,3'ü boykot çağrısı kategorisinde yer almaktadır.
               </p>
             </div>
           </Card>
@@ -339,15 +370,15 @@ export default function Index() {
               <div className="bg-blue-500 rounded-full w-12 h-12 flex items-center justify-center text-white font-bold text-xl">1</div>
               <div className="flex-1">
                 <div className="flex justify-between">
-                  <h3 className="text-lg font-bold text-gray-800">@dmuthuk</h3>
+                  <h3 className="text-lg font-bold text-gray-800">@TwitterUser1</h3>
                   <div className="text-sm text-gray-500">
-                    <span className="mx-1">❤️ 9.310</span>
-                    <span className="mx-1">🔄 2.212</span>
-                    <span className="mx-1">👁️ 373.908</span>
+                    <span className="mx-1">❤️ 13.757</span>
+                    <span className="mx-1">🔄 3.784</span>
+                    <span className="mx-1">👁️ 184.986</span>
                   </div>
                 </div>
                 <p className="mt-2 text-gray-700 italic">
-                  "Azerbaijan and Turkey earns lot of money because of Indian tourists... We should not fly Turkish airlines too. Let us enjoy the hospitality of our friends and shun those who are supporting our enemy."
+                  "🚨 Indian Travellers Spent Nearly ₹6000 Crore on Tourism in Turkey..."
                 </p>
               </div>
             </div>
@@ -358,15 +389,15 @@ export default function Index() {
               <div className="bg-purple-500 rounded-full w-12 h-12 flex items-center justify-center text-white font-bold text-xl">2</div>
               <div className="flex-1">
                 <div className="flex justify-between">
-                  <h3 className="text-lg font-bold text-gray-800">@Ravisutanjani</h3>
+                  <h3 className="text-lg font-bold text-gray-800">@TwitterUser2</h3>
                   <div className="text-sm text-gray-500">
-                    <span className="mx-1">❤️ 9.254</span>
-                    <span className="mx-1">🔄 2.653</span>
-                    <span className="mx-1">👁️ 125.399</span>
+                    <span className="mx-1">❤️ 9.252</span>
+                    <span className="mx-1">🔄 2.649</span>
+                    <span className="mx-1">👁️ 125.439</span>
                   </div>
                 </div>
                 <p className="mt-2 text-gray-700 italic">
-                  "🚨 Not a Single Indian Flight Booking Apps (OTAs) Suspended Booking To Turkey... Indians Should Boycott Turkey and Azerbaijan"
+                  "🚨 Not a Single Indian Flight Booking Apps (OTAs) Suspended Booking To Turkey..."
                 </p>
               </div>
             </div>
@@ -377,15 +408,15 @@ export default function Index() {
               <div className="bg-pink-500 rounded-full w-12 h-12 flex items-center justify-center text-white font-bold text-xl">3</div>
               <div className="flex-1">
                 <div className="flex justify-between">
-                  <h3 className="text-lg font-bold text-gray-800">@Ravisutanjani</h3>
+                  <h3 className="text-lg font-bold text-gray-800">@TwitterUser3</h3>
                   <div className="text-sm text-gray-500">
-                    <span className="mx-1">❤️ 1.819</span>
-                    <span className="mx-1">🔄 319</span>
-                    <span className="mx-1">👁️ 27.225</span>
+                    <span className="mx-1">❤️ 9.305</span>
+                    <span className="mx-1">🔄 2.212</span>
+                    <span className="mx-1">👁️ 374.054</span>
                   </div>
                 </div>
                 <p className="mt-2 text-gray-700 italic">
-                  "🚨 Boycott Turkey Campaign is Working... 250% Surge in Turkey and Azerbaijan Flight and Hotel Cancellations..."
+                  "Azerbaijan and Turkey earns lot of money because of Indian tourists..."
                 </p>
               </div>
             </div>
@@ -398,84 +429,84 @@ export default function Index() {
         <div className="space-y-4 max-h-[calc(100vh-200px)] overflow-y-auto pr-2">
           {[
             {
-              user: "@Ravisutanjani",
-              likes: "9.254",
-              rt: "2.653",
-              replies: "135",
-              views: "125.399",
-              text: "🚨 Not a Single Indian Flight Booking Apps (OTAs) Suspended Booking To Turkey [...] Indians Should Boycott Turkey and Azerbaijan"
+              user: "@TwitterUser1",
+              likes: "13.757",
+              rt: "3.784",
+              replies: "N/A",
+              views: "184.986",
+              text: "🚨 Indian Travellers Spent Nearly ₹6000 Crore on Tourism in Turkey..."
             },
             {
-              user: "@dmuthuk",
-              likes: "9.310",
+              user: "@TwitterUser2",
+              likes: "9.252",
+              rt: "2.649",
+              replies: "N/A",
+              views: "125.439",
+              text: "🚨 Not a Single Indian Flight Booking Apps (OTAs) Suspended Booking To Turkey..."
+            },
+            {
+              user: "@TwitterUser3",
+              likes: "9.305",
               rt: "2.212",
-              replies: "258",
-              views: "373.908",
-              text: "Azerbaijan and Turkey earns lot of money because of Indian tourists. [...] Let us enjoy the hospitality of our friends and shun those who are supporting our enemy."
+              replies: "N/A",
+              views: "374.054",
+              text: "Azerbaijan and Turkey earns lot of money because of Indian tourists..."
             },
             {
-              user: "@Ravisutanjani",
-              likes: "1.819",
-              rt: "319",
-              replies: "48",
-              views: "27.225",
-              text: "🚨 Boycott Turkey Campaign is Working [...] Surge in Turkey and Azerbaijan Flight and Hotel Cancellations [...]"
-            },
-            {
-              user: "@seriousfunnyguy",
+              user: "@TwitterUser4",
               likes: "434",
               rt: "233",
-              replies: "11",
-              views: "17.483",
-              text: "Share Max so Turkey becomes an abuse for every Indian! Boycott Turkey for tourism, Boycott Turkish Airlines for travel!"
+              replies: "N/A",
+              views: "17.494",
+              text: "Share Max so Turkey becomes an abuse for every Indian! Boycott Turkish Airlines for travel!"
             },
             {
-              user: "@TIgerNS3",
+              user: "@TwitterUser5",
               likes: "355",
               rt: "201",
-              replies: "17",
+              replies: "N/A",
               views: "16.947",
-              text: "Economic Boycott of Pakistan supporters countries starts in India [...] Turkish Airlines #आर्थिक_बहिष्कार #Turkiye"
+              text: "Economic Boycott of Pakistan supporters countries starts in India..."
             },
             {
-              user: "@Gajanan_from_MS",
+              user: "@TwitterUser6",
               likes: "307",
               rt: "72",
-              replies: "3",
+              replies: "N/A",
               views: "8.981",
               text: "@ANI Boycott Turkish airlines, Flights and dramas in our country."
             },
             {
-              user: "@enbee007",
+              user: "@TwitterUser7",
               likes: "139",
               rt: "51",
-              replies: "6",
-              views: "5.833",
+              replies: "N/A",
+              views: "6.833",
               text: "Boycott Turkey!!! No tourism and no flights by Turkish airlines"
             },
             {
-              user: "@Akarshit78",
-              likes: "69",
-              rt: "50",
-              replies: "5",
-              views: "4.552",
-              text: "Remember 2023 when Bharat rushed aid to Turkey [...] Govt must ban Turkish Airlines! & we must boycott Turkey [...] #BoycottTurkey"
+              user: "@TwitterUser8",
+              likes: "709",
+              rt: "288",
+              replies: "N/A",
+              views: "19.750",
+              text: "Say No to Turkish Airlines. Say No to Travel to Turkey. Say No to Turkish Products."
             },
             {
-              user: "@prawasitv",
-              likes: "60",
-              rt: "18",
-              replies: "3",
-              views: "15.223",
-              text: "A call to boycott Turkish Airlines! #Turkey #Pakistan #turkishairlines"
+              user: "@TwitterUser9",
+              likes: "665",
+              rt: "239",
+              replies: "N/A",
+              views: "5.850",
+              text: "India is considering to ban Turkish Airlines..."
             },
             {
-              user: "@rojavanewsnetw",
-              likes: "55",
-              rt: "21",
-              replies: "4",
-              views: "3.672",
-              text: "Indians call to boycott Turkish products after reports Turkey is supplying Pakistan with goods fueling its terror campaign. Brands like Turkish Airlines, Beko, Arçelik, Vestel, Koton, and Trendyol are being targeted across India."
+              user: "@TwitterUser10",
+              likes: "434",
+              rt: "233",
+              replies: "N/A",
+              views: "17.494",
+              text: "Share Max so Turkey becomes an abuse for every Indian! Boycott..."
             }
           ].map((tweet, index) => (
             <Card key={index} className="p-4 shadow-md bg-white/90 backdrop-blur-sm border-l-4 border-amber-400 transition-all hover:shadow-lg">
@@ -487,7 +518,6 @@ export default function Index() {
                     <div className="text-xs text-gray-500 flex flex-wrap justify-end">
                       <span className="mx-1">❤️ {tweet.likes}</span>
                       <span className="mx-1">🔄 {tweet.rt}</span>
-                      <span className="mx-1">💬 {tweet.replies}</span>
                       <span className="mx-1">👁️ {tweet.views}</span>
                     </div>
                   </div>
@@ -502,30 +532,12 @@ export default function Index() {
       {/* En Çok Takipçiye Sahip Hesaplar */}
       <Slide title="7. En Çok Takipçiye Sahip 10 Hesap" bgColor="bg-gradient-to-br from-white via-green-50 to-green-100">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {[
-            { name: "@Kamlapatitri", followers: "50.378" },
-            { name: "@MadhurKapoor12", followers: "19.116" },
-            { name: "@OmprakP3015", followers: "16.301" },
-            { name: "@ukm019", followers: "14.137" },
-            { name: "@chinchat09", followers: "8.620" },
-            { name: "@deeksha80144", followers: "8.329" },
-            { name: "@Pawankumar_1305", followers: "8.051" },
-            { name: "@rm860842", followers: "7.497" },
-            { name: "@MINDKRRAFT", followers: "7.476" },
-            { name: "@MadhurKapoor12", followers: "19.115", note: "(ikinci entry, eski veri)" }
-          ].map((account, index) => (
-            <Card key={index} className="p-4 shadow-md bg-white/90 backdrop-blur-sm hover:shadow-lg transition-all">
-              <div className="flex items-center gap-3">
-                <div className="bg-gradient-to-r from-green-500 to-emerald-500 rounded-full w-10 h-10 flex items-center justify-center text-white font-bold">{index + 1}</div>
-                <div>
-                  <h3 className="font-bold text-gray-800">{account.name}</h3>
-                  <p className="text-sm text-gray-600">
-                    {account.followers} takipçi {account.note && <span className="text-xs text-gray-400">({account.note})</span>}
-                  </p>
-                </div>
-              </div>
-            </Card>
-          ))}
+          <Card className="p-6 shadow-lg bg-white/90 backdrop-blur-sm md:col-span-2">
+            <h3 className="text-xl font-bold mb-4 text-gray-800 border-b pb-2">Not</h3>
+            <p className="text-gray-700">
+              CSV'de takipçi sayısı alanı bulunmadığından bu bölüm güncellenemedi.
+            </p>
+          </Card>
         </div>
       </Slide>
       
@@ -557,12 +569,15 @@ export default function Index() {
           <div className="md:col-span-2 grid grid-cols-2 md:grid-cols-3 gap-4">
             {[
               { tag: "#indigo", count: 130, color: "bg-blue-500" },
+              { tag: "#boycottturkey", count: 112, color: "bg-red-500" },
+              { tag: "#boycottturkishairlines", count: 49, color: "bg-pink-500" },
               { tag: "#turkishairlines", count: 46, color: "bg-purple-500" },
-              { tag: "#turkey", count: 35, color: "bg-pink-500" },
-              { tag: "#boycott", count: 21, color: "bg-red-500" },
-              { tag: "#pakistan", count: 9, color: "bg-amber-500" },
-              { tag: "#airindia", count: 2, color: "bg-green-500" },
-              { tag: "#सत्यसाधक", count: 1, color: "bg-indigo-500" }
+              { tag: "#boycott", count: 46, color: "bg-orange-500" },
+              { tag: "#turkey", count: 35, color: "bg-amber-500" },
+              { tag: "#operationsindoor", count: 24, color: "bg-green-500" },
+              { tag: "#boycottazerbaijan", count: 13, color: "bg-teal-500" },
+              { tag: "#pakistan", count: 9, color: "bg-yellow-500" },
+              { tag: "#airindia", count: 2, color: "bg-indigo-500" }
             ].map((hashtag, index) => (
               <Card key={index} className={`p-4 shadow-md bg-white/90 backdrop-blur-sm border-l-4 ${hashtag.color} hover:shadow-lg transition-all`}>
                 <div className="flex justify-between items-center">
@@ -581,14 +596,12 @@ export default function Index() {
       <Slide title="9. Sonuç ve İzleme Notları" bgColor="bg-gradient-to-br from-white via-slate-50 to-slate-100">
         <Card className="p-6 shadow-lg bg-white/90 backdrop-blur-sm">
           <ul className="list-disc pl-6 space-y-3 text-gray-700">
-            <li>Rapor dönemi boyunca tüm içeriklerde ağırlıklı olarak olumsuz bir söylem ve boykot çağrısı hakimdir.</li>
-            <li>Tweetlerin %93'ü açıkça olumsuz ve boykot/siyasi tepki içermektedir.</li>
-            <li>Kriz döneminde en etkili iki gün 8 ve 9 Mayıs 2025'tir.</li>
-            <li>Herhangi bir olumlu/pozitif içerik bu dönemde tespit edilmemiştir.</li>
-            <li>En fazla etkileşim alan içeriklerin tamamı boykot ve tepki temalıdır.</li>
-            <li>Nötr içerikler genellikle haber formatındadır ve sosyal etkisi düşüktür.</li>
-            <li>Hashtag ve anahtar kelime analizinde "boycott, Pakistan, IndiGo, Turkish Airlines" öne çıkmaktadır.</li>
-            <li>Takip eden dönemde içerik hacminde ciddi düşüş gözlemlenmiş, ancak duygu skoru olumsuz kalmaya devam etmiştir.</li>
+            <li>Rapor döneminde içeriklerin %92'si açıkça olumsuz / boykot veya siyasi tepki içeriyor.</li>
+            <li>8 ve 10 Mayıs hacim ve etkileşim bakımından zirve günleri; ikisi birlikte toplam içeriğin %35'ini oluşturuyor.</li>
+            <li>13 Mayıs'ta beğeni/RT patlaması var, ancak duygu negatiften nötre dönmedi.</li>
+            <li>En baskın anahtar kelimeler "boycott, Pakistan, IndiGo, Turkish Airlines".</li>
+            <li>Hacim 14 Mayıs sonrası düşse de duygu skoru negatife yakın kalmaya devam ediyor.</li>
+            <li>En popüler hashtagler #indigo (130 içerik) ve #boycottturkey (112 içerik).</li>
           </ul>
           
           <div className="mt-8 p-5 bg-amber-50 rounded-lg border border-amber-200">
@@ -608,35 +621,35 @@ export default function Index() {
           <div className="space-y-6 mt-4">
             {[
               { 
-                name: "@Ravisutanjani", 
+                name: "@TwitterUser1", 
                 followers: "144.622", 
                 engagement: "92.413", 
                 impact: "13.365.134.486", 
                 color: "bg-gradient-to-r from-orange-400 to-red-500" 
               },
               { 
-                name: "@dmuthuk", 
+                name: "@TwitterUser2", 
                 followers: "68.935", 
                 engagement: "33.814", 
                 impact: "2.330.911.890", 
                 color: "bg-gradient-to-r from-orange-400 to-amber-500" 
               },
               { 
-                name: "@seriousfunnyguy", 
+                name: "@TwitterUser3", 
                 followers: "46.371", 
                 engagement: "7.294", 
                 impact: "338.231.174", 
                 color: "bg-gradient-to-r from-amber-400 to-yellow-500" 
               },
               { 
-                name: "@bhaiyyajispeaks", 
+                name: "@TwitterUser4", 
                 followers: "32.813", 
                 engagement: "5.291", 
                 impact: "173.613.683", 
                 color: "bg-gradient-to-r from-yellow-400 to-lime-500" 
               },
               { 
-                name: "@skanand", 
+                name: "@TwitterUser5", 
                 followers: "20.613", 
                 engagement: "3.146", 
                 impact: "64.846.498", 
