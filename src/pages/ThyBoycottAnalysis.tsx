@@ -42,31 +42,31 @@ const ThyBoycottAnalysis = () => {
   const popularCommentsData = [
     { 
       username: 'user123', 
-      comment: 'THY'nin bu kararını şiddetle kınıyorum. #ThyBoykot', 
+      comment: "THY'nin bu kararını şiddetle kınıyorum. #ThyBoykot", 
       likes: 1245, 
       date: '6 Mayıs' 
     },
     { 
       username: 'activist88', 
-      comment: 'Hepimiz destek olmalıyız. #BoykotEt #Filistin', 
+      comment: "Hepimiz destek olmalıyız. #BoykotEt #Filistin", 
       likes: 982, 
       date: '7 Mayıs' 
     },
     { 
       username: 'freedom_fighter', 
-      comment: 'Bu karar kabul edilemez. Hepimiz sesimizi yükseltmeliyiz!', 
+      comment: "Bu karar kabul edilemez. Hepimiz sesimizi yükseltmeliyiz!", 
       likes: 876, 
       date: '7 Mayıs' 
     },
     { 
       username: 'peace_now', 
-      comment: 'Gazze için ayağa kalkın. #Gazze #DestekOl', 
+      comment: "Gazze için ayağa kalkın. #Gazze #DestekOl", 
       likes: 754, 
       date: '6 Mayıs' 
     },
     { 
       username: 'solidarity2023', 
-      comment: 'Boykot hareketine katılın. Sesimizi duyuralım. #ThyBoykot', 
+      comment: "Boykot hareketine katılın. Sesimizi duyuralım. #ThyBoykot", 
       likes: 621, 
       date: '8 Mayıs' 
     },
@@ -79,7 +79,7 @@ const ThyBoycottAnalysis = () => {
       <div className="bg-white rounded-lg shadow-lg p-6 mb-8">
         <h1 className="text-3xl font-bold text-gray-800 mb-2">THY Boykot Analizi</h1>
         <p className="text-gray-600 mb-6">
-          1-8 Mayıs 2023 tarihlerinde Instagram'daki THY boykot çağrılarının analizi
+          1-8 Mayıs 2023 tarihlerinde Instagram&apos;daki THY boykot çağrılarının analizi
         </p>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-10">
@@ -88,7 +88,7 @@ const ThyBoycottAnalysis = () => {
             <CardHeader className="pb-2">
               <CardTitle className="text-xl font-bold">Yorum Duygu Analizi</CardTitle>
               <CardDescription>
-                Instagram'daki THY ile ilgili yorumların duygu analizi
+                Instagram&apos;daki THY ile ilgili yorumların duygu analizi
               </CardDescription>
             </CardHeader>
             <CardContent>
