@@ -2,13 +2,17 @@
 import React from 'react';
 import Slide from '@/components/Slide';
 import TweetCard from '@/components/TweetCard';
-import { mostRTTweets } from '@/data/reportData';
+import { mostRetweetedTweets } from '@/data/reportData';
 
 const PopularTweetsSlide = () => {
   return (
-    <Slide title="5. En Popüler Tweetler" bgColor="bg-gradient-to-br from-white via-rose-50 to-rose-100">
+    <Slide 
+      title="5. En Popüler Tweetler" 
+      subtitle="En yüksek etkileşim ve RT alan içerikler"
+      bgColor="bg-gradient-to-br from-white via-rose-50 to-rose-100"
+    >
       <div className="space-y-6">
-        {mostRTTweets.slice(0, 3).map((tweet, index) => (
+        {mostRetweetedTweets.slice(0, 3).map((tweet, index) => (
           <TweetCard
             key={index}
             id={tweet.id}

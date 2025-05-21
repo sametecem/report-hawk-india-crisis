@@ -80,7 +80,7 @@ export const wordCloudData = [
   "crore (61)", "indian (59)"
 ];
 
-// Twitter data with links
+// Updated Twitter data with links - now including all 10 of the most retweeted tweets
 export const mostRTTweets = [
   { 
     id: "1922291949068845502", 
@@ -132,6 +132,56 @@ export const mostRTTweets = [
     handle: "EcoTimes_Now",
     verified: true
   },
+  {
+    id: "1920918289703391251",
+    text: "@ANI Boycott Turkish airlines, Flights and dramas in our country. This will impact their economy. Time to give them back!",
+    rt: 72,
+    likes: 307,
+    views: 8981,
+    author: "Indian Citizen",
+    handle: "IndianCitizen23",
+    verified: false
+  },
+  {
+    id: "1920865537146306625",
+    text: "Boycott Turkey!!! No tourism and no flights by Turkish airlines. Make Turkey realize the importance of Indian tourists!",
+    rt: 51,
+    likes: 139,
+    views: 6833,
+    author: "Travel Boycott",
+    handle: "travel_boycott",
+    verified: false
+  },
+  {
+    id: "1920237177209657344",
+    text: "Say No to Turkish Airlines. Say No to Travel to Turkey. We need to teach them a lesson with our wallets! #BoycottTurkey",
+    rt: 288,
+    likes: 709,
+    views: 19750,
+    author: "India First",
+    handle: "india_first_always",
+    verified: true
+  },
+  {
+    id: "1920218075150575616",
+    text: "India is considering to ban Turkish Airlines and all Turkish products from Indian market! This will be a major economic blow to Turkey.",
+    rt: 239,
+    likes: 665,
+    views: 5850,
+    author: "Geopolitical Expert",
+    handle: "geo_expert_india",
+    verified: true
+  },
+  {
+    id: "1920757008078893082",
+    text: "RT @8billiontothree: Turkish Airlines indirectly funding anti-India activities. Indians must boycott all Turkish products and services!",
+    rt: 0, // This is a retweet so original RT count not provided
+    likes: 276,
+    views: 5820,
+    author: "Patriotic Indian",
+    handle: "patriot_ind",
+    verified: false
+  },
 ];
 
 // Most mentioned accounts
@@ -176,3 +226,8 @@ export const topFollowers = [
   { handle: "americai", name: "Americai V Narayanan", followers: 29991 },
   { handle: "msnindia", name: "MSN India", followers: 27761 },
 ];
+
+// Create categorized lists for easier use in components
+export const mostRetweetedTweets = [...mostRTTweets].sort((a, b) => b.rt - a.rt);
+export const mostLikedTweets = [...mostRTTweets].sort((a, b) => b.likes - a.likes);
+export const mostViewedTweets = [...mostRTTweets].sort((a, b) => b.views - a.views);

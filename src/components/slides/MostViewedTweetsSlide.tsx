@@ -12,27 +12,42 @@ import {
   Tooltip, 
   Legend,
   ResponsiveContainer,
+  Cell
 } from "recharts";
-import { Eye, Twitter } from 'lucide-react';
-import { mostRTTweets } from '@/data/reportData';
+import { Eye, Twitter, BarChart3 } from 'lucide-react';
+import { mostViewedTweets, mostRetweetedTweets, mostLikedTweets } from '@/data/reportData';
 
 const MostViewedTweetsSlide = () => {
+  const chartData = mostViewedTweets.slice(0, 10).map((tweet, index) => ({
+    name: `Tweet ${index + 1}`,
+    views: tweet.views,
+    likes: tweet.likes,
+    retweets: tweet.rt
+  }));
+
   return (
-    <Slide title="9. En Çok Görüntülenen Tweetler" bgColor="bg-gradient-to-br from-white via-amber-50 to-amber-100">
+    <Slide 
+      title="9. En Çok Görüntülenen Tweetler" 
+      subtitle="Görüntülenme, beğeni ve retweet sayıları bazında karşılaştırma"
+      bgColor="bg-gradient-to-br from-white via-amber-50 to-amber-100"
+    >
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <Card className="p-6 shadow-lg bg-white/90 backdrop-blur-sm md:col-span-2">
           <div className="flex items-center gap-2 mb-4">
             <Eye className="w-5 h-5 text-amber-600" /> 
-            <h3 className="text-xl font-bold text-gray-800">En Çok Görüntülenen Tweetler</h3>
+            <h3 className="text-xl font-bold text-gray-800">En Çok Görüntülenen 10 Tweet</h3>
           </div>
           
           <Table
-            headers={["Tweet", "Görüntülenme", "Etkileşim", "Link"]}
-            rows={mostRTTweets.map((tweet, index) => [
+            headers={["Sıra", "Tweet", "Görüntülenme", "Etkileşim", "Link"]}
+            rows={mostViewedTweets.slice(0, 10).map((tweet, index) => [
+              <span className={`font-bold ${index === 0 ? "text-amber-600" : ""}`}>{index + 1}</span>,
               <div className="max-w-md truncate">
                 {tweet.text.substring(0, 80)}...
               </div>,
-              <span className="font-semibold text-amber-700">{new Intl.NumberFormat('tr-TR').format(tweet.views)}</span>,
+              <span className={`font-semibold ${index === 0 ? "text-amber-700 text-lg" : "text-gray-700"}`}>
+                {new Intl.NumberFormat('tr-TR').format(tweet.views)}
+              </span>,
               <div className="text-sm">
                 <span className="text-rose-500 mr-2">❤️ {new Intl.NumberFormat('tr-TR').format(tweet.likes)}</span>
                 <span className="text-green-500">🔄 {new Intl.NumberFormat('tr-TR').format(tweet.rt)}</span>
@@ -48,46 +63,70 @@ const MostViewedTweetsSlide = () => {
               </a>
             ])}
             className="mt-2"
+            highlightFirstColumn={true}
+            hoverEffect={true}
           />
         </Card>
       
         <Card className="p-6 shadow-lg bg-white/90 backdrop-blur-sm md:col-span-2">
+          <div className="flex items-center gap-2 mb-4">
+            <BarChart3 className="w-5 h-5 text-amber-600" /> 
+            <h3 className="text-xl font-bold text-gray-800">Görüntülenme ve Etkileşim Karşılaştırması</h3>
+          </div>
           <div className="h-80">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart
-                data={mostRTTweets.map((tweet, index) => ({
-                  name: `Tweet ${index + 1}`,
-                  views: tweet.views,
-                  likes: tweet.likes,
-                  retweets: tweet.rt
-                }))}
+                data={chartData}
                 margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
               >
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="name" />
                 <YAxis />
                 <Tooltip 
-                  formatter={(value: number, name: string) => {
-                    return [new Intl.NumberFormat('tr-TR').format(value), 
-                      name === "views" ? "Görüntülenme" : 
-                      name === "likes" ? "Beğeni" : "Retweet"
-                    ];
+                  formatter={(value) => {
+                    // Fix TypeScript issue by explicitly typing the value parameter
+                    return [new Intl.NumberFormat('tr-TR').format(value as number), ""];
+                  }}
+                  labelFormatter={(name) => {
+                    const index = parseInt(name.split(" ")[1]) - 1;
+                    return `Tweet ${index + 1}: ${mostViewedTweets[index].text.substring(0, 50)}...`;
                   }}
                 />
                 <Legend 
                   formatter={(value) => {
                     return value === "views" ? "Görüntülenme" : 
-                            value === "likes" ? "Beğeni" : "Retweet";
+                           value === "likes" ? "Beğeni" : "Retweet";
                   }}
                 />
-                <Bar dataKey="views" fill="#f59e0b" />
-                <Bar dataKey="likes" fill="#ef4444" />
-                <Bar dataKey="retweets" fill="#10b981" />
+                <Bar dataKey="views" fill="#f59e0b" name="views">
+                  {chartData.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={index === 0 ? "#d97706" : "#f59e0b"} />
+                  ))}
+                </Bar>
+                <Bar dataKey="likes" fill="#ef4444" name="likes" />
+                <Bar dataKey="retweets" fill="#10b981" name="retweets" />
               </BarChart>
             </ResponsiveContainer>
           </div>
-          <div className="mt-3 text-center text-sm text-gray-500">
-            Tweet bazlı etkileşim ve görüntülenme karşılaştırması
+          <div className="mt-5 grid grid-cols-3 gap-4">
+            <div className="bg-amber-50 p-3 rounded-lg text-center">
+              <h4 className="font-medium text-amber-800 text-sm mb-1">En Yüksek Görüntülenme</h4>
+              <div className="text-xl font-bold text-amber-700">
+                {new Intl.NumberFormat('tr-TR').format(mostViewedTweets[0].views)}
+              </div>
+            </div>
+            <div className="bg-rose-50 p-3 rounded-lg text-center">
+              <h4 className="font-medium text-rose-800 text-sm mb-1">En Yüksek Beğeni</h4>
+              <div className="text-xl font-bold text-rose-700">
+                {new Intl.NumberFormat('tr-TR').format(mostLikedTweets[0].likes)}
+              </div>
+            </div>
+            <div className="bg-emerald-50 p-3 rounded-lg text-center">
+              <h4 className="font-medium text-emerald-800 text-sm mb-1">En Yüksek Retweet</h4>
+              <div className="text-xl font-bold text-emerald-700">
+                {new Intl.NumberFormat('tr-TR').format(mostRetweetedTweets[0].rt)}
+              </div>
+            </div>
           </div>
         </Card>
       </div>
