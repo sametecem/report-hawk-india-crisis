@@ -1,11 +1,10 @@
-
 import React, { useState } from 'react';
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { BarChart, Bar, LineChart, Line, AreaChart, Area, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, ComposedChart } from 'recharts';
-import { Calendar, BarChart2, PieChart as PieChartIcon, Users, Search, Link, Clock, Flag, Database, Comment, CircleUser } from 'lucide-react';
+import { Calendar, BarChart2, PieChart as PieChartIcon, Users, Search, Link, Clock, Flag, Database, MessageSquare, CircleUser } from 'lucide-react';
 import Image from '@/components/ui/Image';
 import { generateCommentData } from '@/data/instagramCommentsData';
 
@@ -35,7 +34,7 @@ const InstagramCommentAnalysis = () => {
           <Card className="shadow-md bg-white/90 backdrop-blur-sm">
             <CardContent className="pt-6">
               <div className="flex items-center gap-3 mb-4">
-                <Comment className="h-6 w-6 text-violet-500" />
+                <MessageSquare className="h-6 w-6 text-violet-500" />
                 <h3 className="text-xl font-bold text-gray-800">Toplam Yorum</h3>
               </div>
               <p className="text-4xl font-bold text-violet-600">{formatNumber(commentData.metrics.totalComments)}</p>
@@ -587,7 +586,6 @@ const InstagramCommentAnalysis = () => {
                               stroke="#f97316"
                               strokeWidth={2}
                               dot={{ r: 4 }}
-                              yAxisId={1}
                             />
                           </BarChart>
                         </ResponsiveContainer>
@@ -602,7 +600,7 @@ const InstagramCommentAnalysis = () => {
           {/* Engagement Analysis Tab */}
           <TabsContent value="engagement" className="space-y-6">
             <div className="grid grid-cols-1 gap-6">
-              {/* Post Based Boycott Intensity */}
+              {/* Post Based Boycot Intensity */}
               <Card className="shadow-md bg-white/90 backdrop-blur-sm">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
@@ -690,7 +688,7 @@ const InstagramCommentAnalysis = () => {
               <Card className="shadow-md bg-white/90 backdrop-blur-sm">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
-                    <Comment className="h-5 w-5 text-indigo-500" />
+                    <MessageSquare className="h-5 w-5 text-indigo-500" />
                     En Çok Etkileşim Alan Yorumlar
                   </CardTitle>
                   <CardDescription>
