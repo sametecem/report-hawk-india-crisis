@@ -39,10 +39,10 @@ export default function Index() {
       <WordCloudSlide />
       <InstagramAnalysisSlide />
       <InstagramAnalysisSlide2 />
+      <NewsSlide />
       <ConclusionSlide />
       <HighImpactAccountsSlide />
       <GeographicDistributionSlide />
-      <NewsSlide />
     </SlideShow>
   );
 }
