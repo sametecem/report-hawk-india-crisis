@@ -38,11 +38,11 @@ export default function Index() {
       <MostViewedTweetsSlide />
       <WordCloudSlide />
       <InstagramAnalysisSlide />
+      <InstagramAnalysisSlide2 />
       <ConclusionSlide />
       <HighImpactAccountsSlide />
       <GeographicDistributionSlide />
       <NewsSlide />
-      <InstagramAnalysisSlide2 />
     </SlideShow>
   );
 }
