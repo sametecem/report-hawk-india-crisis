@@ -7,9 +7,10 @@ interface SlideProps {
   className?: string;
   title?: string;
   bgColor?: string;
+  contentClassName?: string;
 }
 
-const Slide = ({ children, className, title, bgColor = "bg-white" }: SlideProps) => {
+const Slide = ({ children, className, title, bgColor = "bg-white", contentClassName }: SlideProps) => {
   return (
     <div className={cn("h-full w-full flex flex-col relative overflow-hidden", bgColor, className)}>
       {/* Enhanced decorative elements for visual interest */}
@@ -24,7 +25,7 @@ const Slide = ({ children, className, title, bgColor = "bg-white" }: SlideProps)
             <span className="absolute -bottom-0.5 left-0 w-32 h-1 bg-gradient-to-r from-blue-500 to-purple-500"></span>
           </h2>
         )}
-        <div className="flex-1">
+        <div className={cn("flex-1", contentClassName)}>
           {children}
         </div>
       </div>
