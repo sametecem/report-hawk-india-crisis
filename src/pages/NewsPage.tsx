@@ -3,7 +3,7 @@ import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Calendar, Globe, FileText } from 'lucide-react';
 import Image from '@/components/ui/Image';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 
 interface NewsItem {
   id: number;
@@ -84,6 +84,32 @@ const dailyNewsData = [
   { day: "Paz", count: 8 }
 ];
 
+// Duygu analizi verileri
+const sentimentData = [
+  { name: "Pozitif", value: 45, color: "#22c55e" },
+  { name: "Nötr", value: 30, color: "#9ca3af" },
+  { name: "Negatif", value: 25, color: "#ef4444" }
+];
+
+// Kelime bulutu için örnek veriler
+const wordCloudData = [
+  { text: "Teknoloji", size: 40 },
+  { text: "Yapay Zeka", size: 35 },
+  { text: "Sosyal Medya", size: 30 },
+  { text: "Siber Güvenlik", size: 25 },
+  { text: "Veri Analizi", size: 25 },
+  { text: "Yazılım", size: 20 },
+  { text: "Blockchain", size: 18 },
+  { text: "İnovasyon", size: 18 },
+  { text: "Bulut", size: 15 },
+  { text: "Mobil", size: 15 },
+  { text: "Otomasyon", size: 15 },
+  { text: "Metaverse", size: 12 },
+  { text: "NFT", size: 12 },
+  { text: "Kripto", size: 10 },
+  { text: "E-ticaret", size: 10 }
+];
+
 const NewsCard = ({ news }: { news: NewsItem }) => {
   return (
     <Card className="overflow-hidden hover:shadow-lg transition-all duration-300">
@@ -114,6 +140,71 @@ const NewsCard = ({ news }: { news: NewsItem }) => {
           <FileText className="mr-1 h-3 w-3" />
           Haberi Oku
         </a>
+      </CardContent>
+    </Card>
+  );
+};
+
+// Kelime bulutu bileşeni
+const WordCloud = () => {
+  return (
+    <div className="bg-white p-6 rounded-lg shadow-lg">
+      <h2 className="text-xl font-semibold text-gray-700 mb-4">Popüler Kelimeler</h2>
+      <div className="flex flex-wrap justify-center p-4">
+        {wordCloudData.map((word, index) => {
+          // Boyuta göre renk belirleme
+          const getColor = () => {
+            if (word.size > 30) return "text-blue-600";
+            if (word.size > 20) return "text-purple-600";
+            if (word.size > 15) return "text-green-600";
+            return "text-gray-600";
+          };
+          
+          return (
+            <span 
+              key={index} 
+              className={`${getColor()} font-medium px-3 py-2`}
+              style={{ fontSize: `${word.size / 10 + 0.8}rem` }}
+            >
+              {word.text}
+            </span>
+          );
+        })}
+      </div>
+    </div>
+  );
+};
+
+// Duygu analizi grafiği bileşeni
+const SentimentAnalysisChart = () => {
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle className="text-xl font-semibold">Haber Duygu Analizi</CardTitle>
+        <CardDescription>Haberlerin duygu dağılımı</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <div className="h-64">
+          <ResponsiveContainer width="100%" height="100%">
+            <PieChart>
+              <Pie
+                data={sentimentData}
+                cx="50%"
+                cy="50%"
+                labelLine={false}
+                outerRadius={80}
+                fill="#8884d8"
+                dataKey="value"
+                label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
+              >
+                {sentimentData.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={entry.color} />
+                ))}
+              </Pie>
+              <Tooltip formatter={(value) => `${value}%`} />
+            </PieChart>
+          </ResponsiveContainer>
+        </div>
       </CardContent>
     </Card>
   );
@@ -161,6 +252,11 @@ const NewsPage = () => {
               </LineChart>
             </ResponsiveContainer>
           </div>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+          <SentimentAnalysisChart />
+          <WordCloud />
         </div>
 
         <h2 className="text-xl font-semibold text-gray-700 mb-4">Öne Çıkan Haberler</h2>
