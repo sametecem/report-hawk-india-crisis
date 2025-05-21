@@ -1,4 +1,3 @@
-
 import React from "react";
 import SlideShow from "@/components/SlideShow";
 import Slide from "@/components/Slide";
@@ -58,14 +57,14 @@ export default function Index() {
     { name: "21 Mayıs", tweets: 10 },
   ];
 
-  // Updated emotion data based on new values
+  // Updated emotion data with new values for sentiment distribution
   const emotionData = [
-    { name: "Negatif", value: 14.7, fill: "#ef4444" },
-    { name: "Nötr", value: 63.2, fill: "#9ca3af" },
-    { name: "Pozitif", value: 22.1, fill: "#22c55e" },
+    { name: "Negatif", value: 92.6, fill: "#ef4444" },
+    { name: "Nötr", value: 7.1, fill: "#9ca3af" },
+    { name: "Pozitif", value: 0.3, fill: "#22c55e" },
   ];
 
-  // Updated category data with new values
+  // Updated category data
   const categoryData = [
     { name: "Boykot çağrısı", value: 95.3, fill: "#f87171" },
     { name: "Nötr içerik", value: 1.7, fill: "#9ca3af" },
@@ -135,7 +134,7 @@ export default function Index() {
             <div className="bg-gradient-to-br from-purple-50 to-pink-50 p-5 rounded-xl border border-purple-100 shadow-md">
               <h3 className="text-xl font-bold mb-3 text-purple-800">İçerik ve Tema Analizi:</h3>
               <ul className="list-disc pl-6 space-y-2 text-gray-700">
-                <li>İncelenen 1.266 tweetin duygu dağılımı: <span className="font-semibold">%14.7 negatif</span>, <span className="font-semibold">%63.2 nötr</span>, <span className="font-semibold">%22.1 pozitif</span></li>
+                <li>İncelenen 1.266 tweetin duygu dağılımı: <span className="font-semibold">%92.6 negatif</span>, <span className="font-semibold">%7.1 nötr</span>, <span className="font-semibold">%0.3 pozitif</span></li>
                 <li>Tweetlerin %95.3'ü boykot çağrısı içermektedir.</li>
                 <li>En popüler hashtagler: <span className="font-semibold">#indigo (130)</span>, <span className="font-semibold">#boycottturkey (112)</span>, <span className="font-semibold">#boycottturkishairlines (49)</span></li>
               </ul>
@@ -216,9 +215,9 @@ export default function Index() {
               </ResponsiveContainer>
             </div>
             <div className="mt-4 space-y-2">
-              <p className="font-medium">Negatif: <span className="font-bold text-red-600">186 tweet (%14,7)</span></p>
-              <p className="font-medium">Nötr: <span className="font-bold text-gray-600">800 tweet (%63,2)</span></p>
-              <p className="font-medium">Pozitif: <span className="font-bold text-green-600">280 tweet (%22,1)</span></p>
+              <p className="font-medium">Negatif: <span className="font-bold text-red-600">1.173 tweet (%92,6)</span></p>
+              <p className="font-medium">Nötr: <span className="font-bold text-gray-600">90 tweet (%7,1)</span></p>
+              <p className="font-medium">Pozitif: <span className="font-bold text-green-600">3 tweet (%0,3)</span></p>
             </div>
           </Card>
 
@@ -314,9 +313,9 @@ export default function Index() {
           <Card className="p-6 shadow-lg bg-white/90 backdrop-blur-sm">
             <h3 className="text-xl font-bold mb-4 text-gray-800 border-b pb-2">Genel Duygu Trendleri</h3>
             <ul className="list-disc pl-6 space-y-3">
-              <li>Ortalama duygu skoru dönem genelinde <span className="font-semibold text-amber-600">hafif negatif (-0,08)</span></li>
+              <li>Ortalama duygu skoru dönem genelinde <span className="font-semibold text-amber-600">yüksek negatif (-0,08)</span></li>
               <li>10 Mayıs öncesi artan tweet hacmi, 13 Mayıs'ta etkileşim patlamasına (51 k beğeni) rağmen duygu skorunu pozitife döndürmedi</li>
-              <li>Olumlu örnek oranı %22; nötr oranı %63,2 ile yüksek kalmaya devam ediyor</li>
+              <li>Olumlu örnek oranı %0,3; nötr oranı %7,1 ile düşük kalırken negatif içerik %92,6 ile baskın</li>
             </ul>
           </Card>
 
