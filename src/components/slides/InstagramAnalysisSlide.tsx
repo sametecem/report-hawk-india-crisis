@@ -77,6 +77,10 @@ const InstagramAnalysisSlide = () => {
                 <p className="text-sm text-gray-600">Toplam İzlenmeler</p>
                 <p className="text-2xl font-bold text-amber-600">{formatNumber(instagramMetrics.totalPlays)}</p>
               </div>
+              <div className="bg-green-50 p-3 rounded-lg md:col-span-2">
+                <p className="text-sm text-gray-600">Ortalama Etkileşim Oranı</p>
+                <p className="text-2xl font-bold text-green-600">%{instagramMetrics.avgEr}</p>
+              </div>
             </div>
           </CardContent>
         </Card>
@@ -98,7 +102,7 @@ const InstagramAnalysisSlide = () => {
                   className="object-cover h-full w-full"
                 />
                 <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-2">
-                  <p className="text-xs text-white">8 Mayıs</p>
+                  <p className="text-xs text-white">10 Mayıs</p>
                 </div>
               </div>
               <div className="relative aspect-square overflow-hidden rounded-lg shadow-sm">
@@ -108,7 +112,7 @@ const InstagramAnalysisSlide = () => {
                   className="object-cover h-full w-full"
                 />
                 <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-2">
-                  <p className="text-xs text-white">10 Mayıs</p>
+                  <p className="text-xs text-white">14 Mayıs</p>
                 </div>
               </div>
               <div className="relative aspect-square overflow-hidden rounded-lg shadow-sm">
