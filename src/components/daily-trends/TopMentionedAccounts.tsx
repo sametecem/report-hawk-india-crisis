@@ -106,7 +106,7 @@ const TopMentionedAccounts: React.FC = () => {
     color: getAccountColor(account.type)
   }));
 
-  // Custom tooltip that shows account details
+  // Custom tooltip that shows account details with avatar
   const CustomTooltip = ({ active, payload }: any) => {
     if (active && payload && payload.length) {
       const data = payload[0].payload;
@@ -133,6 +133,23 @@ const TopMentionedAccounts: React.FC = () => {
     return null;
   };
 
+  // Custom bar label with account avatar
+  const renderCustomBarLabel = (props: any) => {
+    const { x, y, width, height, value, index } = props;
+    const account = accountsData[index];
+    
+    return (
+      <g>
+        <foreignObject x={x - 25} y={y + height/2 - 12} width={24} height={24}>
+          <Avatar className="w-6 h-6">
+            <AvatarImage src={account.avatar} alt={account.handle} />
+            <AvatarFallback>{account.handle.charAt(1)}</AvatarFallback>
+          </Avatar>
+        </foreignObject>
+      </g>
+    );
+  };
+
   return (
     <div className="relative" ref={chartRef}>
       <DownloadButton 
@@ -153,18 +170,37 @@ const TopMentionedAccounts: React.FC = () => {
           <BarChart
             data={chartData}
             layout="vertical"
-            margin={{ top: 5, right: 30, left: 80, bottom: 5 }}
+            margin={{ top: 5, right: 30, left: 90, bottom: 5 }}
           >
             <CartesianGrid strokeDasharray="3 3" horizontal={true} vertical={false} />
             <XAxis type="number" />
             <YAxis 
               type="category" 
               dataKey="handle" 
-              tick={{ fontSize: 12 }}
+              tick={(props) => {
+                const { x, y, payload } = props;
+                const account = accountsData.find(a => a.handle === payload.value);
+                
+                if (!account) return null;
+                
+                return (
+                  <g transform={`translate(${x},${y})`}>
+                    <foreignObject x="-85" y="-12" width="80" height="24">
+                      <div className="flex items-center gap-1">
+                        <Avatar className="w-5 h-5 flex-shrink-0">
+                          <AvatarImage src={account.avatar} alt={account.handle} />
+                          <AvatarFallback>{account.handle.charAt(1)}</AvatarFallback>
+                        </Avatar>
+                        <span className="text-xs truncate">{account.handle}</span>
+                      </div>
+                    </foreignObject>
+                  </g>
+                );
+              }}
               width={90}
             />
             <Tooltip content={<CustomTooltip />} />
-            <Bar dataKey="mentions" name="Mentions">
+            <Bar dataKey="mentions" name="Mentions" label={{ position: 'right', formatter: (value: number) => value }}>
               {chartData.map((entry, index) => (
                 <Cell key={`cell-${index}`} fill={entry.color} />
               ))}
@@ -190,23 +226,28 @@ const TopMentionedAccounts: React.FC = () => {
       
       <div className="mt-4">
         <h4 className="text-sm font-semibold mb-2">Hesap Detayları</h4>
-        <div className="space-y-2 max-h-40 overflow-y-auto pr-2">
-          {accountsData.slice(0, 5).map((account, index) => (
-            <div key={index} className="flex items-center gap-2 p-2 bg-gray-50 rounded-lg">
-              <Avatar className="w-8 h-8">
+        <div className="space-y-2 max-h-44 overflow-y-auto pr-2">
+          {accountsData.map((account, index) => (
+            <div key={index} className="flex items-center gap-3 p-2 bg-gray-50 rounded-lg">
+              <Avatar className="w-10 h-10 flex-shrink-0">
                 <AvatarImage src={account.avatar} alt={account.handle} />
                 <AvatarFallback>{account.handle.charAt(1)}</AvatarFallback>
               </Avatar>
               <div className="flex-1 min-w-0">
-                <p className="font-medium text-sm truncate">{account.handle}</p>
-                <p className="text-xs text-gray-500 truncate">{account.description}</p>
+                <p className="font-medium text-sm">{account.handle}</p>
+                <p className="text-xs text-gray-500">{account.description}</p>
               </div>
-              <div className="text-sm font-semibold" style={{ color: getAccountColor(account.type) }}>
-                {account.mentions}
+              <div className="flex flex-col items-end">
+                <div className="text-sm font-semibold" style={{ color: getAccountColor(account.type) }}>
+                  {account.mentions}
+                </div>
+                <div className="text-xs px-2 py-0.5 rounded-full mt-1" 
+                  style={{ backgroundColor: `${getAccountColor(account.type)}20`, color: getAccountColor(account.type) }}>
+                  {account.type}
+                </div>
               </div>
             </div>
           ))}
-          <div className="text-xs text-blue-600 cursor-pointer mt-1">+ Daha fazla göster</div>
         </div>
       </div>
     </div>
