@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useRef } from 'react';
 import Slide from '@/components/Slide';
 import Table from '@/components/Table';
 import { Card } from '@/components/ui/card';
@@ -17,29 +17,75 @@ import {
   Cell
 } from 'recharts';
 import { emotionData, tweetVolumeData } from '@/data/reportData';
+import { Button } from '@/components/ui/button';
+import { Download } from 'lucide-react';
+import html2canvas from 'html2canvas';
 
 const GeneralStatsSlide = () => {
+  const totalStatsRef = useRef<HTMLDivElement>(null);
+  const emotionChartRef = useRef<HTMLDivElement>(null);
+  const volumeChartRef = useRef<HTMLDivElement>(null);
+
+  // Function to download chart/table as image
+  const downloadAsImage = (ref: React.RefObject<HTMLDivElement>, filename: string) => {
+    if (ref.current) {
+      html2canvas(ref.current, { 
+        backgroundColor: null,
+        scale: 2, // Higher scale for better quality
+        logging: false,
+      }).then(canvas => {
+        const image = canvas.toDataURL('image/png');
+        const link = document.createElement('a');
+        link.download = `${filename}.png`;
+        link.href = image;
+        link.click();
+      });
+    }
+  };
+
   return (
     <Slide title="2. Genel İstatistikler ve Hacimsel Veriler" bgColor="bg-gradient-to-br from-white via-blue-50 to-blue-100">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <Card className="p-6 shadow-lg bg-white/90 backdrop-blur-sm">
-          <h3 className="text-xl font-bold mb-4 text-gray-800 border-b pb-2">Toplam İçerik ve Etkileşim</h3>
-          <Table
-            headers={["Metrik", "Değer"]}
-            rows={[
-              ["Tweet", "1.266"],
-              ["Beğeni", "96.570"],
-              ["Retweet", "26.780"],
-              ["Yanıt", "3.838"],
-              ["Görüntülenme", "2.181.307"],
-            ]}
-            className="mt-2"
-          />
+        <Card className="p-6 shadow-lg bg-white/90 backdrop-blur-sm relative">
+          <div className="flex justify-between items-center mb-4">
+            <h3 className="text-xl font-bold text-gray-800 border-b pb-2">Toplam İçerik ve Etkileşim</h3>
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              className="absolute top-2 right-2" 
+              onClick={() => downloadAsImage(totalStatsRef, 'toplam-icerik-etkilesim')}
+            >
+              <Download className="h-4 w-4 mr-1" /> İndir
+            </Button>
+          </div>
+          <div ref={totalStatsRef}>
+            <Table
+              headers={["Metrik", "Değer"]}
+              rows={[
+                ["Tweet", "1.266"],
+                ["Beğeni", "96.570"],
+                ["Retweet", "26.780"],
+                ["Yanıt", "3.838"],
+                ["Görüntülenme", "2.181.307"],
+              ]}
+              className="mt-2"
+            />
+          </div>
         </Card>
 
-        <Card className="p-6 shadow-lg bg-white/90 backdrop-blur-sm">
-          <h3 className="text-xl font-bold mb-4 text-gray-800 border-b pb-2">İçerik Türüne Göre Duygu Dağılımı</h3>
-          <div className="h-64">
+        <Card className="p-6 shadow-lg bg-white/90 backdrop-blur-sm relative">
+          <div className="flex justify-between items-center mb-4">
+            <h3 className="text-xl font-bold text-gray-800 border-b pb-2">İçerik Türüne Göre Duygu Dağılımı</h3>
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              className="absolute top-2 right-2" 
+              onClick={() => downloadAsImage(emotionChartRef, 'duygu-dagilimi')}
+            >
+              <Download className="h-4 w-4 mr-1" /> İndir
+            </Button>
+          </div>
+          <div ref={emotionChartRef} className="h-64">
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
                 <Pie
@@ -67,9 +113,19 @@ const GeneralStatsSlide = () => {
           </div>
         </Card>
 
-        <Card className="p-6 shadow-lg bg-white/90 backdrop-blur-sm md:col-span-2">
-          <h3 className="text-xl font-bold mb-4 text-gray-800 border-b pb-2">Dönemsel Hacim ve Zirve Günler</h3>
-          <div className="h-80">
+        <Card className="p-6 shadow-lg bg-white/90 backdrop-blur-sm md:col-span-2 relative">
+          <div className="flex justify-between items-center mb-4">
+            <h3 className="text-xl font-bold text-gray-800 border-b pb-2">Dönemsel Hacim ve Zirve Günler</h3>
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              className="absolute top-2 right-2" 
+              onClick={() => downloadAsImage(volumeChartRef, 'donemsel-hacim')}
+            >
+              <Download className="h-4 w-4 mr-1" /> İndir
+            </Button>
+          </div>
+          <div ref={volumeChartRef} className="h-80">
             <ResponsiveContainer width="100%" height="100%">
               <LineChart
                 data={tweetVolumeData}
