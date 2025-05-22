@@ -47,9 +47,9 @@ const PopularHashtagsSlide = () => {
           </div>
         </Card>
         
-        <div className="md:col-span-2 grid grid-cols-2 md:grid-cols-3 gap-4 relative">
+        <div className="md:col-span-2 relative">
           <DownloadButton targetRef={hashtagsRef} filename="popüler-hashtagler-liste" className="absolute top-0 right-0 z-10" />
-          <div ref={hashtagsRef} className="md:col-span-3 grid grid-cols-2 md:grid-cols-3 gap-4">
+          <div ref={hashtagsRef} className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
             {[
               { tag: "#indigo", count: 130, color: "bg-blue-500" },
               { tag: "#boycottturkey", count: 112, color: "bg-red-500" },
@@ -62,17 +62,17 @@ const PopularHashtagsSlide = () => {
               { tag: "#pakistan", count: 9, color: "bg-yellow-500" },
               { tag: "#airindia", count: 2, color: "bg-indigo-500" }
             ].map((hashtag, index) => (
-              <Card key={index} className={`p-4 shadow-md bg-white/90 backdrop-blur-sm border-l-4 ${hashtag.color} hover:shadow-lg transition-all`}>
-                <div className="flex justify-between items-center">
+              <Card key={index} className={`p-3 shadow-md bg-white/90 backdrop-blur-sm border-l-4 ${hashtag.color} hover:shadow-lg transition-all`}>
+                <div className="flex flex-col xs:flex-row justify-between items-start xs:items-center gap-2">
                   <a 
                     href={`https://twitter.com/hashtag/${hashtag.tag.replace('#', '')}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center font-bold text-gray-800 hover:text-blue-600"
+                    className="flex items-center font-bold text-gray-800 hover:text-blue-600 text-sm break-all"
                   >
-                    {hashtag.tag} <ExternalLink className="h-3 w-3 ml-1" />
+                    {hashtag.tag} <ExternalLink className="h-3 w-3 ml-1 flex-shrink-0" />
                   </a>
-                  <div className={`${hashtag.color} text-white px-3 py-1 rounded-full text-sm`}>
+                  <div className={`${hashtag.color} text-white px-2 py-1 rounded-full text-xs whitespace-nowrap`}>
                     {hashtag.count} içerik
                   </div>
                 </div>
