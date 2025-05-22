@@ -103,14 +103,14 @@ const AccountAnalysisSlide = () => {
           <h3 className="text-lg md:text-xl font-bold mb-4 text-gray-800 border-b pb-2">En Sık Bahsedilen 10 Hesap</h3>
           <DownloadButton targetRef={mentionedAccountsRef} filename="en-sik-bahsedilen-hesaplar" />
           <div ref={mentionedAccountsRef} className="space-y-2 md:space-y-3 mt-2">
-            <style jsx>{`
+            <style dangerouslySetInnerHTML={{ __html: `
               @media print {
                 .account-item {
                   page-break-inside: avoid;
                   margin-bottom: 10px;
                 }
               }
-            `}</style>
+            `}} />
             {accountDetails.map((account, index) => (
               <div key={index} className="account-item flex items-center gap-2 p-2 hover:bg-gray-50 rounded-lg transition-colors">
                 <Avatar className="h-8 w-8 md:h-10 md:w-10 border flex-shrink-0">
