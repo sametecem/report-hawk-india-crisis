@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import Slide from '@/components/Slide';
 import { Card, CardContent } from '@/components/ui/card';
 import { Table } from '@/components/ui/table';
-import { Instagram, Calendar, BarChart2, Users, SortAsc, SortDesc, Link, BarChart, FileBarChart } from 'lucide-react';
+import { Instagram, Calendar, BarChart2, Users, SortAsc, SortDesc, Link, BarChart, FileBarChart, Image as ImageIcon } from 'lucide-react';
 import { instagramData, topPostsByLikes, hashtagData, instagramMetrics, topAccountsByFollowers } from '@/data/instagramData';
 import Image from '@/components/ui/Image';
 import {
@@ -119,6 +119,57 @@ const InstagramAnalysisSlide = () => {
           </CardContent>
         </Card>
       </div>
+
+      {/* Top Post with Image */}
+      <Card className="shadow-md bg-white/90 backdrop-blur-sm">
+        <CardContent className="pt-6">
+          <div className="flex items-center gap-3 mb-4">
+            <ImageIcon className="h-5 w-5 text-pink-500" />
+            <h3 className="text-xl font-bold text-gray-800">En Çok Beğeni Alan Gönderi</h3>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="flex flex-col space-y-3">
+              <div className="overflow-hidden rounded-lg border border-gray-200">
+                <img 
+                  src="https://i.ibb.co/4RLyNB7W/497979963-18069234425505656-689915507547684381-n.jpg" 
+                  alt="En çok beğeni alan gönderi" 
+                  className="w-full h-auto object-cover"
+                  onError={(e) => {
+                    e.currentTarget.src = "https://placehold.co/400x400/f9fafb/a1a1aa?text=Resim+Yüklenemedi";
+                  }}
+                />
+              </div>
+              <div className="bg-gray-50 p-3 rounded">
+                <p className="font-semibold text-gray-700">@{sortedPosts[0]?.username}</p>
+                <p className="text-gray-500 text-sm">{sortedPosts[0]?.date}</p>
+                <div className="flex items-center gap-4 mt-2">
+                  <span className="text-pink-600 font-medium">{formatNumber(sortedPosts[0]?.likeCount || 0)} beğeni</span>
+                  <span className="text-blue-600">{formatNumber(sortedPosts[0]?.commentCount || 0)} yorum</span>
+                </div>
+                <a 
+                  href={sortedPosts[0]?.instagramLink} 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-2 text-xs text-blue-600 hover:text-blue-800 flex items-center gap-1"
+                >
+                  <Link className="h-3 w-3" /> Gönderiye Git
+                </a>
+              </div>
+            </div>
+            <div>
+              <h4 className="font-medium text-gray-800 mb-2">Diğer Popüler Gönderiler</h4>
+              <div className="space-y-3">
+                {sortedPosts.slice(1, 5).map((post, index) => (
+                  <div key={index} className="flex justify-between border-b border-gray-100 pb-2">
+                    <span className="text-blue-600">@{post.username}</span>
+                    <span className="text-pink-600 font-medium">{formatNumber(post.likeCount)} beğeni</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
 
       {/* Daily Metrics Chart */}
       <Card className="shadow-md bg-white/90 backdrop-blur-sm">
