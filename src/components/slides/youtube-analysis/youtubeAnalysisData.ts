@@ -186,3 +186,59 @@ export const interactionData = [
 export const formatNumber = (num: number): string => {
   return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 };
+
+// Extract video ID from YouTube URL
+const extractVideoId = (url: string): string => {
+  const regex = /(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+  const match = url.match(regex);
+  return match ? match[1] : '';
+};
+
+// Time-coded videos for important moments
+export const timeCodeVideos = [
+  {
+    id: extractVideoId('https://youtu.be/7ewJxa5qcSw?feature=shared&t=16'),
+    timestamp: 16,
+    url: 'https://youtu.be/7ewJxa5qcSw?feature=shared&t=16'
+  },
+  {
+    id: extractVideoId('https://youtu.be/9qxSxMiG2I8?feature=shared&t=188'),
+    timestamp: 188,
+    url: 'https://youtu.be/9qxSxMiG2I8?feature=shared&t=188'
+  },
+  {
+    id: extractVideoId('https://youtu.be/YpiBq3CK-C0?feature=shared&t=144'),
+    timestamp: 144,
+    url: 'https://youtu.be/YpiBq3CK-C0?feature=shared&t=144'
+  },
+  {
+    id: extractVideoId('https://youtu.be/Rlsh4qf4DiU?feature=shared&t=16'),
+    timestamp: 16,
+    url: 'https://youtu.be/Rlsh4qf4DiU?feature=shared&t=16'
+  },
+  {
+    id: extractVideoId('https://youtu.be/P88S6EjJDcw?feature=shared&t=60'),
+    timestamp: 60,
+    url: 'https://youtu.be/P88S6EjJDcw?feature=shared&t=60'
+  },
+  {
+    id: extractVideoId('https://youtu.be/nBXJxU7U6MY?feature=shared&t=8'),
+    timestamp: 8,
+    url: 'https://youtu.be/nBXJxU7U6MY?feature=shared&t=8'
+  },
+  {
+    id: extractVideoId('https://youtu.be/wnlJZ5FtE0M?feature=shared&t=170'),
+    timestamp: 170,
+    url: 'https://youtu.be/wnlJZ5FtE0M?feature=shared&t=170'
+  },
+  {
+    id: extractVideoId('https://youtu.be/nBXJxU7U6MY?feature=shared&t=8'),
+    timestamp: 8,
+    url: 'https://youtu.be/nBXJxU7U6MY?feature=shared&t=8'
+  },
+  {
+    id: extractVideoId('https://youtu.be/WOlKwTpF57A?feature=shared&t=14'),
+    timestamp: 14,
+    url: 'https://youtu.be/WOlKwTpF57A?feature=shared&t=14'
+  }
+];

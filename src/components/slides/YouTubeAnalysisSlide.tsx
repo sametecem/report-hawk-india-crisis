@@ -6,13 +6,15 @@ import DailyEngagementChart from './youtube-analysis/DailyEngagementChart';
 import PopularVideosTable from './youtube-analysis/PopularVideosTable';
 import ChannelsTable from './youtube-analysis/ChannelsTable';
 import InteractionChart from './youtube-analysis/InteractionChart';
+import TimeCodeVideos from './youtube-analysis/TimeCodeVideos';
 import DownloadButton from '@/components/DownloadButton';
 import { 
   summaryData, 
   dailyData, 
   topVideos, 
   channelData, 
-  interactionData 
+  interactionData,
+  timeCodeVideos
 } from './youtube-analysis/youtubeAnalysisData';
 
 const YouTubeAnalysisSlide = () => {
@@ -21,6 +23,7 @@ const YouTubeAnalysisSlide = () => {
   const topVideosRef = useRef<HTMLDivElement>(null);
   const channelsRef = useRef<HTMLDivElement>(null);
   const interactionRef = useRef<HTMLDivElement>(null);
+  const timeCodeRef = useRef<HTMLDivElement>(null);
 
   return (
     <Slide title="YouTube Etkisi Analizi" subtitle="THY Boykot Konulu Video Analizi">
@@ -43,13 +46,19 @@ const YouTubeAnalysisSlide = () => {
           <DownloadButton targetRef={dailyChartRef} filename="youtube-daily-engagement" />
         </div>
 
-        {/* 3. Top Videos */}
+        {/* 3. Time Code Videos */}
+        <div ref={timeCodeRef} className="relative">
+          <TimeCodeVideos videos={timeCodeVideos} />
+          <DownloadButton targetRef={timeCodeRef} filename="youtube-timecodes" />
+        </div>
+
+        {/* 4. Top Videos */}
         <div ref={topVideosRef} className="relative">
           <PopularVideosTable videos={topVideos} />
           <DownloadButton targetRef={topVideosRef} filename="youtube-popular-videos" />
         </div>
 
-        {/* 4. Two Column Section */}
+        {/* 5. Two Column Section */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           {/* Channel Data */}
           <div ref={channelsRef} className="relative">
