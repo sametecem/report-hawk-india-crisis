@@ -1,13 +1,53 @@
 
-import React from 'react';
+import React, { useRef } from 'react';
 import Slide from '@/components/Slide';
 import { Card } from '@/components/ui/card';
-import { ExternalLink, MessageCircle, Heart, Eye, RefreshCw } from 'lucide-react';
+import { ExternalLink, MessageCircle, Heart, Eye, RefreshCw, Download } from 'lucide-react';
 import { mostRetweetedTweets, mostLikedTweets, mostViewedTweets } from '@/data/reportData';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from '@/components/ui/badge';
+import DownloadButton from '@/components/DownloadButton';
+import { Button } from '@/components/ui/button';
 
 const TopTweetsListSlide = () => {
+  const retweetsRef = useRef<HTMLDivElement>(null);
+  const likesRef = useRef<HTMLDivElement>(null);
+  const viewsRef = useRef<HTMLDivElement>(null);
+
+  // Function to convert tweets data to CSV
+  const downloadAsCSV = (data: any[], filename: string) => {
+    // Create CSV header row
+    const headers = ["ID", "Text", "RT", "Likes", "Views", "Author", "Handle"];
+    
+    // Convert data to CSV rows
+    const csvRows = [
+      headers.join(','),
+      ...data.map(tweet => [
+        `"${tweet.id}"`,
+        `"${tweet.text.replace(/"/g, '""')}"`,
+        tweet.rt,
+        tweet.likes,
+        tweet.views,
+        `"${tweet.author || ''}"`,
+        `"${tweet.handle || ''}"`
+      ].join(','))
+    ];
+    
+    // Join rows with newlines
+    const csvString = csvRows.join('\n');
+    
+    // Create blob and download
+    const blob = new Blob([csvString], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.setAttribute('href', url);
+    link.setAttribute('download', `${filename}.csv`);
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <Slide 
       title="6. En Çok Etkileşim Alan Tweetler" 
@@ -30,8 +70,23 @@ const TopTweetsListSlide = () => {
           </TabsTrigger>
         </TabsList>
         
-        <TabsContent value="retweets" className="max-h-[calc(100vh-250px)] overflow-y-auto pr-1">
-          <div className="space-y-3">
+        <TabsContent value="retweets" className="max-h-[calc(100vh-250px)] overflow-y-auto pr-1 relative">
+          <div className="flex gap-2 absolute top-0 right-0 z-10">
+            <DownloadButton 
+              targetRef={retweetsRef} 
+              filename="en-cok-rt-alan-tweetler" 
+              className="mb-2" 
+            />
+            <Button 
+              size="sm" 
+              variant="outline" 
+              className="mb-2"
+              onClick={() => downloadAsCSV(mostRetweetedTweets.slice(0, 10), 'en-cok-rt-alan-tweetler')}
+            >
+              <Download className="h-4 w-4 mr-1" /> CSV
+            </Button>
+          </div>
+          <div ref={retweetsRef} className="space-y-3 pt-10">
             {mostRetweetedTweets.slice(0, 10).map((tweet, index) => (
               <TweetListItem 
                 key={index}
@@ -46,8 +101,23 @@ const TopTweetsListSlide = () => {
           </div>
         </TabsContent>
         
-        <TabsContent value="likes" className="max-h-[calc(100vh-250px)] overflow-y-auto pr-1">
-          <div className="space-y-3">
+        <TabsContent value="likes" className="max-h-[calc(100vh-250px)] overflow-y-auto pr-1 relative">
+          <div className="flex gap-2 absolute top-0 right-0 z-10">
+            <DownloadButton 
+              targetRef={likesRef} 
+              filename="en-cok-begenilen-tweetler" 
+              className="mb-2" 
+            />
+            <Button 
+              size="sm" 
+              variant="outline" 
+              className="mb-2"
+              onClick={() => downloadAsCSV(mostLikedTweets.slice(0, 10), 'en-cok-begenilen-tweetler')}
+            >
+              <Download className="h-4 w-4 mr-1" /> CSV
+            </Button>
+          </div>
+          <div ref={likesRef} className="space-y-3 pt-10">
             {mostLikedTweets.slice(0, 10).map((tweet, index) => (
               <TweetListItem 
                 key={index}
@@ -62,8 +132,23 @@ const TopTweetsListSlide = () => {
           </div>
         </TabsContent>
         
-        <TabsContent value="views" className="max-h-[calc(100vh-250px)] overflow-y-auto pr-1">
-          <div className="space-y-3">
+        <TabsContent value="views" className="max-h-[calc(100vh-250px)] overflow-y-auto pr-1 relative">
+          <div className="flex gap-2 absolute top-0 right-0 z-10">
+            <DownloadButton 
+              targetRef={viewsRef} 
+              filename="en-cok-goruntulenen-tweetler" 
+              className="mb-2" 
+            />
+            <Button 
+              size="sm" 
+              variant="outline" 
+              className="mb-2"
+              onClick={() => downloadAsCSV(mostViewedTweets.slice(0, 10), 'en-cok-goruntulenen-tweetler')}
+            >
+              <Download className="h-4 w-4 mr-1" /> CSV
+            </Button>
+          </div>
+          <div ref={viewsRef} className="space-y-3 pt-10">
             {mostViewedTweets.slice(0, 10).map((tweet, index) => (
               <TweetListItem 
                 key={index}

@@ -4,12 +4,14 @@ import { Card, CardContent } from '@/components/ui/card';
 import Table from '@/components/Table';
 import { Users } from 'lucide-react';
 import { formatNumber } from './youtubeAnalysisData';
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 
 interface ChannelData {
   name: string;
   subscribers: number;
   videos: number;
   totalViews: number;
+  profileImg?: string;
 }
 
 interface ChannelsTableProps {
@@ -27,7 +29,16 @@ const ChannelsTable: React.FC<ChannelsTableProps> = ({ channels }) => {
           <Table
             headers={["Kanal", "Abone", "Video", "İzlenme"]}
             rows={channels.map(channel => [
-              channel.name,
+              <div className="flex items-center gap-2">
+                <Avatar className="h-8 w-8">
+                  <AvatarImage 
+                    src={channel.profileImg || `https://source.unsplash.com/random/100x100/?channel,profile`} 
+                    alt={channel.name} 
+                  />
+                  <AvatarFallback>{channel.name.substring(0, 2).toUpperCase()}</AvatarFallback>
+                </Avatar>
+                <span>{channel.name}</span>
+              </div>,
               formatNumber(channel.subscribers),
               channel.videos,
               formatNumber(channel.totalViews),
