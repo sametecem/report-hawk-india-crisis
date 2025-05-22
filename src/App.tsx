@@ -9,6 +9,7 @@ import NotFound from "./pages/NotFound";
 import ThyBoycottAnalysis from "./pages/ThyBoycottAnalysis";
 import InstagramCommentAnalysis from "./pages/InstagramCommentAnalysis";
 import NewsPage from "./pages/NewsPage";
+import PdfExport from "./pages/PdfExport";
 
 const queryClient = new QueryClient();
 
@@ -23,6 +24,7 @@ const App = () => (
           <Route path="/thy-boycott-analysis" element={<ThyBoycottAnalysis />} />
           <Route path="/instagram-comment-analysis" element={<InstagramCommentAnalysis />} />
           <Route path="/news" element={<NewsPage />} />
+          <Route path="/pdf" element={<PdfExport />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

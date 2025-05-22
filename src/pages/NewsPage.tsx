@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Search, Calendar, AlertTriangle, BookOpen } from 'lucide-react';
 import NewsCard from '@/components/news/NewsCard';
@@ -16,6 +15,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import Navigation from '@/components/Navigation';
 
 const NewsPage = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -29,6 +29,7 @@ const NewsPage = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-red-50 to-white">
+      <Navigation />
       {/* Hero section with search */}
       <div className="bg-gradient-to-r from-red-600 to-red-700 text-white py-16 px-6">
         <div className="container mx-auto max-w-6xl">

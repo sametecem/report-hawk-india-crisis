@@ -1,6 +1,7 @@
 
 import React from "react";
 import SlideShow from "@/components/SlideShow";
+import Navigation from "@/components/Navigation";
 
 // Import refactored slide components
 import CoverSlide from "@/components/slides/CoverSlide";
@@ -25,26 +26,29 @@ import YouTubeAnalysisSlide from "@/components/slides/YouTubeAnalysisSlide";
 
 export default function Index() {
   return (
-    <SlideShow>
-      <CoverSlide />
-      <ExecutiveSummarySlide />
-      <GeneralStatsSlide />
-      <DailyTrendsSlide />
-      <SentimentAnalysisSlide />
-      <PopularTweetsSlide />
-      <TopTweetsListSlide />
-      <TopAccountsFollowersSlide />
-      <AccountAnalysisSlide />
-      <PopularHashtagsSlide />
-      <MostViewedTweetsSlide />
-      <WordCloudSlide />
-      <InstagramAnalysisSlide />
-      <InstagramAnalysisSlide2 />
-      <NewsSlide />
-      <YouTubeAnalysisSlide />
-      <HighImpactAccountsSlide />
-      <GeographicDistributionSlide />
-      <ConclusionSlide />
-    </SlideShow>
+    <>
+      <Navigation />
+      <SlideShow>
+        <CoverSlide />
+        <ExecutiveSummarySlide />
+        <GeneralStatsSlide />
+        <DailyTrendsSlide />
+        <SentimentAnalysisSlide />
+        <PopularTweetsSlide />
+        <TopTweetsListSlide />
+        <TopAccountsFollowersSlide />
+        <AccountAnalysisSlide />
+        <PopularHashtagsSlide />
+        <MostViewedTweetsSlide />
+        <WordCloudSlide />
+        <InstagramAnalysisSlide />
+        <InstagramAnalysisSlide2 />
+        <NewsSlide />
+        <YouTubeAnalysisSlide />
+        <HighImpactAccountsSlide />
+        <GeographicDistributionSlide />
+        <ConclusionSlide />
+      </SlideShow>
+    </>
   );
 }
