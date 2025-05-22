@@ -25,7 +25,7 @@ const SentimentScoreChart: React.FC = () => {
   }));
 
   return (
-    <div className="mt-8 relative" ref={sentimentChartRef}>
+    <div className="mt-4 relative" ref={sentimentChartRef}>
       <DownloadButton 
         targetRef={sentimentChartRef} 
         filename="duygu-skoru-trendi" 
@@ -50,7 +50,7 @@ const SentimentScoreChart: React.FC = () => {
             />
             <YAxis domain={[-1, 0.5]} />
             <Tooltip 
-              formatter={(value) => [`${value.toFixed(2)}`, "Duygu Skoru"]}
+              formatter={(value: any) => [`${Number(value).toFixed(2)}`, "Duygu Skoru"]}
               contentStyle={{
                 backgroundColor: "white",
                 borderRadius: "8px",

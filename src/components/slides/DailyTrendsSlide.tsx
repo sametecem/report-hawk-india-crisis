@@ -5,6 +5,7 @@ import { Card } from '@/components/ui/card';
 import TweetVolumeChart from '@/components/daily-trends/TweetVolumeChart';
 import SentimentScoreChart from '@/components/daily-trends/SentimentScoreChart';
 import { peakDaysData } from '@/data/peakDaysData';
+import TopMentionedAccounts from '@/components/daily-trends/TopMentionedAccounts';
 
 const DailyTrendsSlide = () => {
   return (
@@ -13,9 +14,15 @@ const DailyTrendsSlide = () => {
         <TweetVolumeChart peakDaysData={peakDaysData} />
       </Card>
       
-      <Card className="p-6 shadow-lg bg-white/90 backdrop-blur-sm mb-8 relative">
-        <SentimentScoreChart />
-      </Card>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <Card className="p-6 shadow-lg bg-white/90 backdrop-blur-sm relative">
+          <SentimentScoreChart />
+        </Card>
+        
+        <Card className="p-6 shadow-lg bg-white/90 backdrop-blur-sm relative">
+          <TopMentionedAccounts />
+        </Card>
+      </div>
     </Slide>
   );
 };
