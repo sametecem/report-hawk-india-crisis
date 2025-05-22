@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Slide from '@/components/Slide';
 import { Card, CardContent } from '@/components/ui/card';
 import { Table } from '@/components/ui/table';
@@ -16,6 +16,7 @@ import DataChart from '@/components/DataChart';
 
 const InstagramAnalysisSlide = () => {
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('desc');
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const sortedPosts = [...topPostsByLikes].sort((a, b) => 
     sortDirection === 'desc' ? b.likeCount - a.likeCount : a.likeCount - b.likeCount
@@ -32,6 +33,33 @@ const InstagramAnalysisSlide = () => {
   const getFormattedDate = (dateStr: string) => {
     const date = new Date(dateStr);
     return new Intl.DateTimeFormat('tr-TR', { day: 'numeric', month: 'short' }).format(date);
+  };
+
+  // Popular content images
+  const popularImages = [
+    "https://i.ibb.co/4RLyNB7W/497979963-18069234425505656-689915507547684381-n.jpg",
+    "https://i.ibb.co/Swt0L0vs/2.jpg",
+    "https://i.ibb.co/DPxF0s7M/3.jpg",
+    "https://i.ibb.co/Xfz1JdGB/7.jpg",
+    "https://i.ibb.co/SXRP30zZ/8.jpg"
+  ];
+
+  // Rotate through images automatically
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentImageIndex(prev => (prev + 1) % popularImages.length);
+    }, 5000); // Change image every 5 seconds
+    
+    return () => clearInterval(timer);
+  }, []);
+
+  // Manually change image
+  const changeImage = (direction: 'next' | 'prev') => {
+    if (direction === 'next') {
+      setCurrentImageIndex(prev => (prev + 1) % popularImages.length);
+    } else {
+      setCurrentImageIndex(prev => (prev - 1 + popularImages.length) % popularImages.length);
+    }
   };
 
   // Prepare data for charts
@@ -125,29 +153,64 @@ const InstagramAnalysisSlide = () => {
         <CardContent className="pt-6">
           <div className="flex items-center gap-3 mb-4">
             <ImageIcon className="h-5 w-5 text-pink-500" />
-            <h3 className="text-xl font-bold text-gray-800">En Çok Beğeni Alan Gönderi</h3>
+            <h3 className="text-xl font-bold text-gray-800">Popüler Gönderiler</h3>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="flex flex-col space-y-3">
-              <div className="overflow-hidden rounded-lg border border-gray-200">
+              <div className="relative overflow-hidden rounded-lg border border-gray-200 aspect-square">
+                {/* Image carousel */}
                 <img 
-                  src="https://i.ibb.co/4RLyNB7W/497979963-18069234425505656-689915507547684381-n.jpg" 
-                  alt="En çok beğeni alan gönderi" 
-                  className="w-full h-auto object-cover"
+                  src={popularImages[currentImageIndex]}
+                  alt={`Popüler gönderi ${currentImageIndex + 1}`} 
+                  className="w-full h-full object-cover transition-opacity duration-500"
                   onError={(e) => {
                     e.currentTarget.src = "https://placehold.co/400x400/f9fafb/a1a1aa?text=Resim+Yüklenemedi";
                   }}
                 />
+                
+                {/* Navigation buttons */}
+                <div className="absolute inset-0 flex items-center justify-between px-2">
+                  <button 
+                    onClick={() => changeImage('prev')}
+                    className="bg-black/30 hover:bg-black/50 text-white rounded-full p-1.5 backdrop-blur-sm transition-all"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                    </svg>
+                  </button>
+                  <button 
+                    onClick={() => changeImage('next')}
+                    className="bg-black/30 hover:bg-black/50 text-white rounded-full p-1.5 backdrop-blur-sm transition-all"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </button>
+                </div>
+                
+                {/* Image indicators */}
+                <div className="absolute bottom-2 left-0 right-0 flex justify-center space-x-2">
+                  {popularImages.map((_, index) => (
+                    <button 
+                      key={index}
+                      onClick={() => setCurrentImageIndex(index)}
+                      className={`w-2 h-2 rounded-full transition-all ${
+                        index === currentImageIndex ? 'bg-white' : 'bg-white/50'
+                      }`}
+                      aria-label={`Go to image ${index + 1}`}
+                    />
+                  ))}
+                </div>
               </div>
               <div className="bg-gray-50 p-3 rounded">
-                <p className="font-semibold text-gray-700">@{sortedPosts[0]?.username}</p>
-                <p className="text-gray-500 text-sm">{sortedPosts[0]?.date}</p>
+                <p className="font-semibold text-gray-700">@{sortedPosts[currentImageIndex]?.username || sortedPosts[0]?.username}</p>
+                <p className="text-gray-500 text-sm">{sortedPosts[currentImageIndex]?.date || sortedPosts[0]?.date}</p>
                 <div className="flex items-center gap-4 mt-2">
-                  <span className="text-pink-600 font-medium">{formatNumber(sortedPosts[0]?.likeCount || 0)} beğeni</span>
-                  <span className="text-blue-600">{formatNumber(sortedPosts[0]?.commentCount || 0)} yorum</span>
+                  <span className="text-pink-600 font-medium">{formatNumber(sortedPosts[currentImageIndex]?.likeCount || sortedPosts[0]?.likeCount || 0)} beğeni</span>
+                  <span className="text-blue-600">{formatNumber(sortedPosts[currentImageIndex]?.commentCount || sortedPosts[0]?.commentCount || 0)} yorum</span>
                 </div>
                 <a 
-                  href={sortedPosts[0]?.instagramLink} 
+                  href={sortedPosts[currentImageIndex]?.instagramLink || sortedPosts[0]?.instagramLink} 
                   target="_blank"
                   rel="noopener noreferrer"
                   className="mt-2 text-xs text-blue-600 hover:text-blue-800 flex items-center gap-1"
@@ -159,7 +222,7 @@ const InstagramAnalysisSlide = () => {
             <div>
               <h4 className="font-medium text-gray-800 mb-2">Diğer Popüler Gönderiler</h4>
               <div className="space-y-3">
-                {sortedPosts.slice(1, 5).map((post, index) => (
+                {sortedPosts.slice(0, 5).map((post, index) => (
                   <div key={index} className="flex justify-between border-b border-gray-100 pb-2">
                     <span className="text-blue-600">@{post.username}</span>
                     <span className="text-pink-600 font-medium">{formatNumber(post.likeCount)} beğeni</span>
