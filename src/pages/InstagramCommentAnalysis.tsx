@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Card } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -10,6 +11,8 @@ import TopCommentsCard from '@/components/instagram-analysis/TopCommentsCard';
 import UserPersonaChart from '@/components/instagram-analysis/UserPersonaChart';
 import LanguageDistributionChart from '@/components/instagram-analysis/LanguageDistributionChart';
 import CTAHourlyChart from '@/components/instagram-analysis/CTAHourlyChart';
+import PostNegativeRatioChart from '@/components/instagram-analysis/PostNegativeRatioChart';
+import ToxicityAnalysisChart from '@/components/instagram-analysis/ToxicityAnalysisChart';
 import Navigation from '@/components/Navigation';
 
 const InstagramCommentAnalysis = () => {
