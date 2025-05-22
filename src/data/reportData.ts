@@ -1,4 +1,3 @@
-
 // THY Hindistan Krizi data
 
 // Sentiment data
@@ -184,10 +183,10 @@ export const mostRTTweets = [
   },
 ];
 
-// Most mentioned accounts
+// Updated most mentioned accounts
 export const mentionedAccounts = [
-  "@indigo6e", "@turkishairlines", "@6EIndiGo", "@PMOIndia", "@RTErdogan", 
-  "@cavivekkhatri", "@scanner_3d", "@3dscanner_2023", "@AmitShah", "@narendramodi"
+  "@IndiGo6E", "@TurkishAirlines", "@PMOIndia", "@RTErdogan", "@6EIndigo", 
+  "@MEAIndia", "@airindia", "@GoHomestay", "@AmitShah", "@HardeepSPuri"
 ];
 
 // Most active accounts

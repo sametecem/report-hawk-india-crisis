@@ -5,11 +5,96 @@ import { Card } from '@/components/ui/card';
 import { ExternalLink } from 'lucide-react';
 import { mentionedAccounts, activeAccounts } from '@/data/reportData';
 import DownloadButton from '@/components/DownloadButton';
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 
 const AccountAnalysisSlide = () => {
   const mentionedAccountsRef = useRef<HTMLDivElement>(null);
   const activeAccountsRef = useRef<HTMLDivElement>(null);
   const userStatsRef = useRef<HTMLDivElement>(null);
+
+  // Account details with images and descriptions
+  const accountDetails = [
+    {
+      handle: "@IndiGo6E",
+      mentions: 229,
+      avatar: "https://pbs.twimg.com/profile_images/1574362382431756290/tlQb5Z8i_400x400.jpg",
+      description: "Hindistan merkezli özel havayolu şirketi (IndiGo Airlines)",
+      type: "Marka"
+    },
+    {
+      handle: "@TurkishAirlines",
+      mentions: 97,
+      avatar: "https://pbs.twimg.com/profile_images/1883771335567941632/7BUExsM4_400x400.jpg",
+      description: "Türkiye'nin bayrak taşıyıcı havayolu şirketi (Türk Hava Yolları)",
+      type: "Marka"
+    },
+    {
+      handle: "@PMOIndia",
+      mentions: 33,
+      avatar: "https://pbs.twimg.com/profile_images/1800520500432515073/tMB_rJVh_400x400.jpg",
+      description: "Hindistan Başbakanlık Ofisi (Prime Minister's Office)",
+      type: "Kurum"
+    },
+    {
+      handle: "@RTErdogan",
+      mentions: 32,
+      avatar: "https://pbs.twimg.com/profile_images/1653157500986744832/wu0ArmY8_400x400.jpg",
+      description: "Türkiye Cumhurbaşkanı Recep Tayyip Erdoğan",
+      type: "Kişi"
+    },
+    {
+      handle: "@6EIndigo",
+      mentions: 32,
+      avatar: "https://pbs.twimg.com/profile_images/1574362382431756290/tlQb5Z8i_400x400.jpg",
+      description: "IndiGo Airlines'ın alternatif/yardımcı hesabı",
+      type: "Marka"
+    },
+    {
+      handle: "@MEAIndia",
+      mentions: 29,
+      avatar: "https://pbs.twimg.com/profile_images/1833517334864015360/5WT4dWPb_400x400.jpg",
+      description: "Hindistan Dışişleri Bakanlığı (Ministry of External Affairs)",
+      type: "Kurum"
+    },
+    {
+      handle: "@airindia",
+      mentions: 21,
+      avatar: "https://pbs.twimg.com/profile_images/1736908359356555264/yP2AWaAq_400x400.jpg",
+      description: "Hindistan'ın bayrak taşıyıcı havayolu şirketi (Air India)",
+      type: "Marka"
+    },
+    {
+      handle: "@GoHomestay",
+      mentions: 20,
+      avatar: "https://pbs.twimg.com/profile_images/1842398619187716096/xbjnakfc_400x400.jpg",
+      description: "Seyahat/konaklama hizmeti sunan dijital platform",
+      type: "Marka"
+    },
+    {
+      handle: "@AmitShah",
+      mentions: 19,
+      avatar: "https://pbs.twimg.com/profile_images/1833743527928541184/aT_uOoth_400x400.jpg",
+      description: "Hindistan İçişleri Bakanı Amit Shah",
+      type: "Kişi"
+    },
+    {
+      handle: "@HardeepSPuri",
+      mentions: 18,
+      avatar: "https://pbs.twimg.com/profile_images/1834448557505748992/ZDYW4b6n_400x400.jpg",
+      description: "Hindistan Sivil Havacılık Bakanı Hardeep Singh Puri",
+      type: "Kişi"
+    }
+  ];
+
+  // Get account type color
+  const getTypeColor = (type: string) => {
+    switch (type) {
+      case "Marka": return "#3b82f6"; // blue
+      case "Kurum": return "#8b5cf6"; // purple
+      case "Kişi": return "#f97316";  // orange
+      default: return "#6b7280";      // gray
+    }
+  };
 
   return (
     <Slide title="7. Hesap ve Etkileşim Analizi" bgColor="bg-gradient-to-br from-white via-green-50 to-green-100">
@@ -18,21 +103,36 @@ const AccountAnalysisSlide = () => {
           <h3 className="text-xl font-bold mb-4 text-gray-800 border-b pb-2">En Sık Bahsedilen 10 Hesap</h3>
           <DownloadButton targetRef={mentionedAccountsRef} filename="en-sik-bahsedilen-hesaplar" />
           <div ref={mentionedAccountsRef} className="space-y-3">
-            {mentionedAccounts.map((account, index) => (
-              <div key={index} className="flex items-center justify-between">
-                <a 
-                  href={`https://twitter.com/${account.replace('@', '')}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center text-blue-600 hover:text-blue-800"
-                >
-                  {account} <ExternalLink className="h-3 w-3 ml-1" />
-                </a>
-                <span className={`px-2 py-1 rounded text-xs ${
-                  index < 3 ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
-                }`}>
-                  {index < 3 ? 'Yüksek Etkileşim' : 'Sık Bahsedilen'}
-                </span>
+            {accountDetails.map((account, index) => (
+              <div key={index} className="flex items-center gap-3 p-2 hover:bg-gray-50 rounded-lg transition-colors">
+                <Avatar className="h-10 w-10 border">
+                  <AvatarImage src={account.avatar} alt={account.handle} />
+                  <AvatarFallback>{account.handle.slice(1, 3)}</AvatarFallback>
+                </Avatar>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center">
+                    <a 
+                      href={`https://twitter.com/${account.handle.replace('@', '')}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-medium text-blue-600 hover:text-blue-800 flex items-center"
+                    >
+                      {account.handle} 
+                      <ExternalLink className="h-3 w-3 ml-1" />
+                    </a>
+                    <span className="ml-2 text-sm text-gray-500">({account.mentions} kez)</span>
+                  </div>
+                  <p className="text-xs text-gray-600 truncate">{account.description}</p>
+                  <div 
+                    className="mt-1 inline-flex items-center text-xs px-2 py-0.5 rounded-full" 
+                    style={{
+                      backgroundColor: `${getTypeColor(account.type)}20`,
+                      color: getTypeColor(account.type)
+                    }}
+                  >
+                    {account.type}
+                  </div>
+                </div>
               </div>
             ))}
           </div>
