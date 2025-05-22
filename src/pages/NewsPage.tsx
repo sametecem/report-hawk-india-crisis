@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Search, Calendar, BookOpen } from 'lucide-react';
+import { Search, Calendar, AlertTriangle, BookOpen } from 'lucide-react';
 import NewsCard from '@/components/news/NewsCard';
 import DailyNewsChart from '@/components/news/DailyNewsChart';
 import WordCloud from '@/components/news/WordCloud';
@@ -8,6 +8,14 @@ import SentimentAnalysisChart from '@/components/news/SentimentAnalysisChart';
 import { newsData, dailyNewsData, sentimentData, wordCloudData } from '@/data/newsData';
 import { Input } from '@/components/ui/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 
 const NewsPage = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -20,13 +28,13 @@ const NewsPage = () => {
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+    <div className="min-h-screen bg-gradient-to-b from-red-50 to-white">
       {/* Hero section with search */}
-      <div className="bg-gradient-to-r from-blue-600 to-indigo-700 text-white py-16 px-6">
+      <div className="bg-gradient-to-r from-red-600 to-red-700 text-white py-16 px-6">
         <div className="container mx-auto max-w-6xl">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4 animate-fade-in">Güncel Haberler</h1>
-          <p className="text-lg md:text-xl text-blue-100 mb-8 max-w-xl">
-            Teknoloji ve sosyal medya alanındaki en son gelişmeler tek bir sayfada
+          <h1 className="text-4xl md:text-5xl font-bold mb-4 animate-fade-in">Türk Havayolları Boykot Haberleri</h1>
+          <p className="text-lg md:text-xl text-red-100 mb-8 max-w-xl">
+            Türkiye-Hindistan ilişkileri ve boykot çağrılarına dair son gelişmeler
           </p>
           
           <div className="relative max-w-2xl">
@@ -34,13 +42,13 @@ const NewsPage = () => {
             <Input
               type="text"
               placeholder="Haberlerde ara..."
-              className="pl-10 py-6 w-full rounded-xl bg-white/90 text-gray-800 focus:ring-2 ring-blue-400"
+              className="pl-10 py-6 w-full rounded-xl bg-white/90 text-gray-800 focus:ring-2 ring-red-400"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
           
-          <div className="mt-6 flex items-center text-sm text-blue-200">
+          <div className="mt-6 flex items-center text-sm text-red-200">
             <Calendar className="mr-2 h-4 w-4" /> Son güncelleme: 22 Mayıs 2025
           </div>
         </div>
@@ -53,7 +61,7 @@ const NewsPage = () => {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-gray-500 mb-1">Toplam Haber</p>
-                <p className="text-3xl font-bold text-gray-800">{newsData.length}</p>
+                <p className="text-3xl font-bold text-gray-800">81</p>
               </div>
               <div className="bg-blue-100 p-3 rounded-full">
                 <BookOpen className="h-6 w-6 text-blue-600" />
@@ -65,7 +73,7 @@ const NewsPage = () => {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-gray-500 mb-1">Bu Hafta</p>
-                <p className="text-3xl font-bold text-gray-800">{dailyNewsData.reduce((acc, item) => acc + item.count, 0)}</p>
+                <p className="text-3xl font-bold text-gray-800">43</p>
               </div>
               <div className="bg-purple-100 p-3 rounded-full">
                 <Calendar className="h-6 w-6 text-purple-600" />
@@ -76,13 +84,11 @@ const NewsPage = () => {
           <div className="bg-white rounded-xl shadow-md p-6 border border-gray-100 hover:shadow-lg transition-shadow">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-500 mb-1">Pozitif İçerik</p>
-                <p className="text-3xl font-bold text-emerald-600">{sentimentData.find(item => item.name === "Pozitif")?.value}%</p>
+                <p className="text-sm text-gray-500 mb-1">Negatif İçerik</p>
+                <p className="text-3xl font-bold text-red-600">95%</p>
               </div>
-              <div className="bg-emerald-100 p-3 rounded-full">
-                <svg className="h-6 w-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017a2 2 0 01-1.789-1.106l-3.5-7A2 2 0 017.247 10H12" />
-                </svg>
+              <div className="bg-red-100 p-3 rounded-full">
+                <AlertTriangle className="h-6 w-6 text-red-600" />
               </div>
             </div>
           </div>
@@ -90,18 +96,21 @@ const NewsPage = () => {
 
         {/* Content Tabs */}
         <Tabs defaultValue="all-news" className="mb-12">
-          <TabsList className="mb-8 bg-blue-50 p-1 rounded-lg">
+          <TabsList className="mb-8 bg-red-50 p-1 rounded-lg">
             <TabsTrigger value="all-news" className="data-[state=active]:bg-white data-[state=active]:shadow-sm">
               Tüm Haberler
             </TabsTrigger>
             <TabsTrigger value="analytics" className="data-[state=active]:bg-white data-[state=active]:shadow-sm">
               Analitik
             </TabsTrigger>
+            <TabsTrigger value="daily-data" className="data-[state=active]:bg-white data-[state=active]:shadow-sm">
+              Günlük Veriler
+            </TabsTrigger>
           </TabsList>
           
           <TabsContent value="all-news">
             <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
-              <BookOpen className="mr-2 h-5 w-5 text-blue-600" />
+              <BookOpen className="mr-2 h-5 w-5 text-red-600" />
               Öne Çıkan Haberler
             </h2>
             
@@ -135,6 +144,36 @@ const NewsPage = () => {
                   <h3 className="text-xl font-bold text-gray-800 mb-6">Popüler Kelimeler</h3>
                   <WordCloud data={wordCloudData} />
                 </div>
+              </div>
+            </div>
+          </TabsContent>
+          
+          <TabsContent value="daily-data">
+            <div className="bg-white rounded-xl shadow-md p-6">
+              <h2 className="text-2xl font-bold text-gray-800 mb-6">Günlük Haber İstatistikleri</h2>
+              <div className="overflow-x-auto">
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead className="font-semibold">Tarih</TableHead>
+                      <TableHead className="text-right font-semibold">Haber Sayısı</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {dailyNewsData.map((item, index) => (
+                      <TableRow key={index}>
+                        <TableCell className="font-medium">{item.day}</TableCell>
+                        <TableCell className="text-right">{item.count}</TableCell>
+                      </TableRow>
+                    ))}
+                    <TableRow className="bg-gray-50">
+                      <TableCell className="font-bold">Toplam</TableCell>
+                      <TableCell className="text-right font-bold">
+                        {dailyNewsData.reduce((sum, item) => sum + item.count, 0)}
+                      </TableCell>
+                    </TableRow>
+                  </TableBody>
+                </Table>
               </div>
             </div>
           </TabsContent>

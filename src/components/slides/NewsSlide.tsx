@@ -1,7 +1,7 @@
 
 import React from 'react';
 import Slide from '@/components/Slide';
-import { BookOpen, Calendar, PieChart } from 'lucide-react';
+import { BookOpen, Calendar, AlertTriangle } from 'lucide-react';
 import { newsData, dailyNewsData, sentimentData, wordCloudData } from '@/data/newsData';
 import NewsCard from '@/components/news/NewsCard';
 import DailyNewsChart from '@/components/news/DailyNewsChart';
@@ -11,9 +11,9 @@ const NewsSlide = () => {
   return (
     <Slide
       title="Güncel Haberler Özeti"
-      subtitle="Teknoloji ve sosyal medya alanındaki en son gelişmeler"
+      subtitle="Türkiye-Hindistan ilişkileri ve boykot çağrıları hakkında en son gelişmeler"
       contentClassName="overflow-y-auto"
-      bgColor="bg-gradient-to-br from-white via-blue-50 to-blue-100"
+      bgColor="bg-gradient-to-br from-white via-red-50 to-red-100"
     >
       <div className="space-y-6">
         {/* Statistics row */}
@@ -25,7 +25,7 @@ const NewsSlide = () => {
               </div>
               <div>
                 <p className="text-xs text-gray-500">Toplam Haber</p>
-                <p className="text-xl font-bold text-gray-800">{newsData.length}</p>
+                <p className="text-xl font-bold text-gray-800">81</p>
               </div>
             </div>
           </div>
@@ -37,19 +37,19 @@ const NewsSlide = () => {
               </div>
               <div>
                 <p className="text-xs text-gray-500">Bu Hafta</p>
-                <p className="text-xl font-bold text-gray-800">{dailyNewsData.reduce((acc, item) => acc + item.count, 0)}</p>
+                <p className="text-xl font-bold text-gray-800">43</p>
               </div>
             </div>
           </div>
           
           <div className="bg-white rounded-xl shadow-sm p-4 border border-gray-100">
             <div className="flex items-center gap-3">
-              <div className="bg-emerald-100 p-2 rounded-full">
-                <PieChart className="h-5 w-5 text-emerald-600" />
+              <div className="bg-red-100 p-2 rounded-full">
+                <AlertTriangle className="h-5 w-5 text-red-600" />
               </div>
               <div>
-                <p className="text-xs text-gray-500">Pozitif İçerik</p>
-                <p className="text-xl font-bold text-emerald-600">{sentimentData.find(item => item.name === "Pozitif")?.value}%</p>
+                <p className="text-xs text-gray-500">Negatif İçerik</p>
+                <p className="text-xl font-bold text-red-600">{sentimentData.find(item => item.name === "Negatif")?.value}%</p>
               </div>
             </div>
           </div>
