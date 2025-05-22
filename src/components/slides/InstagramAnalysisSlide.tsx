@@ -1,5 +1,4 @@
-
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Slide from '@/components/Slide';
 import { Card, CardContent } from '@/components/ui/card';
 import { Table } from '@/components/ui/table';
@@ -13,10 +12,19 @@ import {
 } from '@/components/ui/chart';
 import { BarChart as RechartsBarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Line, ComposedChart } from 'recharts';
 import DataChart from '@/components/DataChart';
+import DownloadButton from '@/components/DownloadButton';
 
 const InstagramAnalysisSlide = () => {
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('desc');
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  
+  // Add refs for downloadable components
+  const metricsRef = useRef<HTMLDivElement>(null);
+  const accountsRef = useRef<HTMLDivElement>(null);
+  const postsRef = useRef<HTMLDivElement>(null);
+  const chartsRef = useRef<HTMLDivElement>(null);
+  const tableRef = useRef<HTMLDivElement>(null);
+  const hashtagsRef = useRef<HTMLDivElement>(null);
 
   const sortedPosts = [...topPostsByLikes].sort((a, b) => 
     sortDirection === 'desc' ? b.likeCount - a.likeCount : a.likeCount - b.likeCount
@@ -82,8 +90,9 @@ const InstagramAnalysisSlide = () => {
     >
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Summary Card */}
-        <Card className="shadow-md bg-white/90 backdrop-blur-sm">
-          <CardContent className="pt-6">
+        <Card className="shadow-md bg-white/90 backdrop-blur-sm relative">
+          <DownloadButton targetRef={metricsRef} filename="instagram-ozet" className="absolute top-2 right-2" />
+          <CardContent className="pt-6" ref={metricsRef}>
             <div className="flex items-center gap-3 mb-4">
               <Instagram className="h-6 w-6 text-purple-500" />
               <h3 className="text-xl font-bold text-gray-800">Instagram Özet</h3>
@@ -118,8 +127,9 @@ const InstagramAnalysisSlide = () => {
         </Card>
 
         {/* Top Accounts by Followers */}
-        <Card className="shadow-md bg-white/90 backdrop-blur-sm">
-          <CardContent className="pt-6">
+        <Card className="shadow-md bg-white/90 backdrop-blur-sm relative">
+          <DownloadButton targetRef={accountsRef} filename="en-cok-takipcisi-olan-hesaplar" className="absolute top-2 right-2" />
+          <CardContent className="pt-6" ref={accountsRef}>
             <div className="flex items-center gap-3 mb-4">
               <Users className="h-5 w-5 text-blue-500" />
               <h3 className="text-xl font-bold text-gray-800">En Çok Takipçisi Olan Hesaplar</h3>
@@ -149,8 +159,9 @@ const InstagramAnalysisSlide = () => {
       </div>
 
       {/* Top Post with Image */}
-      <Card className="shadow-md bg-white/90 backdrop-blur-sm">
-        <CardContent className="pt-6">
+      <Card className="shadow-md bg-white/90 backdrop-blur-sm relative">
+        <DownloadButton targetRef={postsRef} filename="populer-gonderiler" className="absolute top-2 right-2" />
+        <CardContent className="pt-6" ref={postsRef}>
           <div className="flex items-center gap-3 mb-4">
             <ImageIcon className="h-5 w-5 text-pink-500" />
             <h3 className="text-xl font-bold text-gray-800">Popüler Gönderiler</h3>
@@ -235,8 +246,9 @@ const InstagramAnalysisSlide = () => {
       </Card>
 
       {/* Daily Metrics Chart */}
-      <Card className="shadow-md bg-white/90 backdrop-blur-sm">
-        <CardContent className="pt-6">
+      <Card className="shadow-md bg-white/90 backdrop-blur-sm relative">
+        <DownloadButton targetRef={chartsRef} filename="gunluk-instagram-metrikleri" className="absolute top-2 right-2" />
+        <CardContent className="pt-6" ref={chartsRef}>
           <div className="flex items-center gap-3 mb-4">
             <FileBarChart className="h-6 w-6 text-indigo-500" />
             <h3 className="text-xl font-bold text-gray-800">Günlük Instagram Metrikleri</h3>
@@ -332,8 +344,9 @@ const InstagramAnalysisSlide = () => {
       </Card>
 
       {/* Top Posts Table */}
-      <Card className="shadow-md bg-white/90 backdrop-blur-sm">
-        <CardContent className="pt-6">
+      <Card className="shadow-md bg-white/90 backdrop-blur-sm relative">
+        <DownloadButton targetRef={tableRef} filename="en-cok-begeni-alan-gonderiler" className="absolute top-2 right-2" />
+        <CardContent className="pt-6" ref={tableRef}>
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-3">
               <Users className="h-5 w-5 text-indigo-500" />
@@ -395,8 +408,9 @@ const InstagramAnalysisSlide = () => {
       </Card>
 
       {/* Hashtags */}
-      <Card className="shadow-md bg-white/90 backdrop-blur-sm">
-        <CardContent className="pt-6">
+      <Card className="shadow-md bg-white/90 backdrop-blur-sm relative">
+        <DownloadButton targetRef={hashtagsRef} filename="en-populer-hashtagler" className="absolute top-2 right-2" />
+        <CardContent className="pt-6" ref={hashtagsRef}>
           <div className="flex items-center gap-3 mb-4">
             <BarChart2 className="h-5 w-5 text-green-500" />
             <h3 className="text-xl font-bold text-gray-800">En Popüler Hashtagler</h3>

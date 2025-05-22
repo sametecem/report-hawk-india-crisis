@@ -1,5 +1,4 @@
-
-import React from 'react';
+import React, { useRef } from 'react';
 import Slide from '@/components/Slide';
 import Table from '@/components/Table';
 import { Card } from '@/components/ui/card';
@@ -21,6 +20,7 @@ import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/h
 import { ExternalLink, AlertCircle, TrendingUp } from 'lucide-react';
 import TweetCard from '@/components/TweetCard';
 import { Badge } from '@/components/ui/badge';
+import DownloadButton from '@/components/DownloadButton';
 
 // Peak days data
 const peakDaysData = [
@@ -89,6 +89,11 @@ const peakDaysData = [
 ];
 
 const DailyTrendsSlide = () => {
+  const volumeChartRef = useRef<HTMLDivElement>(null);
+  const peakDaysRef = useRef<HTMLDivElement>(null);
+  const tableRef = useRef<HTMLDivElement>(null);
+  const sentimentChartRef = useRef<HTMLDivElement>(null);
+
   const volumeChartData = React.useMemo(() => {
     return tweetVolumeData.map((item) => ({
       ...item,
@@ -99,86 +104,96 @@ const DailyTrendsSlide = () => {
 
   return (
     <Slide title="3. Günlük ve Haftalık Detaylı Trendler" bgColor="bg-gradient-to-br from-white via-indigo-50 to-indigo-100">
-      <Card className="p-6 shadow-lg bg-white/90 backdrop-blur-sm mb-6">
-        <div className="flex items-center gap-2 mb-4">
-          <TrendingUp className="w-5 h-5 text-indigo-600" />
-          <h3 className="text-xl font-bold text-gray-800">Dönemsel Hacim ve Zirve Günler</h3>
-        </div>
+      <Card className="p-6 shadow-lg bg-white/90 backdrop-blur-sm mb-6 relative">
+        <DownloadButton targetRef={volumeChartRef} filename="hacim-ve-zirve-gunler" className="absolute top-2 right-2" />
+        <div ref={volumeChartRef}>
+          <div className="flex items-center gap-2 mb-4">
+            <TrendingUp className="w-5 h-5 text-indigo-600" />
+            <h3 className="text-xl font-bold text-gray-800">Dönemsel Hacim ve Zirve Günler</h3>
+          </div>
 
-        <div className="h-80 mb-6">
-          <ResponsiveContainer width="100%" height="100%">
-            <LineChart
-              data={volumeChartData}
-              margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
-            >
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
-              <YAxis />
-              <Tooltip 
-                formatter={(value) => [`${value} tweet`, "Hacim"]}
-                labelFormatter={(label) => `Tarih: ${label}`}
-                contentStyle={{
-                  backgroundColor: "white",
-                  borderRadius: "8px",
-                  boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
-                  border: "none"
-                }}
-              />
-              <Legend />
-              <Line 
-                type="monotone" 
-                dataKey="tweets" 
-                stroke="#4f46e5" 
-                strokeWidth={2}
-                dot={(props) => {
-                  const { cx, cy, payload } = props;
-                  const isPeakDay = payload.isPeakDay;
-                  
-                  return isPeakDay ? (
-                    <circle 
-                      cx={cx} 
-                      cy={cy} 
-                      r={6} 
-                      fill="#4f46e5" 
-                      stroke="white" 
-                      strokeWidth={2} 
-                    />
-                  ) : (
-                    <circle 
-                      cx={cx} 
-                      cy={cy} 
-                      r={3} 
-                      fill="#4f46e5" 
-                    />
-                  );
-                }}
-                activeDot={{ r: 8 }}
-                name="Tweet Hacmi"
-              />
-              
-              {/* Add reference lines for the peak days */}
-              {peakDaysData.map((peak, index) => (
-                <ReferenceLine 
-                  key={index}
-                  x={peak.date} 
-                  stroke={peak.color} 
-                  strokeDasharray="3 3"
-                  strokeWidth={2}
-                  label={{ 
-                    value: peak.title, 
-                    position: 'insideTopRight',
-                    fill: peak.color,
-                    fontSize: 12,
-                    fontWeight: 'bold'
+          <div className="h-80 mb-6">
+            <ResponsiveContainer width="100%" height="100%">
+              <LineChart
+                data={volumeChartData}
+                margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+              >
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip 
+                  formatter={(value) => [`${value} tweet`, "Hacim"]}
+                  labelFormatter={(label) => `Tarih: ${label}`}
+                  contentStyle={{
+                    backgroundColor: "white",
+                    borderRadius: "8px",
+                    boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
+                    border: "none"
                   }}
                 />
-              ))}
-            </LineChart>
-          </ResponsiveContainer>
+                <Legend />
+                <Line 
+                  type="monotone" 
+                  dataKey="tweets" 
+                  stroke="#4f46e5" 
+                  strokeWidth={2}
+                  dot={(props) => {
+                    const { cx, cy, payload } = props;
+                    const isPeakDay = payload.isPeakDay;
+                    
+                    return isPeakDay ? (
+                      <circle 
+                        cx={cx} 
+                        cy={cy} 
+                        r={6} 
+                        fill="#4f46e5" 
+                        stroke="white" 
+                        strokeWidth={2} 
+                      />
+                    ) : (
+                      <circle 
+                        cx={cx} 
+                        cy={cy} 
+                        r={3} 
+                        fill="#4f46e5" 
+                      />
+                    );
+                  }}
+                  activeDot={{ r: 8 }}
+                  name="Tweet Hacmi"
+                />
+                
+                {/* Add reference lines for the peak days */}
+                {peakDaysData.map((peak, index) => (
+                  <ReferenceLine 
+                    key={index}
+                    x={peak.date} 
+                    stroke={peak.color} 
+                    strokeDasharray="3 3"
+                    strokeWidth={2}
+                    label={{ 
+                      value: peak.title, 
+                      position: 'insideTopRight',
+                      fill: peak.color,
+                      fontSize: 12,
+                      fontWeight: 'bold'
+                    }}
+                  />
+                ))}
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
         </div>
         
         {/* Peak Days Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 relative" ref={peakDaysRef}>
+          <DownloadButton 
+            targetRef={peakDaysRef} 
+            filename="zirve-gunler" 
+            className="absolute -top-10 right-0 z-10" 
+            variant="outline"
+            size="sm" 
+          />
           {peakDaysData.map((peak, index) => (
             <Card 
               key={index} 
@@ -254,8 +269,13 @@ const DailyTrendsSlide = () => {
         </div>
       </Card>
 
-      <Card className="p-6 shadow-lg bg-white/90 backdrop-blur-sm">
-        <div className="overflow-x-auto">
+      <Card className="p-6 shadow-lg bg-white/90 backdrop-blur-sm relative">
+        <div className="overflow-x-auto" ref={tableRef}>
+          <DownloadButton 
+            targetRef={tableRef} 
+            filename="gunluk-tweet-verileri" 
+            className="absolute top-2 right-2" 
+          />
           <Table
             headers={["Tarih", "Tweet", "Beğeni", "RT", "Yanıt", "Görüntülenme", "Ortalama Duygu"]}
             rows={[
@@ -286,7 +306,14 @@ const DailyTrendsSlide = () => {
           />
         </div>
 
-        <div className="mt-8">
+        <div className="mt-8 relative" ref={sentimentChartRef}>
+          <DownloadButton 
+            targetRef={sentimentChartRef} 
+            filename="duygu-skoru-trendi" 
+            className="absolute top-0 right-0" 
+            variant="outline"
+            size="sm" 
+          />
           <h3 className="text-xl font-bold mb-4 text-gray-800">Duygu Skoru Trendi (8-15 Mayıs)</h3>
           <div className="h-64">
             <ResponsiveContainer width="100%" height="100%">
