@@ -27,8 +27,8 @@ const InstagramAnalysisSlide2 = () => {
         className="absolute top-0 right-0 z-10" 
       />
       
-      <div className="space-y-6" ref={slideContentRef}>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6 relative" ref={row1Ref}>
+      <div className="space-y-6 bg-white" ref={slideContentRef}>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6 relative bg-white" ref={row1Ref}>
           <DownloadButton 
             targetRef={row1Ref} 
             filename="hacim-ve-duygu-analizi" 
@@ -40,7 +40,7 @@ const InstagramAnalysisSlide2 = () => {
           <SentimentChart />
         </div>
         
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6 relative" ref={row2Ref}>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6 relative bg-white" ref={row2Ref}>
           <DownloadButton 
             targetRef={row2Ref} 
             filename="duygu-ve-tema-analizi" 
@@ -52,7 +52,7 @@ const InstagramAnalysisSlide2 = () => {
           <ThemeClusterChart />
         </div>
         
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 relative" ref={row3Ref}>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 relative bg-white" ref={row3Ref}>
           <DownloadButton 
             targetRef={row3Ref} 
             filename="post-ve-toksisite-analizi" 

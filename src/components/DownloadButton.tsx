@@ -21,10 +21,25 @@ const DownloadButton: React.FC<DownloadButtonProps> = ({
 }) => {
   const downloadAsImage = () => {
     if (targetRef.current) {
-      html2canvas(targetRef.current, { 
-        backgroundColor: null,
+      const targetElement = targetRef.current;
+      
+      // Get background styles from the element and its parents
+      const computedStyle = getComputedStyle(targetElement);
+      const backgroundColor = computedStyle.backgroundColor;
+      const backgroundImage = computedStyle.backgroundImage;
+      
+      html2canvas(targetElement, { 
+        backgroundColor: backgroundColor !== 'rgba(0, 0, 0, 0)' ? backgroundColor : 'white',
         scale: 2, // Higher scale for better quality
         logging: false,
+        useCORS: true, // Allow images from other domains
+        allowTaint: true,
+        // Capture any background gradients or images
+        onclone: (document, element) => {
+          if (backgroundImage !== 'none') {
+            element.style.backgroundImage = backgroundImage;
+          }
+        }
       }).then(canvas => {
         const image = canvas.toDataURL('image/png');
         const link = document.createElement('a');
