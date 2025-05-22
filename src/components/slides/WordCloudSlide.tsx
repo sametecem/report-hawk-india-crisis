@@ -7,17 +7,20 @@ import { wordCloudData } from '@/data/reportData';
 const WordCloudSlide = () => {
   return (
     <Slide title="10. Kelime Bulutu ve Öne Çıkan İfadeler" bgColor="bg-gradient-to-br from-white via-blue-50 to-violet-100">
-      <div className="grid grid-cols-1 gap-6">
-        <Card className="p-6 shadow-lg bg-white/90 backdrop-blur-sm">
-          <h3 className="text-xl font-bold mb-4 text-gray-800 border-b pb-2">En Sık Kullanılan Kelimeler (İlk 50)</h3>
-          <div className="flex flex-wrap gap-2 justify-center p-6">
+      <div className="grid grid-cols-1 gap-4 md:gap-6">
+        <Card className="p-4 md:p-6 shadow-lg bg-white/90 backdrop-blur-sm">
+          <h3 className="text-lg md:text-xl font-bold mb-4 text-gray-800 border-b pb-2">En Sık Kullanılan Kelimeler (İlk 50)</h3>
+          <div className="flex flex-wrap gap-1 md:gap-2 justify-center p-3 md:p-6">
             {wordCloudData.map((word, index) => {
               // Extract the count from the word string
               const match = word.match(/\(([^)]+)\)/);
               const count = match ? parseInt(match[1].replace('.', '')) : 0;
               
               // Calculate font size based on count (higher count = larger text)
-              const fontSize = Math.max(Math.min(count / 50 + 0.8, 2.5), 0.8);
+              // Adjust for mobile: smaller on mobile
+              const baseFontSize = window.innerWidth < 768 ? 0.6 : 0.8;
+              const maxFontSize = window.innerWidth < 768 ? 2.0 : 2.5;
+              const fontSize = Math.max(Math.min(count / 50 + baseFontSize, maxFontSize), baseFontSize);
               
               // Color based on position in the array
               const getColor = () => {
@@ -33,7 +36,7 @@ const WordCloudSlide = () => {
               return (
                 <span 
                   key={index} 
-                  className={`${getColor()} font-medium px-2 py-1`}
+                  className={`${getColor()} font-medium px-1 md:px-2 py-0.5 md:py-1`}
                   style={{ fontSize: `${fontSize}rem` }}
                 >
                   {word}
@@ -43,24 +46,24 @@ const WordCloudSlide = () => {
           </div>
         </Card>
         
-        <Card className="p-6 shadow-lg bg-white/90 backdrop-blur-sm">
-          <h3 className="text-xl font-bold mb-4 text-gray-800 border-b pb-2">Kelime Grupları ve Yaygın İfadeler</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="bg-blue-50 rounded-lg p-4">
-              <h4 className="font-semibold text-blue-800 mb-2">Havayolları ve İşbirlikleri</h4>
-              <p className="text-blue-700">turkish, airlines, indigo, code, indiago, airindia, flights</p>
+        <Card className="p-4 md:p-6 shadow-lg bg-white/90 backdrop-blur-sm">
+          <h3 className="text-lg md:text-xl font-bold mb-4 text-gray-800 border-b pb-2">Kelime Grupları ve Yaygın İfadeler</h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
+            <div className="bg-blue-50 rounded-lg p-3 md:p-4">
+              <h4 className="font-semibold text-blue-800 mb-2 text-sm md:text-base">Havayolları ve İşbirlikleri</h4>
+              <p className="text-blue-700 text-xs md:text-sm">turkish, airlines, indigo, code, indiago, airindia, flights</p>
             </div>
-            <div className="bg-red-50 rounded-lg p-4">
-              <h4 className="font-semibold text-red-800 mb-2">Boykot ve Eylem Çağrıları</h4>
-              <p className="text-red-700">boycott, ban, suspend, remove, cancel, boycott­turkey, boycott­turkishairlines</p>
+            <div className="bg-red-50 rounded-lg p-3 md:p-4">
+              <h4 className="font-semibold text-red-800 mb-2 text-sm md:text-base">Boykot ve Eylem Çağrıları</h4>
+              <p className="text-red-700 text-xs md:text-sm">boycott, ban, suspend, remove, cancel, boycott­turkey, boycott­turkishairlines</p>
             </div>
-            <div className="bg-amber-50 rounded-lg p-4">
-              <h4 className="font-semibold text-amber-800 mb-2">Finansal ve Ekonomik İfadeler</h4>
-              <p className="text-amber-700">economic, revenue, crore, money, losses, trade, billion, market</p>
+            <div className="bg-amber-50 rounded-lg p-3 md:p-4">
+              <h4 className="font-semibold text-amber-800 mb-2 text-sm md:text-base">Finansal ve Ekonomik İfadeler</h4>
+              <p className="text-amber-700 text-xs md:text-sm">economic, revenue, crore, money, losses, trade, billion, market</p>
             </div>
-            <div className="bg-green-50 rounded-lg p-4">
-              <h4 className="font-semibold text-green-800 mb-2">Seyahat ve Turizm İfadeleri</h4>
-              <p className="text-green-700">travel, tourism, travelers, booking, flights­to­turkey</p>
+            <div className="bg-green-50 rounded-lg p-3 md:p-4">
+              <h4 className="font-semibold text-green-800 mb-2 text-sm md:text-base">Seyahat ve Turizm İfadeleri</h4>
+              <p className="text-green-700 text-xs md:text-sm">travel, tourism, travelers, booking, flights­to­turkey</p>
             </div>
           </div>
         </Card>
