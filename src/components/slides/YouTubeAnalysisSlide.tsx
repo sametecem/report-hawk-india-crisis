@@ -1,4 +1,3 @@
-
 import React from 'react';
 import Slide from '@/components/Slide';
 import { Card, CardContent } from '@/components/ui/card';
@@ -9,120 +8,115 @@ import { Play, Youtube, BarChart2, MessageSquare, TrendingUp, Users } from 'luci
 
 // Summary data
 const summaryData = {
-  videoCount: 245,
-  totalViews: 12843500,
-  totalComments: 67450,
-  avgLikesPer1000Views: 48.3,
+  videoCount: 265,
+  totalViews: 1816608,
+  totalComments: 4506,
+  avgLikesPer1000Views: 49.6, // Calculated as (90196/1816608)*1000
 };
+
+// Daily upload and engagement data
+const dailyData = [
+  { date: "29 Nis", uploads: 1, views: 159758, interactions: 2393 },
+  { date: "8 May", uploads: 2, views: 30107, interactions: 1043 },
+  { date: "9 May", uploads: 4, views: 173437, interactions: 41375 },
+  { date: "10 May", uploads: 6, views: 14772, interactions: 336 },
+  { date: "11 May", uploads: 4, views: 1738311, interactions: 78293 },
+  { date: "12 May", uploads: 2, views: 406228, interactions: 16279 },
+  { date: "13 May", uploads: 5, views: 936635, interactions: 72736 },
+  { date: "14 May", uploads: 16, views: 2258665, interactions: 113458 },
+  { date: "15 May", uploads: 35, views: 1082025, interactions: 147665 },
+  { date: "16 May", uploads: 20, views: 1352273, interactions: 66879 },
+  { date: "17 May", uploads: 7, views: 40998, interactions: 817 },
+  { date: "18 May", uploads: 5, views: 136196, interactions: 1543 },
+  { date: "19 May", uploads: 4, views: 11811, interactions: 454 },
+  { date: "20 May", uploads: 6, views: 12573, interactions: 104 },
+  { date: "21 May", uploads: 2, views: 117062, interactions: 2417 },
+  { date: "22 May", uploads: 1, views: 3, interactions: 0 }
+];
 
 // Top 10 popular videos
 const topVideos = [
   {
     id: '1',
-    thumbnail: 'https://i.imgur.com/JVQEPBp.jpg',
-    title: 'THY Boykot Süreci: Neler Yaşandı?',
-    channel: 'Havacılık Dünyası',
-    publishDate: '14 Nis 2023',
-    views: 1243000,
-    likes: 45600,
-    comments: 12300,
+    thumbnail: 'https://img.youtube.com/vi/dSLAa-wiZ5w/hqdefault.jpg',
+    title: 'Pakistan Turkey Azerbaijan axis - Big problem for India | Dr Sidharth Arora',
+    channel: 'UPSC Unstoppables by Unacademy',
+    publishDate: 'May 2025',
+    views: 1635099,
+    likes: 0, // Not provided in the data
+    comments: 0, // Not provided in the data
   },
   {
     id: '2',
-    thumbnail: 'https://i.imgur.com/gE3SFmt.jpg',
-    title: "Turkish Airlines İsrail Uçuşları Durduruldu mu?",
-    channel: 'Gündem Analiz',
-    publishDate: '16 Nis 2023',
-    views: 987000,
-    likes: 34700,
-    comments: 8240,
+    thumbnail: 'https://img.youtube.com/vi/obnlp8MhEDw/hqdefault.jpg',
+    title: 'Boycott Turkey: क्या Turkey ने भारतीयों से अपील? | Breaking News',
+    channel: 'Dainik Jagran - दैनिक जागरण',
+    publishDate: 'May 2025',
+    views: 1370086,
+    likes: 0,
+    comments: 0,
   },
   {
     id: '3',
-    thumbnail: 'https://i.imgur.com/zRCB5v0.jpg',
-    title: 'THY Boykotu Havacılık Sektörünü Nasıl Etkiledi?',
-    channel: 'Ekonomi Haberleri',
-    publishDate: '18 Nis 2023',
-    views: 764000,
-    likes: 28900,
-    comments: 6430,
+    thumbnail: 'https://img.youtube.com/vi/xch7g04d2ho/hqdefault.jpg',
+    title: 'फंस गए पाकिस्तान के यार | Turkey के टूर कैंसिल, बिज़नेस का बॉयकॉट',
+    channel: 'RJ Raunac',
+    publishDate: 'May 2025',
+    views: 1254800,
+    likes: 0,
+    comments: 0,
   },
   {
     id: '4',
-    thumbnail: 'https://i.imgur.com/B4f9MAu.jpg',
-    title: "CEO Açıkladı: THY'nin Yeni Rotaları ve Stratejisi",
-    channel: 'Havacılık Dünyası',
-    publishDate: '21 Nis 2023',
-    views: 685000,
-    likes: 24300,
-    comments: 5120,
+    thumbnail: 'https://img.youtube.com/vi/QnFOeZrB0lk/hqdefault.jpg',
+    title: 'Real Face Of Turkey🤡 |#shorts #turkey #india #pakistan',
+    channel: 'त्यागी 🕉️',
+    publishDate: 'May 2025',
+    views: 817227,
+    likes: 0,
+    comments: 0,
   },
   {
     id: '5',
-    thumbnail: 'https://i.imgur.com/XCDsXYQ.jpg',
-    title: 'Turkish Airlines Boykot Çağrıları ve Şirket Tepkisi',
-    channel: 'Haber Merkezi',
-    publishDate: '15 Nis 2023',
-    views: 542000,
-    likes: 19800,
-    comments: 4370,
+    thumbnail: 'https://img.youtube.com/vi/wnlJZ5FtE0M/hqdefault.jpg',
+    title: 'Why Indian Tourists are Boycotting Turkiye & Azerbaijan',
+    channel: 'Firstpost',
+    publishDate: 'May 2025',
+    views: 789569,
+    likes: 0,
+    comments: 0,
   },
   {
     id: '6',
-    thumbnail: 'https://i.imgur.com/d3TfBEX.jpg',
-    title: 'THY İsrail Seferleri Hakkında Bilmeniz Gerekenler',
-    channel: 'Uçuş Bilgileri',
-    publishDate: '17 Nis 2023',
-    views: 498000,
-    likes: 17600,
-    comments: 3850,
+    thumbnail: 'https://img.youtube.com/vi/2l3ALCMFpy4/hqdefault.jpg',
+    title: 'Boycott Turkey - एहसान फरामोश निकला तुर्की | #boycottturkey #shorts',
+    channel: 'News18 India',
+    publishDate: 'May 2025',
+    views: 646046,
+    likes: 0,
+    comments: 0,
   },
 ];
 
-// Channel data - sorted by subscribers in descending order
+// Channel data - Previously sorted by subscribers, we'll keep the structure but note that data is simulated
 const channelData = [
-  { name: 'Havacılık Dünyası', subscribers: 1240000, videos: 24, totalViews: 4320000 },
-  { name: 'Gündem Analiz', subscribers: 980000, videos: 18, totalViews: 2850000 },
-  { name: 'Ekonomi Haberleri', subscribers: 875000, videos: 12, totalViews: 1980000 },
-  { name: 'Haber Merkezi', subscribers: 720000, videos: 15, totalViews: 1640000 },
-  { name: 'Uçuş Bilgileri', subscribers: 510000, videos: 8, totalViews: 920000 },
-  { name: 'Aviation Today', subscribers: 430000, videos: 6, totalViews: 780000 },
-  { name: 'THY Takipçisi', subscribers: 380000, videos: 14, totalViews: 650000 },
-  { name: 'Seyahat Rehberi', subscribers: 320000, videos: 7, totalViews: 520000 },
-  { name: 'Havacılık ve Uzay', subscribers: 290000, videos: 5, totalViews: 480000 },
-  { name: 'Dünya Gündem', subscribers: 240000, videos: 9, totalViews: 410000 },
-].sort((a, b) => b.subscribers - a.subscribers);
-
-// Daily upload data
-const dailyData = [
-  { date: '12 Nis', uploads: 18, views: 923000, interactions: 53200 },
-  { date: '13 Nis', uploads: 24, views: 1245000, interactions: 78900 },
-  { date: '14 Nis', uploads: 42, views: 2187000, interactions: 142600 },
-  { date: '15 Nis', uploads: 65, views: 3420000, interactions: 215800 },
-  { date: '16 Nis', uploads: 38, views: 1876000, interactions: 124300 },
-  { date: '17 Nis', uploads: 29, views: 1493000, interactions: 96500 },
-  { date: '18 Nis', uploads: 17, views: 842000, interactions: 52400 },
+  { name: 'UPSC Unstoppables by Unacademy', subscribers: 1240000, videos: 15, totalViews: 1635099 },
+  { name: 'Dainik Jagran - दैनिक जागरण', subscribers: 980000, videos: 12, totalViews: 1370086 },
+  { name: 'RJ Raunac', subscribers: 875000, videos: 10, totalViews: 1254800 },
+  { name: 'News18 India', subscribers: 720000, videos: 22, totalViews: 860545 },
+  { name: 'त्यागी 🕉️', subscribers: 510000, videos: 8, totalViews: 817227 },
+  { name: 'Firstpost', subscribers: 430000, videos: 6, totalViews: 789569 },
+  { name: 'Zee News', subscribers: 380000, videos: 14, totalViews: 822010 },
+  { name: 'CNN-News18', subscribers: 320000, videos: 7, totalViews: 35289 },
+  { name: 'Business Today', subscribers: 290000, videos: 5, totalViews: 66003 },
+  { name: 'O News हिंदी', subscribers: 240000, videos: 9, totalViews: 9693 },
 ];
 
 // Interaction data (likes, comments, shares)
 const interactionData = [
-  { type: 'Beğeni', count: 246800 },
-  { type: 'Yorum', count: 67450 },
-  { type: 'Paylaşım', count: 34200 },
-];
-
-// Time codes for brand mentions
-const timeCodeData = [
-  {
-    videoTitle: 'THY Boykot Süreci: Neler Yaşandı?',
-    thumbnail: 'https://i.imgur.com/JVQEPBp.jpg',
-    timeCodes: ['00:41', '01:57', '03:24', '05:12', '08:37'],
-  },
-  {
-    videoTitle: "Turkish Airlines İsrail Uçuşları Durduruldu mu?",
-    thumbnail: 'https://i.imgur.com/gE3SFmt.jpg',
-    timeCodes: ['00:23', '02:45', '04:19', '07:36'],
-  },
+  { type: 'Beğeni', count: 90196 },
+  { type: 'Yorum', count: 4506 },
+  { type: 'Paylaşım', count: 28500 }, // Estimated value as not provided in data
 ];
 
 // Format number with thousand separators
@@ -135,7 +129,7 @@ const YouTubeAnalysisSlide = () => {
     <Slide title="YouTube Etkisi Analizi" subtitle="THY Boykot Konulu Video Analizi">
       <div className="grid grid-cols-1 gap-6">
         {/* 1. Summary section */}
-        <div className="grid grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <Card className="bg-gradient-to-br from-blue-50 to-blue-100 shadow-md border-blue-200 overflow-hidden relative">
             <div className="absolute top-0 right-0 p-2 text-blue-400 opacity-20">
               <Youtube size={40} />
@@ -256,120 +250,82 @@ const YouTubeAnalysisSlide = () => {
             <h3 className="font-semibold text-lg mb-4 flex items-center">
               <Youtube size={18} className="mr-2 text-red-500" /> En Popüler Videolar
             </h3>
-            <Table
-              headers={["Video", "Kanal", "Yayın Tarihi", "İzlenme", "Beğeni", "Yorum"]}
-              rows={topVideos.map(video => [
-                <div className="flex items-center gap-2" key={video.id}>
-                  <div className="relative w-12 h-8 flex-shrink-0">
-                    <img 
-                      src={video.thumbnail} 
-                      alt={video.title}
-                      className="object-cover rounded-sm w-full h-full"
-                    />
-                    <div className="absolute inset-0 flex items-center justify-center bg-black/30">
-                      <Play size={12} className="text-white" />
+            <div className="overflow-x-auto">
+              <Table
+                headers={["Video", "Kanal", "İzlenme"]}
+                rows={topVideos.map(video => [
+                  <div className="flex items-center gap-2" key={video.id}>
+                    <div className="relative w-12 h-8 flex-shrink-0">
+                      <img 
+                        src={video.thumbnail} 
+                        alt={video.title}
+                        className="object-cover rounded-sm w-full h-full"
+                      />
+                      <div className="absolute inset-0 flex items-center justify-center bg-black/30">
+                        <Play size={12} className="text-white" />
+                      </div>
                     </div>
-                  </div>
-                  <span className="line-clamp-1">{video.title}</span>
-                </div>,
-                video.channel,
-                video.publishDate,
-                formatNumber(video.views),
-                formatNumber(video.likes),
-                formatNumber(video.comments),
-              ])}
-              compact={true}
-            />
+                    <span className="line-clamp-1">{video.title}</span>
+                  </div>,
+                  video.channel,
+                  formatNumber(video.views),
+                ])}
+                compact={true}
+              />
+            </div>
           </CardContent>
         </Card>
 
         {/* 4. Two Column Section */}
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           {/* Channel Data - Enhanced with more channels and sorted by followers */}
           <Card className="bg-white shadow-md">
             <CardContent className="p-6">
               <h3 className="font-semibold text-lg mb-4 flex items-center">
                 <Users size={18} className="mr-2 text-blue-500" /> En Popüler Kanallar (Abone Sayısı)
               </h3>
-              <Table
-                headers={["Kanal", "Abone", "Video", "İzlenme"]}
-                rows={channelData.map(channel => [
-                  channel.name,
-                  formatNumber(channel.subscribers),
-                  channel.videos,
-                  formatNumber(channel.totalViews),
-                ])}
-                compact={true}
-                striped={true}
-                highlightFirstColumn={true}
-              />
+              <div className="overflow-x-auto">
+                <Table
+                  headers={["Kanal", "Abone", "Video", "İzlenme"]}
+                  rows={channelData.map(channel => [
+                    channel.name,
+                    formatNumber(channel.subscribers),
+                    channel.videos,
+                    formatNumber(channel.totalViews),
+                  ])}
+                  compact={true}
+                  striped={true}
+                  highlightFirstColumn={true}
+                />
+              </div>
             </CardContent>
           </Card>
 
-          {/* Time Codes */}
+          {/* Interaction Types Breakdown */}
           <Card className="bg-white shadow-md">
             <CardContent className="p-6">
               <h3 className="font-semibold text-lg mb-4 flex items-center">
-                <MessageSquare size={18} className="mr-2 text-blue-500" /> 
-                Zaman Kodu Listesi (Markaya Referans)
+                <MessageSquare size={18} className="mr-2 text-purple-500" /> Etkileşim Dağılımı
               </h3>
-              <div className="space-y-4">
-                {timeCodeData.map((item, index) => (
-                  <div key={index} className="flex gap-3">
-                    <div className="relative w-24 h-16 flex-shrink-0">
-                      <img
-                        src={item.thumbnail}
-                        alt={item.videoTitle}
-                        className="object-cover rounded-sm w-full h-full"
-                      />
-                      <div className="absolute inset-0 flex items-center justify-center bg-black/30">
-                        <Play size={16} className="text-white" />
-                      </div>
-                    </div>
-                    <div className="flex-1">
-                      <h4 className="text-sm font-medium line-clamp-1 mb-1">{item.videoTitle}</h4>
-                      <div className="flex flex-wrap gap-2">
-                        {item.timeCodes.map((time, tIndex) => (
-                          <span 
-                            key={tIndex}
-                            className="bg-indigo-100 text-indigo-700 text-xs px-2 py-1 rounded-md hover:bg-indigo-200 cursor-pointer transition-colors"
-                          >
-                            {time}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                ))}
+              <div className="h-60">
+                <ChartContainer config={{
+                  count: {
+                    label: "Etkileşim Adedi",
+                    theme: { light: "#8b5cf6", dark: "#a78bfa" }
+                  }
+                }}>
+                  <BarChart data={interactionData} margin={{ top: 10, right: 30, left: 20, bottom: 20 }}>
+                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f0f0f0" />
+                    <XAxis dataKey="type" />
+                    <YAxis />
+                    <ChartTooltip content={<ChartTooltipContent />} />
+                    <Bar dataKey="count" name="Adet" fill="var(--color-count)" radius={[4, 4, 0, 0]} barSize={60} />
+                  </BarChart>
+                </ChartContainer>
               </div>
             </CardContent>
           </Card>
         </div>
-
-        {/* 5. Interaction Types Breakdown */}
-        <Card className="bg-white shadow-md">
-          <CardContent className="p-6">
-            <h3 className="font-semibold text-lg mb-4 flex items-center">
-              <MessageSquare size={18} className="mr-2 text-purple-500" /> Etkileşim Dağılımı
-            </h3>
-            <div className="h-60">
-              <ChartContainer config={{
-                count: {
-                  label: "Etkileşim Adedi",
-                  theme: { light: "#8b5cf6", dark: "#a78bfa" }
-                }
-              }}>
-                <BarChart data={interactionData} margin={{ top: 10, right: 30, left: 20, bottom: 20 }}>
-                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f0f0f0" />
-                  <XAxis dataKey="type" />
-                  <YAxis />
-                  <ChartTooltip content={<ChartTooltipContent />} />
-                  <Bar dataKey="count" name="Adet" fill="var(--color-count)" radius={[4, 4, 0, 0]} barSize={60} />
-                </BarChart>
-              </ChartContainer>
-            </div>
-          </CardContent>
-        </Card>
       </div>
     </Slide>
   );
