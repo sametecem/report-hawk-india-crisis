@@ -1,15 +1,15 @@
 
 import React, { useRef } from 'react';
 import { 
-  LineChart,
-  Line, 
+  BarChart,
+  Bar, 
   XAxis, 
   YAxis, 
   CartesianGrid, 
   Tooltip, 
   Legend,
   ResponsiveContainer,
-  ReferenceLine,
+  Cell,
 } from 'recharts';
 import { TrendingUp } from 'lucide-react';
 import { tweetVolumeData } from '@/data/reportData';
@@ -24,12 +24,27 @@ const TweetVolumeChart: React.FC<TweetVolumeChartProps> = ({ peakDaysData }) => 
   const volumeChartRef = useRef<HTMLDivElement>(null);
 
   const volumeChartData = React.useMemo(() => {
-    return tweetVolumeData.map((item) => ({
-      ...item,
-      // Add isPeakDay property to the data points that match our peak days
-      isPeakDay: peakDaysData.some(peak => peak.date === item.name)
-    }));
+    return tweetVolumeData.map((item) => {
+      // Check if this date is a peak day
+      const peakDay = peakDaysData.find(peak => peak.date === item.name);
+      
+      return {
+        ...item,
+        isPeakDay: !!peakDay,
+        color: peakDay ? peakDay.color : "#4f46e5",
+        // Add peak day info for tooltip
+        peakInfo: peakDay ? peakDay.title : null
+      };
+    });
   }, [peakDaysData]);
+
+  // Group data into smaller chunks for better display
+  const groupedChartData = [];
+  const chunkSize = 7; // Show 7 days per group
+  
+  for (let i = 0; i < volumeChartData.length; i += chunkSize) {
+    groupedChartData.push(volumeChartData.slice(i, i + chunkSize));
+  }
 
   return (
     <div ref={volumeChartRef}>
@@ -39,84 +54,75 @@ const TweetVolumeChart: React.FC<TweetVolumeChartProps> = ({ peakDaysData }) => 
         <h3 className="text-xl font-bold text-gray-800">Dönemsel Hacim ve Zirve Günler</h3>
       </div>
 
-      <div className="h-80 mb-6">
-        <ResponsiveContainer width="100%" height="100%">
-          <LineChart
-            data={volumeChartData}
-            margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
-          >
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis 
-              dataKey="name" 
-              angle={-45}
-              textAnchor="end"
-              height={70}
-              minTickGap={-200}
-              tick={{fontSize: 12}}
-            />
-            <YAxis />
-            <Tooltip 
-              formatter={(value) => [`${value} tweet`, "Hacim"]}
-              labelFormatter={(label) => `Tarih: ${label}`}
-              contentStyle={{
-                backgroundColor: "white",
-                borderRadius: "8px",
-                boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
-                border: "none"
-              }}
-            />
-            <Legend />
-            <Line 
-              type="monotone" 
-              dataKey="tweets" 
-              stroke="#4f46e5" 
-              strokeWidth={2}
-              dot={(props) => {
-                const { cx, cy, payload } = props;
-                const isPeakDay = payload.isPeakDay;
-                
-                return isPeakDay ? (
-                  <circle 
-                    cx={cx} 
-                    cy={cy} 
-                    r={6} 
-                    fill="#4f46e5" 
-                    stroke="white" 
-                    strokeWidth={2} 
-                  />
-                ) : (
-                  <circle 
-                    cx={cx} 
-                    cy={cy} 
-                    r={3} 
-                    fill="#4f46e5" 
-                  />
-                );
-              }}
-              activeDot={{ r: 8 }}
-              name="Tweet Hacmi"
-            />
-            
-            {/* Add reference lines for the peak days */}
-            {peakDaysData.map((peak, index) => (
-              <ReferenceLine 
-                key={index}
-                x={peak.date} 
-                stroke={peak.color} 
-                strokeDasharray="3 3"
-                strokeWidth={2}
-                label={{ 
-                  value: peak.title, 
-                  position: 'insideTopRight',
-                  fill: peak.color,
-                  fontSize: 12,
-                  fontWeight: 'bold'
-                }}
-              />
-            ))}
-          </LineChart>
-        </ResponsiveContainer>
-      </div>
+      {groupedChartData.map((chartGroup, groupIndex) => (
+        <div key={groupIndex} className="mb-6">
+          <h4 className="text-sm font-medium text-gray-600 mb-2">
+            {chartGroup[0].name} - {chartGroup[chartGroup.length - 1].name}
+          </h4>
+          <div className="h-60">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart
+                data={chartGroup}
+                margin={{ top: 20, right: 30, left: 20, bottom: 30 }}
+              >
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis 
+                  dataKey="name" 
+                  angle={-45}
+                  textAnchor="end"
+                  height={70}
+                  tick={{ fontSize: 12 }}
+                />
+                <YAxis />
+                <Tooltip 
+                  formatter={(value, name, props) => {
+                    return [`${value} tweet`, "Hacim"];
+                  }}
+                  labelFormatter={(label) => `Tarih: ${label}`}
+                  contentStyle={{
+                    backgroundColor: "white",
+                    borderRadius: "8px",
+                    boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
+                    border: "none"
+                  }}
+                />
+                <Legend />
+                <Bar 
+                  dataKey="tweets" 
+                  name="Tweet Hacmi"
+                >
+                  {chartGroup.map((entry, index) => (
+                    <Cell 
+                      key={`cell-${index}`}
+                      fill={entry.color} 
+                      stroke={entry.isPeakDay ? "#ffffff" : entry.color}
+                      strokeWidth={entry.isPeakDay ? 2 : 0}
+                    />
+                  ))}
+                </Bar>
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+          {/* Peak Day Labels */}
+          <div className="flex flex-wrap gap-2 mt-2">
+            {chartGroup
+              .filter(day => day.isPeakDay)
+              .map((peakDay, index) => (
+                <div 
+                  key={index}
+                  className="inline-flex items-center text-xs font-medium px-2 py-1 rounded-full" 
+                  style={{
+                    backgroundColor: `${peakDay.color}20`,
+                    color: peakDay.color,
+                    border: `1px solid ${peakDay.color}`
+                  }}
+                >
+                  {peakDay.name}: {peakDay.peakInfo}
+                </div>
+              ))}
+          </div>
+        </div>
+      ))}
     </div>
   );
 };
