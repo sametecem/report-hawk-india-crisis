@@ -32,6 +32,7 @@ const YouTubeAnalysisSlide = () => {
             totalViews={summaryData.totalViews}
             totalComments={summaryData.totalComments}
             totalLikes={summaryData.totalLikes}
+            totalSubscribers={97581745}
           />
           <DownloadButton targetRef={summaryRef} filename="youtube-summary" />
         </div>

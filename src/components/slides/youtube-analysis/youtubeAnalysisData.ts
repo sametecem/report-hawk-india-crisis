@@ -3,7 +3,8 @@ export const summaryData = {
   videoCount: 265,
   totalViews: 1816608,
   totalComments: 4506,
-  totalLikes: 90196, // Toplam beğeni sayısını ekledik
+  totalLikes: 90196,
+  totalSubscribers: 97581745,
 };
 
 // Daily upload and engagement data
