@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -11,7 +11,10 @@ interface SlideShowProps {
 const SlideShow = ({ children, className }: SlideShowProps) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const totalSlides = React.Children.count(children);
-
+  const slideShowRef = useRef<HTMLDivElement>(null);
+  const [touchStartY, setTouchStartY] = useState(0);
+  const [touchStartX, setTouchStartX] = useState(0);
+  
   const nextSlide = () => {
     if (currentSlide < totalSlides - 1) {
       setCurrentSlide(currentSlide + 1);
@@ -31,6 +34,10 @@ const SlideShow = ({ children, className }: SlideShowProps) => {
         nextSlide();
       } else if (e.key === 'ArrowLeft') {
         prevSlide();
+      } else if (e.key === 'ArrowDown') {
+        nextSlide();
+      } else if (e.key === 'ArrowUp') {
+        prevSlide();
       }
     };
 
@@ -38,8 +45,56 @@ const SlideShow = ({ children, className }: SlideShowProps) => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [currentSlide, totalSlides]);
 
+  // Touch navigation
+  useEffect(() => {
+    const handleTouchStart = (e: TouchEvent) => {
+      setTouchStartY(e.touches[0].clientY);
+      setTouchStartX(e.touches[0].clientX);
+    };
+
+    const handleTouchEnd = (e: TouchEvent) => {
+      const touchEndY = e.changedTouches[0].clientY;
+      const touchEndX = e.changedTouches[0].clientX;
+      const yDiff = touchStartY - touchEndY;
+      const xDiff = touchStartX - touchEndX;
+      
+      // Determine if the swipe is primarily horizontal or vertical
+      if (Math.abs(xDiff) > Math.abs(yDiff)) {
+        // Horizontal swipe
+        if (xDiff > 50) {
+          nextSlide(); // Swipe left = next slide
+        } else if (xDiff < -50) {
+          prevSlide(); // Swipe right = prev slide
+        }
+      } else {
+        // Vertical swipe
+        if (yDiff > 50) {
+          nextSlide(); // Swipe up = next slide
+        } else if (yDiff < -50) {
+          prevSlide(); // Swipe down = prev slide
+        }
+      }
+    };
+
+    const currentRef = slideShowRef.current;
+    if (currentRef) {
+      currentRef.addEventListener('touchstart', handleTouchStart, { passive: true });
+      currentRef.addEventListener('touchend', handleTouchEnd, { passive: true });
+    }
+
+    return () => {
+      if (currentRef) {
+        currentRef.removeEventListener('touchstart', handleTouchStart);
+        currentRef.removeEventListener('touchend', handleTouchEnd);
+      }
+    };
+  }, [touchStartY, touchStartX, currentSlide, totalSlides]);
+
   return (
-    <div className={cn("relative w-full h-screen overflow-hidden bg-gradient-to-b from-slate-50 to-slate-100", className)}>
+    <div 
+      ref={slideShowRef}
+      className={cn("relative w-full h-screen overflow-hidden bg-gradient-to-b from-slate-50 to-slate-100", className)}
+    >
       {/* Modern decorative elements */}
       <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500"></div>
       <div className="absolute bottom-0 right-0 w-40 h-40 bg-gradient-to-tl from-blue-200/20 to-transparent rounded-full -mr-20 -mb-20 blur-xl"></div>
@@ -67,8 +122,8 @@ const SlideShow = ({ children, className }: SlideShowProps) => {
         </div>
       </div>
       
-      {/* Navigation controls - optimize for mobile */}
-      <div className="absolute bottom-3 md:bottom-5 left-0 right-0 flex justify-center items-center gap-2 md:gap-4 z-20">
+      {/* Navigation controls - fixed position for mobile stability */}
+      <div className="fixed bottom-3 md:bottom-5 left-0 right-0 flex justify-center items-center gap-2 md:gap-4 z-30">
         <button 
           onClick={prevSlide} 
           disabled={currentSlide === 0}

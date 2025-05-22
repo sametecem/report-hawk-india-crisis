@@ -1,76 +1,53 @@
 
-import React, { useRef } from 'react';
+import React from 'react';
 import Slide from '@/components/Slide';
-import SummaryCards from './youtube-analysis/SummaryCards';
-import DailyEngagementChart from './youtube-analysis/DailyEngagementChart';
-import PopularVideosTable from './youtube-analysis/PopularVideosTable';
-import ChannelsTable from './youtube-analysis/ChannelsTable';
-import InteractionChart from './youtube-analysis/InteractionChart';
-import TimeCodeVideos from './youtube-analysis/TimeCodeVideos';
-import DownloadButton from '@/components/DownloadButton';
-import { 
-  summaryData, 
-  dailyData, 
-  topVideos, 
-  channelData, 
-  interactionData,
-  timeCodeVideos
-} from './youtube-analysis/youtubeAnalysisData';
+import { Card } from '@/components/ui/card';
+import SummaryCards from '@/components/slides/youtube-analysis/SummaryCards';
+import DailyEngagementChart from '@/components/slides/youtube-analysis/DailyEngagementChart';
+import InteractionChart from '@/components/slides/youtube-analysis/InteractionChart';
+import ChannelsTable from '@/components/slides/youtube-analysis/ChannelsTable';
+import PopularVideosTable from '@/components/slides/youtube-analysis/PopularVideosTable';
+import TimeCodeVideos from '@/components/slides/youtube-analysis/TimeCodeVideos';
+import { youtubeData } from '@/components/slides/youtube-analysis/youtubeAnalysisData';
 
 const YouTubeAnalysisSlide = () => {
-  const summaryRef = useRef<HTMLDivElement>(null);
-  const dailyChartRef = useRef<HTMLDivElement>(null);
-  const topVideosRef = useRef<HTMLDivElement>(null);
-  const channelsRef = useRef<HTMLDivElement>(null);
-  const interactionRef = useRef<HTMLDivElement>(null);
-  const timeCodeRef = useRef<HTMLDivElement>(null);
+  const timeCodedVideos = [
+    { id: "7ewJxa5qcSw", timestamp: 16, url: "https://youtu.be/7ewJxa5qcSw?feature=shared&t=16" },
+    { id: "9qxSxMiG2I8", timestamp: 188, url: "https://youtu.be/9qxSxMiG2I8?feature=shared&t=188" },
+    { id: "YpiBq3CK-C0", timestamp: 144, url: "https://youtu.be/YpiBq3CK-C0?feature=shared&t=144" },
+    { id: "Rlsh4qf4DiU", timestamp: 16, url: "https://youtu.be/Rlsh4qf4DiU?feature=shared&t=16" },
+    { id: "P88S6EjJDcw", timestamp: 60, url: "https://youtu.be/P88S6EjJDcw?feature=shared&t=60" },
+    { id: "nBXJxU7U6MY", timestamp: 8, url: "https://youtu.be/nBXJxU7U6MY?feature=shared&t=8" },
+    { id: "wnlJZ5FtE0M", timestamp: 170, url: "https://youtu.be/wnlJZ5FtE0M?feature=shared&t=170" },
+    { id: "nBXJxU7U6MY", timestamp: 8, url: "https://youtu.be/nBXJxU7U6MY?feature=shared&t=8" },
+    { id: "WOlKwTpF57A", timestamp: 14, url: "https://youtu.be/WOlKwTpF57A?feature=shared&t=14" }
+  ];
 
   return (
-    <Slide title="YouTube Etkisi Analizi" subtitle="THY Boykot Konulu Video Analizi">
-      <div className="grid grid-cols-1 gap-6">
-        {/* 1. Summary section */}
-        <div ref={summaryRef} className="relative">
-          <SummaryCards 
-            videoCount={summaryData.videoCount}
-            totalViews={summaryData.totalViews}
-            totalComments={summaryData.totalComments}
-            totalLikes={summaryData.totalLikes}
-            totalSubscribers={97581745}
-          />
-          <DownloadButton targetRef={summaryRef} filename="youtube-summary" />
+    <Slide title="10. YouTube Video Analizi" bgColor="bg-gradient-to-br from-white via-red-50 to-red-100">
+      <div className="space-y-6">
+        <SummaryCards data={youtubeData.summary} />
+        
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <Card className="p-4 bg-white/90 backdrop-blur-sm">
+            <DailyEngagementChart data={youtubeData.dailyEngagement} />
+          </Card>
+          
+          <Card className="p-4 bg-white/90 backdrop-blur-sm">
+            <InteractionChart data={youtubeData.interactionData} />
+          </Card>
         </div>
         
-        {/* 2. Daily Views & Interactions Chart */}
-        <div ref={dailyChartRef} className="relative">
-          <DailyEngagementChart data={dailyData} />
-          <DownloadButton targetRef={dailyChartRef} filename="youtube-daily-engagement" />
-        </div>
-
-        {/* 3. Time Code Videos */}
-        <div ref={timeCodeRef} className="relative">
-          <TimeCodeVideos videos={timeCodeVideos} />
-          <DownloadButton targetRef={timeCodeRef} filename="youtube-timecodes" />
-        </div>
-
-        {/* 4. Top Videos */}
-        <div ref={topVideosRef} className="relative">
-          <PopularVideosTable videos={topVideos} />
-          <DownloadButton targetRef={topVideosRef} filename="youtube-popular-videos" />
-        </div>
-
-        {/* 5. Two Column Section */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-          {/* Channel Data */}
-          <div ref={channelsRef} className="relative">
-            <ChannelsTable channels={channelData} />
-            <DownloadButton targetRef={channelsRef} filename="youtube-channels" />
-          </div>
-
-          {/* Interaction Types Breakdown */}
-          <div ref={interactionRef} className="relative">
-            <InteractionChart data={interactionData} />
-            <DownloadButton targetRef={interactionRef} filename="youtube-interactions" />
-          </div>
+        <TimeCodeVideos videos={timeCodedVideos} />
+        
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <Card className="p-4 bg-white/90 backdrop-blur-sm">
+            <ChannelsTable channels={youtubeData.channels} />
+          </Card>
+          
+          <Card className="p-4 bg-white/90 backdrop-blur-sm">
+            <PopularVideosTable videos={youtubeData.popularVideos} />
+          </Card>
         </div>
       </div>
     </Slide>
