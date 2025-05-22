@@ -1,10 +1,13 @@
 
-import React from 'react';
+import React, { useRef } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { ctaHourlyData } from '@/data/instagramCommentAnalysisData';
+import DownloadButton from '@/components/DownloadButton';
 
 const CTAHourlyChart = () => {
+  const chartRef = useRef<HTMLDivElement>(null);
+
   return (
     <Card>
       <CardHeader className="pb-2">
@@ -13,8 +16,9 @@ const CTAHourlyChart = () => {
           Eylem çağrısı içeren yorumların saatlik dağılımı
         </CardDescription>
       </CardHeader>
-      <CardContent>
-        <div className="h-80">
+      <CardContent className="relative">
+        <DownloadButton targetRef={chartRef} filename="cta-saatlik-dagilimi" />
+        <div ref={chartRef} className="h-80">
           <ResponsiveContainer width="100%" height="100%">
             <LineChart
               data={ctaHourlyData}

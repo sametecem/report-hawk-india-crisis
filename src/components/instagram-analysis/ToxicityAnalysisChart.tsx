@@ -1,10 +1,13 @@
 
-import React from 'react';
+import React, { useRef } from 'react';
 import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { toxicityData } from '@/data/instagramCommentAnalysisData';
+import DownloadButton from '@/components/DownloadButton';
 
 const ToxicityAnalysisChart = () => {
+  const chartRef = useRef<HTMLDivElement>(null);
+
   return (
     <Card>
       <CardHeader className="pb-2">
@@ -13,8 +16,9 @@ const ToxicityAnalysisChart = () => {
           Yorumlardaki toksisite oranı
         </CardDescription>
       </CardHeader>
-      <CardContent>
-        <div className="h-80">
+      <CardContent className="relative">
+        <DownloadButton targetRef={chartRef} filename="toksisite-analizi" />
+        <div ref={chartRef} className="h-80">
           <ResponsiveContainer width="100%" height="100%">
             <PieChart>
               <Pie

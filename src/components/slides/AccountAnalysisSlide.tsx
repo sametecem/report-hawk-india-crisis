@@ -1,17 +1,23 @@
 
-import React from 'react';
+import React, { useRef } from 'react';
 import Slide from '@/components/Slide';
 import { Card } from '@/components/ui/card';
 import { ExternalLink } from 'lucide-react';
 import { mentionedAccounts, activeAccounts } from '@/data/reportData';
+import DownloadButton from '@/components/DownloadButton';
 
 const AccountAnalysisSlide = () => {
+  const mentionedAccountsRef = useRef<HTMLDivElement>(null);
+  const activeAccountsRef = useRef<HTMLDivElement>(null);
+  const userStatsRef = useRef<HTMLDivElement>(null);
+
   return (
     <Slide title="7. Hesap ve Etkileşim Analizi" bgColor="bg-gradient-to-br from-white via-green-50 to-green-100">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <Card className="p-6 shadow-lg bg-white/90 backdrop-blur-sm">
+        <Card className="p-6 shadow-lg bg-white/90 backdrop-blur-sm relative">
           <h3 className="text-xl font-bold mb-4 text-gray-800 border-b pb-2">En Sık Bahsedilen 10 Hesap</h3>
-          <div className="space-y-3">
+          <DownloadButton targetRef={mentionedAccountsRef} filename="en-sik-bahsedilen-hesaplar" />
+          <div ref={mentionedAccountsRef} className="space-y-3">
             {mentionedAccounts.map((account, index) => (
               <div key={index} className="flex items-center justify-between">
                 <a 
@@ -32,9 +38,10 @@ const AccountAnalysisSlide = () => {
           </div>
         </Card>
 
-        <Card className="p-6 shadow-lg bg-white/90 backdrop-blur-sm">
+        <Card className="p-6 shadow-lg bg-white/90 backdrop-blur-sm relative">
           <h3 className="text-xl font-bold mb-4 text-gray-800 border-b pb-2">En Çok Tweet Atan 10 Hesap</h3>
-          <div className="space-y-2">
+          <DownloadButton targetRef={activeAccountsRef} filename="en-cok-tweet-atan-hesaplar" />
+          <div ref={activeAccountsRef} className="space-y-2">
             {activeAccounts.map((account, index) => (
               <div key={index} className="flex items-center justify-between">
                 <a 
@@ -51,9 +58,10 @@ const AccountAnalysisSlide = () => {
           </div>
         </Card>
 
-        <Card className="p-6 shadow-lg bg-white/90 backdrop-blur-sm md:col-span-2">
+        <Card className="p-6 shadow-lg bg-white/90 backdrop-blur-sm md:col-span-2 relative">
           <h3 className="text-xl font-bold mb-4 text-gray-800 border-b pb-2">Kullanıcı İstatistikleri</h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <DownloadButton targetRef={userStatsRef} filename="kullanici-istatistikleri" />
+          <div ref={userStatsRef} className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="bg-green-50 p-4 rounded-lg">
               <h4 className="font-semibold text-green-800 mb-2">Tekil Tweet Atan Kullanıcı</h4>
               <p className="text-3xl font-bold text-green-700">512</p>

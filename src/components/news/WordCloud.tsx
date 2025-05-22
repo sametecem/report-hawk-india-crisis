@@ -1,5 +1,6 @@
 
-import React from 'react';
+import React, { useRef } from 'react';
+import DownloadButton from '@/components/DownloadButton';
 
 interface WordCloudItem {
   text: string;
@@ -7,10 +8,13 @@ interface WordCloudItem {
 }
 
 const WordCloud = ({ data }: { data: WordCloudItem[] }) => {
+  const cloudRef = useRef<HTMLDivElement>(null);
+  
   return (
-    <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+    <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 relative">
       <h2 className="text-xl font-semibold text-gray-700 mb-4 border-b pb-2">Popüler Kelimeler</h2>
-      <div className="flex flex-wrap justify-center p-4">
+      <DownloadButton targetRef={cloudRef} filename="populer-kelimeler" className="absolute top-2 right-2" />
+      <div ref={cloudRef} className="flex flex-wrap justify-center p-4">
         {data.map((word, index) => {
           // Boyuta göre renk belirleme
           const getColor = () => {
