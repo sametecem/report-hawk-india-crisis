@@ -80,6 +80,13 @@ const TopMentionedAccounts: React.FC = () => {
       avatar: "https://pbs.twimg.com/profile_images/1833743527928541184/aT_uOoth_400x400.jpg",
       description: "Hindistan İçişleri Bakanı Amit Shah",
       type: "Kişi"
+    },
+    {
+      handle: "@HardeepSPuri",
+      mentions: 18,
+      avatar: "https://pbs.twimg.com/profile_images/1834448557505748992/ZDYW4b6n_400x400.jpg",
+      description: "Hindistan Sivil Havacılık Bakanı Hardeep Singh Puri",
+      type: "Kişi"
     }
   ];
 
@@ -132,6 +139,8 @@ const TopMentionedAccounts: React.FC = () => {
         targetRef={chartRef} 
         filename="en-cok-mention-edilen-hesaplar" 
         className="absolute top-0 right-0" 
+        variant="outline"
+        size="sm"
       />
       
       <div className="flex items-center gap-2 mb-4">
@@ -139,7 +148,7 @@ const TopMentionedAccounts: React.FC = () => {
         <h3 className="text-xl font-bold text-gray-800">En Çok Mention Edilen Hesaplar</h3>
       </div>
       
-      <div className="h-72">
+      <div className="h-80">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart
             data={chartData}
@@ -181,8 +190,8 @@ const TopMentionedAccounts: React.FC = () => {
       
       <div className="mt-4">
         <h4 className="text-sm font-semibold mb-2">Hesap Detayları</h4>
-        <div className="space-y-2 max-h-36 overflow-y-auto pr-2">
-          {accountsData.slice(0, 4).map((account, index) => (
+        <div className="space-y-2 max-h-40 overflow-y-auto pr-2">
+          {accountsData.slice(0, 5).map((account, index) => (
             <div key={index} className="flex items-center gap-2 p-2 bg-gray-50 rounded-lg">
               <Avatar className="w-8 h-8">
                 <AvatarImage src={account.avatar} alt={account.handle} />
