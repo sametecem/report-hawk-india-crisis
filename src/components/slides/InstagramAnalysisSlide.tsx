@@ -3,8 +3,8 @@ import React, { useState } from 'react';
 import Slide from '@/components/Slide';
 import { Card, CardContent } from '@/components/ui/card';
 import { Table } from '@/components/ui/table';
-import { Instagram, Calendar, BarChart2, Users, SortAsc, SortDesc, Link, BarChart } from 'lucide-react';
-import { instagramData, topPostsByLikes, hashtagData, instagramMetrics } from '@/data/instagramData';
+import { Instagram, Calendar, BarChart2, Users, SortAsc, SortDesc, Link, BarChart, FileBarChart } from 'lucide-react';
+import { instagramData, topPostsByLikes, hashtagData, instagramMetrics, topAccountsByFollowers } from '@/data/instagramData';
 import Image from '@/components/ui/Image';
 import {
   ChartContainer,
@@ -77,54 +77,44 @@ const InstagramAnalysisSlide = () => {
                 <p className="text-sm text-gray-600">Toplam İzlenmeler</p>
                 <p className="text-2xl font-bold text-amber-600">{formatNumber(instagramMetrics.totalPlays)}</p>
               </div>
-              <div className="bg-green-50 p-3 rounded-lg md:col-span-2">
+              <div className="bg-green-50 p-3 rounded-lg">
                 <p className="text-sm text-gray-600">Ortalama Etkileşim Oranı</p>
                 <p className="text-2xl font-bold text-green-600">%{instagramMetrics.avgEr}</p>
+              </div>
+              <div className="bg-indigo-50 p-3 rounded-lg">
+                <p className="text-sm text-gray-600">Toplam Takipçi</p>
+                <p className="text-2xl font-bold text-indigo-600">{formatNumber(instagramMetrics.totalFollowers)}</p>
               </div>
             </div>
           </CardContent>
         </Card>
 
-        {/* Gallery Preview */}
+        {/* Top Accounts by Followers */}
         <Card className="shadow-md bg-white/90 backdrop-blur-sm">
           <CardContent className="pt-6">
-            <div className="flex items-center justify-between mb-4">
-              <div className="flex items-center gap-3">
-                <Calendar className="h-5 w-5 text-blue-500" />
-                <h3 className="text-xl font-bold text-gray-800">En Yüksek Etkileşimli Günler</h3>
-              </div>
+            <div className="flex items-center gap-3 mb-4">
+              <Users className="h-5 w-5 text-blue-500" />
+              <h3 className="text-xl font-bold text-gray-800">En Çok Takipçisi Olan Hesaplar</h3>
             </div>
-            <div className="grid grid-cols-3 gap-2">
-              <div className="relative aspect-square overflow-hidden rounded-lg shadow-sm">
-                <Image 
-                  src="https://images.unsplash.com/photo-1582650625119-3a31f8fa2699?q=80&w=400" 
-                  alt="Instagram post"
-                  className="object-cover h-full w-full"
-                />
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-2">
-                  <p className="text-xs text-white">10 Mayıs</p>
-                </div>
-              </div>
-              <div className="relative aspect-square overflow-hidden rounded-lg shadow-sm">
-                <Image 
-                  src="https://images.unsplash.com/photo-1574691250077-03a929faece5?q=80&w=400" 
-                  alt="Instagram post"
-                  className="object-cover h-full w-full"
-                />
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-2">
-                  <p className="text-xs text-white">14 Mayıs</p>
-                </div>
-              </div>
-              <div className="relative aspect-square overflow-hidden rounded-lg shadow-sm">
-                <Image 
-                  src="https://images.unsplash.com/photo-1542296332-2e4473faf563?q=80&w=400" 
-                  alt="Instagram post"
-                  className="object-cover h-full w-full"
-                />
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-2">
-                  <p className="text-xs text-white">15 Mayıs</p>
-                </div>
-              </div>
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead>
+                  <tr className="border-b border-gray-200">
+                    <th className="text-left py-2 px-3 text-xs font-medium text-gray-600">Sıra</th>
+                    <th className="text-left py-2 px-3 text-xs font-medium text-gray-600">Kullanıcı</th>
+                    <th className="text-right py-2 px-3 text-xs font-medium text-gray-600">Takipçiler</th>
+                  </tr>
+                </thead>
+                <tbody className="text-sm">
+                  {topAccountsByFollowers.map((account, index) => (
+                    <tr key={index} className={index % 2 === 0 ? 'bg-gray-50/50' : 'bg-white'}>
+                      <td className="py-1.5 px-3">{index + 1}</td>
+                      <td className="py-1.5 px-3 text-blue-600">@{account.username}</td>
+                      <td className="py-1.5 px-3 text-right">{formatNumber(account.followerCount)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           </CardContent>
         </Card>
@@ -134,7 +124,7 @@ const InstagramAnalysisSlide = () => {
       <Card className="shadow-md bg-white/90 backdrop-blur-sm">
         <CardContent className="pt-6">
           <div className="flex items-center gap-3 mb-4">
-            <BarChart className="h-6 w-6 text-indigo-500" />
+            <FileBarChart className="h-6 w-6 text-indigo-500" />
             <h3 className="text-xl font-bold text-gray-800">Günlük Instagram Metrikleri</h3>
           </div>
           
