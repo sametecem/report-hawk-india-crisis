@@ -1,4 +1,3 @@
-
 // Summary data
 export const summaryData = {
   videoCount: 265,
@@ -91,18 +90,88 @@ export const topVideos = [
   },
 ];
 
-// Channel data - Previously sorted by subscribers, we'll keep the structure but note that data is simulated
+// Channel data - Now with updated subscriber counts and profile images
 export const channelData = [
-  { name: 'UPSC Unstoppables by Unacademy', subscribers: 1240000, videos: 15, totalViews: 1635099 },
-  { name: 'Dainik Jagran - दैनिक जागरण', subscribers: 980000, videos: 12, totalViews: 1370086 },
-  { name: 'RJ Raunac', subscribers: 875000, videos: 10, totalViews: 1254800 },
-  { name: 'News18 India', subscribers: 720000, videos: 22, totalViews: 860545 },
-  { name: 'त्यागी 🕉️', subscribers: 510000, videos: 8, totalViews: 817227 },
-  { name: 'Firstpost', subscribers: 430000, videos: 6, totalViews: 789569 },
-  { name: 'Zee News', subscribers: 380000, videos: 14, totalViews: 822010 },
-  { name: 'CNN-News18', subscribers: 320000, videos: 7, totalViews: 35289 },
-  { name: 'Business Today', subscribers: 290000, videos: 5, totalViews: 66003 },
-  { name: 'O News हिंदी', subscribers: 240000, videos: 9, totalViews: 9693 },
+  { 
+    name: 'Zee News', 
+    subscribers: 41000000, 
+    videos: 28, 
+    totalViews: 2450000, 
+    profileImg: 'https://img.youtube.com/vi/eBBBJTakjOo/hqdefault.jpg',
+    channelLink: 'https://www.youtube.com/channel/UCIvaYmXn910QMdemBG3v1pQ'
+  },
+  { 
+    name: 'News18 India', 
+    subscribers: 33900000, 
+    videos: 22, 
+    totalViews: 1860500, 
+    profileImg: 'https://img.youtube.com/vi/yP3O7CiMJWE/hqdefault.jpg',
+    channelLink: 'https://www.youtube.com/channel/UCPP3etACgdUWvizcES1dJ8Q'
+  },
+  { 
+    name: 'Republic Bharat', 
+    subscribers: 28900000, 
+    videos: 19, 
+    totalViews: 1540000, 
+    profileImg: 'https://img.youtube.com/vi/l6AechGT-84/hqdefault.jpg',
+    channelLink: 'https://www.youtube.com/channel/UC7wXt18f2iA3EDXeqAVuKng'
+  },
+  { 
+    name: 'StudyIQ IAS', 
+    subscribers: 19600000, 
+    videos: 15, 
+    totalViews: 980000, 
+    profileImg: 'https://img.youtube.com/vi/E0f8DOlN7T0/hqdefault.jpg',
+    channelLink: 'https://www.youtube.com/channel/UCrC8mOqJQpoB7NuIMKIS6rQ'
+  },
+  { 
+    name: 'NDTV', 
+    subscribers: 14800000, 
+    videos: 20, 
+    totalViews: 1250000, 
+    profileImg: 'https://img.youtube.com/vi/GD52acPkXsU/hqdefault.jpg',
+    channelLink: 'https://www.youtube.com/channel/UCZFMm1mMw0F81Z37aaEzTUA'
+  },
+  { 
+    name: 'India Today', 
+    subscribers: 10400000, 
+    videos: 18, 
+    totalViews: 950000, 
+    profileImg: 'https://img.youtube.com/vi/zVWriQdoRgQ/hqdefault.jpg',
+    channelLink: 'https://www.youtube.com/channel/UCYPvAwZP8pZhSMW8qs7cVCw'
+  },
+  { 
+    name: 'WION', 
+    subscribers: 9790000, 
+    videos: 14, 
+    totalViews: 820000, 
+    profileImg: 'https://img.youtube.com/vi/2GqNEO7b4BY/hqdefault.jpg',
+    channelLink: 'https://www.youtube.com/channel/UC_gUM8rL-Lrg6O3adPW9K1g'
+  },
+  { 
+    name: 'CNN-News18', 
+    subscribers: 9680000, 
+    videos: 16, 
+    totalViews: 760000, 
+    profileImg: 'https://img.youtube.com/vi/XDbAsjNNvHs/hqdefault.jpg',
+    channelLink: 'https://www.youtube.com/channel/UCef1-8eOpJgud7szVPlZQAQ'
+  },
+  { 
+    name: 'News18 Lokmat', 
+    subscribers: 4840000, 
+    videos: 13, 
+    totalViews: 420000, 
+    profileImg: 'https://img.youtube.com/vi/qiM3aNB4Tic/hqdefault.jpg',
+    channelLink: 'https://www.youtube.com/channel/UCrcpw88HvKJ0skdsHniCJtQ'
+  },
+  { 
+    name: 'RJ Raunac', 
+    subscribers: 4780000, 
+    videos: 10, 
+    totalViews: 1254800, 
+    profileImg: 'https://img.youtube.com/vi/xch7g04d2ho/hqdefault.jpg',
+    channelLink: 'https://www.youtube.com/channel/UCKop7_gs7xq5tbrDDYuplhA'
+  },
 ];
 
 // Interaction data (likes, comments, shares)

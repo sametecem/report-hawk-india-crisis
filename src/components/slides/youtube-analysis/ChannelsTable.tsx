@@ -12,6 +12,7 @@ interface ChannelData {
   videos: number;
   totalViews: number;
   profileImg?: string;
+  channelLink?: string;
 }
 
 interface ChannelsTableProps {
@@ -37,7 +38,18 @@ const ChannelsTable: React.FC<ChannelsTableProps> = ({ channels }) => {
                   />
                   <AvatarFallback>{channel.name.substring(0, 2).toUpperCase()}</AvatarFallback>
                 </Avatar>
-                <span>{channel.name}</span>
+                {channel.channelLink ? (
+                  <a 
+                    href={channel.channelLink} 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="hover:text-blue-500 hover:underline transition-colors"
+                  >
+                    {channel.name}
+                  </a>
+                ) : (
+                  <span>{channel.name}</span>
+                )}
               </div>,
               formatNumber(channel.subscribers),
               channel.videos,
