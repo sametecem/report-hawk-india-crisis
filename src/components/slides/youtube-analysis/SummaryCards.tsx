@@ -8,14 +8,14 @@ interface SummaryCardsProps {
   videoCount: number;
   totalViews: number;
   totalComments: number;
-  avgLikesPer1000Views: number;
+  totalLikes: number;
 }
 
 const SummaryCards: React.FC<SummaryCardsProps> = ({
   videoCount,
   totalViews,
   totalComments,
-  avgLikesPer1000Views,
+  totalLikes,
 }) => {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -67,9 +67,9 @@ const SummaryCards: React.FC<SummaryCardsProps> = ({
         </div>
         <CardContent className="p-6">
           <div className="flex flex-col">
-            <div className="text-sm text-cyan-600 font-medium mb-1">Beğeni / 1.000 İzlenme</div>
+            <div className="text-sm text-cyan-600 font-medium mb-1">Toplam Beğeni</div>
             <div className="text-2xl font-bold text-cyan-800">
-              {avgLikesPer1000Views}
+              {formatNumber(totalLikes)}
             </div>
           </div>
         </CardContent>

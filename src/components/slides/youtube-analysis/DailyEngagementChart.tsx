@@ -21,7 +21,7 @@ const DailyEngagementChart: React.FC<DailyEngagementChartProps> = ({ data }) => 
         <h3 className="font-semibold text-lg mb-4 flex items-center">
           <BarChart2 size={18} className="mr-2 text-blue-600" /> Günlük İzlenme ve Etkileşim Analizi
         </h3>
-        <div className="h-80 w-full">
+        <div className="h-[400px] w-full">
           <ChartContainer config={{
             views: {
               label: "İzlenmeler",
@@ -36,20 +36,29 @@ const DailyEngagementChart: React.FC<DailyEngagementChartProps> = ({ data }) => 
               theme: { light: "#10b981", dark: "#34d399" }
             }
           }}>
-            <ComposedChart data={data} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+            <ComposedChart 
+              data={data} 
+              margin={{ top: 10, right: 30, left: 10, bottom: 30 }}
+            >
               <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f0f0f0" />
-              <XAxis dataKey="date" />
+              <XAxis 
+                dataKey="date" 
+                angle={-45} 
+                textAnchor="end" 
+                height={70} 
+                tick={{ fontSize: 12 }}
+              />
               <YAxis yAxisId="left" orientation="left" />
               <YAxis yAxisId="right" orientation="right" />
               <ChartTooltip content={<ChartTooltipContent />} />
-              <Legend />
+              <Legend wrapperStyle={{ paddingTop: 20 }}/>
               <Bar 
                 yAxisId="right"
                 dataKey="uploads" 
                 name="Video Adedi" 
                 fill="var(--color-uploads)" 
                 radius={[4, 4, 0, 0]} 
-                barSize={30} 
+                barSize={25} 
               />
               <Bar 
                 yAxisId="left"
@@ -57,7 +66,7 @@ const DailyEngagementChart: React.FC<DailyEngagementChartProps> = ({ data }) => 
                 name="İzlenme" 
                 fill="var(--color-views)" 
                 radius={[4, 4, 0, 0]} 
-                barSize={30} 
+                barSize={25} 
               />
               <Line 
                 yAxisId="left"

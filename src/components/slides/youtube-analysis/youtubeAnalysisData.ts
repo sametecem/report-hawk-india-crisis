@@ -1,9 +1,10 @@
+
 // Summary data
 export const summaryData = {
   videoCount: 265,
   totalViews: 1816608,
   totalComments: 4506,
-  avgLikesPer1000Views: 49.6, // Calculated as (90196/1816608)*1000
+  totalLikes: 90196, // Toplam beğeni sayısını ekledik
 };
 
 // Daily upload and engagement data
@@ -29,7 +30,7 @@ export const dailyData = [
 // Top 10 popular videos
 export const topVideos = [
   {
-    id: '1',
+    id: 'dSLAa-wiZ5w',
     thumbnail: 'https://img.youtube.com/vi/dSLAa-wiZ5w/hqdefault.jpg',
     title: 'Pakistan Turkey Azerbaijan axis - Big problem for India | Dr Sidharth Arora',
     channel: 'UPSC Unstoppables by Unacademy',
@@ -39,7 +40,7 @@ export const topVideos = [
     comments: 0, // Not provided in the data
   },
   {
-    id: '2',
+    id: 'obnlp8MhEDw',
     thumbnail: 'https://img.youtube.com/vi/obnlp8MhEDw/hqdefault.jpg',
     title: 'Boycott Turkey: क्या Turkey ने भारतीयों से अपील? | Breaking News',
     channel: 'Dainik Jagran - दैनिक जागरण',
@@ -49,7 +50,7 @@ export const topVideos = [
     comments: 0,
   },
   {
-    id: '3',
+    id: 'xch7g04d2ho',
     thumbnail: 'https://img.youtube.com/vi/xch7g04d2ho/hqdefault.jpg',
     title: 'फंस गए पाकिस्तान के यार | Turkey के टूर कैंसिल, बिज़नेस का बॉयकॉट',
     channel: 'RJ Raunac',
@@ -59,7 +60,7 @@ export const topVideos = [
     comments: 0,
   },
   {
-    id: '4',
+    id: 'QnFOeZrB0lk',
     thumbnail: 'https://img.youtube.com/vi/QnFOeZrB0lk/hqdefault.jpg',
     title: 'Real Face Of Turkey🤡 |#shorts #turkey #india #pakistan',
     channel: 'त्यागी 🕉️',
@@ -69,7 +70,7 @@ export const topVideos = [
     comments: 0,
   },
   {
-    id: '5',
+    id: 'wnlJZ5FtE0M',
     thumbnail: 'https://img.youtube.com/vi/wnlJZ5FtE0M/hqdefault.jpg',
     title: 'Why Indian Tourists are Boycotting Turkiye & Azerbaijan',
     channel: 'Firstpost',
@@ -79,7 +80,7 @@ export const topVideos = [
     comments: 0,
   },
   {
-    id: '6',
+    id: '2l3ALCMFpy4',
     thumbnail: 'https://img.youtube.com/vi/2l3ALCMFpy4/hqdefault.jpg',
     title: 'Boycott Turkey - एहसान फरामोश निकला तुर्की | #boycottturkey #shorts',
     channel: 'News18 India',
